@@ -2,7 +2,13 @@ import React from "react";
 import dlg from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./Message/Message";
-import {DialogsPageType, DialogsTextsType, MessagesTextsType, RootStateType} from "../../redux/state";
+import {
+    DialogsPageType,
+    DialogsTextsType,
+    MessagesTextsType,
+    RootStateType,
+    updateMessageText
+} from "../../redux/state";
 
 
 type DialogsPropsType = {
@@ -10,23 +16,25 @@ type DialogsPropsType = {
     avatar: string
     dialogsPage: DialogsPageType
     sendMessageCallback: (msgTxt: string) => void
+    updateMessageText: (nMsgTxt: string) => void
 }
 
 
 export const Dialogs = (props: DialogsPropsType) => {
 
     let dialogElements = props.dialogsPage.dialogs.map(dlg => <DialogItem name={dlg.name} id={dlg.id}/>)
-    let messageElements = props.dialogsPage.messages.map(msg => <MessageItem messageText={msg.messageText}
-                                                                             id={msg.id}/>)
-    const onSendMsgClickHandler = () => {
-        alert("Wants to send the message")
-    }
-    const newMessagetext = React.createRef<HTMLTextAreaElement>()
-    const sendMessageFnc = () => {
-        if (newMessagetext.current) {
-            props.sendMessageCallback(newMessagetext.current.value)
-            newMessagetext.current.value = ""
+    let messageElements = props.dialogsPage.messages.map(msg => <MessageItem messageText={msg.messageText} id={msg.id}/>)
+    const newMessageText = React.createRef<HTMLTextAreaElement>()
 
+    const sendMessageFnc = () => {
+        if (newMessageText.current) {
+            props.sendMessageCallback(newMessageText.current.value)
+        }
+    }
+    const onMsgTextChange = () => {
+        if (newMessageText.current) {
+            let newMsgText = newMessageText.current.value
+            props.updateMessageText(newMsgText)
         }
     }
 
@@ -36,7 +44,7 @@ export const Dialogs = (props: DialogsPropsType) => {
             <div className={dlg.dialogItems}>
                 <div>{messageElements} </div>
                 <div className={dlg.sendAndWriteMessageWrapper}>
-                    <textarea ref={newMessagetext}>Hello!</textarea>
+                    <textarea onChange={onMsgTextChange} ref={newMessageText} value={props.dialogsPage.newMessageText} />
                     <button className={dlg.sendMessageButton} onClick={sendMessageFnc}>Send Message</button>
                 </div>
             </div>

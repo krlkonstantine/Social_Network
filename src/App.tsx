@@ -15,6 +15,7 @@ type AppPropsType = {
     addPost: (newPostText: string) => void
     updateNewPostText: (newPostText: string) => void
     sendMessageCallback: (msgTxt: string) => void
+    updateMessageText: (nMsgTxt: string) => void
 }
 
 let App = (props: AppPropsType) => {
@@ -28,8 +29,10 @@ let App = (props: AppPropsType) => {
                         <Route path="/dialogs/*" element={<Dialogs avatar={"ghhghg"}
                                                                    name={"panda"}
                                                                    dialogsPage={props.state.dialogsPage}
-                                                                   sendMessageCallback={props.sendMessageCallback}/>}/>
-                        <Route path="/profile" element={<Profile addPost={props.addPost} updateNewPostText={props.updateNewPostText} profilePage={props.state.profilePage}/>}/>
+                                                                   sendMessageCallback={props.sendMessageCallback}
+                                                                   updateMessageText={props.updateMessageText}/>}/>
+                        <Route path="/profile" element={<Profile addPost={props.addPost}
+                                                                 updateNewPostText={props.updateNewPostText} profilePage={props.state.profilePage}/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                         <Route path="/friends" element={<Friends friends={props.state.friends}/>}/>
