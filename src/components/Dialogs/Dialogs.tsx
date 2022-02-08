@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent, ChangeEventHandler} from "react";
 import dlg from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./Message/Message";
@@ -22,20 +22,19 @@ type DialogsPropsType = {
 
 export const Dialogs = (props: DialogsPropsType) => {
 
-    let dialogElements = props.dialogsPage.dialogs.map(dlg => <DialogItem name={dlg.name} id={dlg.id}/>)
-    let messageElements = props.dialogsPage.messages.map(msg => <MessageItem messageText={msg.messageText} id={msg.id}/>)
+    let dialogElements = props.dialogsPage.dialogs.map(dlg => <DialogItem key={dlg.id} name={dlg.name} id={dlg.id}/>)
+    let messageElements = props.dialogsPage.messages.map(msg => <MessageItem key={msg.id} messageText={msg.messageText}
+                                                                             id={msg.id}/>)
     const newMessageText = React.createRef<HTMLTextAreaElement>()
 
     const sendMessageFnc = () => {
-        if (newMessageText.current) {
-            props.sendMessageCallback(newMessageText.current.value)
-        }
+            props.sendMessageCallback(props.dialogsPage.newMessageText)
+
     }
-    const onMsgTextChange = () => {
-        if (newMessageText.current) {
-            let newMsgText = newMessageText.current.value
-            props.updateMessageText(newMsgText)
-        }
+
+
+    const onMsgTextChange2 = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateMessageText(e.currentTarget.value)
     }
 
     return (
@@ -44,7 +43,8 @@ export const Dialogs = (props: DialogsPropsType) => {
             <div className={dlg.dialogItems}>
                 <div>{messageElements} </div>
                 <div className={dlg.sendAndWriteMessageWrapper}>
-                    <textarea onChange={onMsgTextChange} ref={newMessageText} value={props.dialogsPage.newMessageText} />
+                    <textarea onChange={onMsgTextChange2}
+                              value={props.dialogsPage.newMessageText}/>
                     <button className={dlg.sendMessageButton} onClick={sendMessageFnc}>Send Message</button>
                 </div>
             </div>

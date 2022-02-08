@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import {Post} from "./Post/Post";
 import mpsts from "./MyPosts.module.css"
 import {ProfilePageType} from "../../../redux/state";
@@ -13,20 +13,16 @@ type MyPostsPropsType = {
 export const MyPosts = (props: MyPostsPropsType) => {
 
     let postsElements = props.profilePage.posts.map(pst => <Post messageText={pst.messageText}
-                                                                 likeCount={pst.likeCount}/>)
-    let newPostElement = React.createRef<HTMLTextAreaElement>()
+                                                                 likeCount={pst.likeCount}
+                                                                 key={pst.id}/>)
 
     const onAddPostClickHandler = () => {
-        if (newPostElement.current) {
-            props.addPost(newPostElement.current.value)
-        }
+        props.addPost(props.profilePage.newPostText)
     }
 
-    const onPostChange = () => {
-        if (newPostElement.current) {
-            let text = newPostElement.current.value
-            props.updateNewPostText(text)
-        }
+
+    const onNewPostTextChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
+            props.updateNewPostText(e.currentTarget.value)
     }
 
     return (
@@ -36,7 +32,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
             <div>
                 <div>
-                    <textarea onChange={onPostChange} value={props.profilePage.newPostText} ref={newPostElement}/>
+                    <textarea onChange={onNewPostTextChangeHandler} value={props.profilePage.newPostText} />
                 </div>
                 <div>
                     <button onClick={onAddPostClickHandler}>Add post</button>
