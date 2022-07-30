@@ -1,4 +1,3 @@
-import {rerenderEntireTree} from "../render";
 export type DialogsTextsType = {
     id: number
     name: string
@@ -31,6 +30,15 @@ export type RootStateType = {
     profilePage: ProfilePageType
     friends: Array<FriendsTyPe>
 }
+
+export let renderTree = () => {
+    console.log("hello")
+}
+
+export const subscribe = (callback: () => void) => {
+    renderTree = callback
+}
+
 
 export let state: RootStateType = {
     dialogsPage: {
@@ -77,28 +85,22 @@ export const addPost = () => {
     let newPost: PostsTextsType = {id: 4, messageText: state.profilePage.newPostText, likeCount: '0'}
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = ""
-    rerenderEntireTree(state)
+    renderTree()
 }
 export const updateNewPostText = (newPostText: string) => {
     state.profilePage.newPostText = newPostText
-    rerenderEntireTree(state)
+    renderTree()
 }
-
 export const sendMessage = () => {
     let newMessage: MessagesTextsType = {id: 4, messageText: state.dialogsPage.newMessageText}
     state.dialogsPage.messages.push(newMessage)
     state.dialogsPage.newMessageText = ""
-    rerenderEntireTree(state)
+    renderTree()
 }
 export const updateMessageText = (newMsgText: string) => {
     state.dialogsPage.newMessageText = newMsgText
-    rerenderEntireTree(state)
+    renderTree()
 }
-
-
-
-
-
 
 
 
