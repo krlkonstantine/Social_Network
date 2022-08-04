@@ -7,7 +7,6 @@ import {
     DialogsTextsType,
     MessagesTextsType,
     RootStateType,
-    updateMessageText
 } from "../../redux/state";
 
 

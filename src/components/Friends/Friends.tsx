@@ -1,9 +1,9 @@
 import React from "react";
 import dlg from "../Dialogs/Dialogs.module.css";
-import {FriendsTyPe} from "../../redux/state";
+import {FriendsType} from "../../redux/state";
 
 type FriendsItemType = {
-    friends: Array<FriendsTyPe>
+    friends: Array<FriendsType>
 }
 
 
@@ -20,7 +20,7 @@ export const Friends = (props: FriendsItemType) => {
 }
 
 
-const FriendsItem = (props: FriendsTyPe) => {
+const FriendsItem = (props: FriendsType) => {
     return (
         <div>
             {props.name}
