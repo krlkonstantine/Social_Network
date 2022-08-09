@@ -34,12 +34,14 @@ let App = (props: AppPropsType) => {
                         <Route path="/dialogs/*" element={<Dialogs avatar={"ghhghg"}
                                                                    name={"panda"}
                                                                    dialogsPage={state.dialogsPage}
-                                                                   sendMessageCallback={props.store.sendMessage.bind(props.store)}
-                                                                   updateMessageText={props.store.updateMessageText.bind(props.store)}/>}/>
+                                                                   //sendMessageCallback={props.store.sendMessage.bind(props.store)}
+                                                                   //updateMessageText={props.store.updateMessageText.bind(props.store)}
+                            dispatch={props.store.dispatch.bind(props.store)}
+                            />}/>
                         <Route path="/profile" element={<Profile
                             /*addPost={props.store.addPost.bind(store)}*/
-                            dispatch={props.store.dispatch.bind(props.store)}
                             /*updateNewPostText={props.updateNewPostText.bind(props.store)}*/
+                            dispatch={props.store.dispatch.bind(props.store)}
                             profilePage={state.profilePage}
                         />}/>
                         <Route path="/music" element={<Music/>}/>

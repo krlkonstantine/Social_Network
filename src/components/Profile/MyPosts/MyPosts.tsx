@@ -27,11 +27,10 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
     const onNewPostTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         //props.updateNewPostText(e.currentTarget.value)
-        props.dispatch({actionType: 'UPDATE-NEW-POST-TEXT', newPostText: e.currentTarget.value},)
+        props.dispatch({actionType: 'UPDATE-NEW-POST-TEXT', newPostText: (e.currentTarget.value)},)
     }
 
     return (
-
         <div className={mpsts.postsBlock}>
             <h3>My Posts</h3>
 

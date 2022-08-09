@@ -3,6 +3,7 @@ import dlg from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./Message/Message";
 import {
+    ActionTypes,
     DialogsPageType,
     DialogsTextsType,
     MessagesTextsType,
@@ -14,8 +15,9 @@ type DialogsPropsType = {
     name: string
     avatar: string
     dialogsPage: DialogsPageType
-    sendMessageCallback: (msgTxt: string) => void
-    updateMessageText: (nMsgTxt: string) => void
+    dispatch: (action: ActionTypes) => void
+    //sendMessageCallback: (msgTxt: string) => void
+    //updateMessageText: (nMsgTxt: string) => void
 }
 
 
@@ -27,13 +29,14 @@ export const Dialogs = (props: DialogsPropsType) => {
     const newMessageText = React.createRef<HTMLTextAreaElement>()
 
     const sendMessageFnc = () => {
-            props.sendMessageCallback(props.dialogsPage.newMessageText)
-
+        //props.sendMessageCallback(props.dialogsPage.newMessageText)
+        props.dispatch({actionType: 'SEND-NEW-MSG'})
     }
 
 
     const onMsgTextChange2 = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateMessageText(e.currentTarget.value)
+        //props.updateMessageText(e.currentTarget.value)
+        props.dispatch({actionType: 'UPDATE-NEW-MSG-TEXT',newMsgText:(e.currentTarget.value)})
     }
 
     return (
