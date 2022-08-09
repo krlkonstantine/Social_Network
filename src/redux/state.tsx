@@ -41,10 +41,46 @@ export type StoreType = {
     updateMessageText: (newMsgText: string) => void
     _rerenderEntireTree: () => void
     subscribe: (observer: () => void) => void
-    dispatch: (action: string) => void
+    dispatch: (action: ActionTypes) => void
+}
+
+export type ActionTypes = AddNewPostActionType | UpdNewPostTextActionType | SendNewMsgActionType | UpdNewMsgTextActionType
+
+type AddNewPostActionType = {
+    actionType: 'ADD-NEW-POST'
+}
+type UpdNewPostTextActionType = {
+    actionType: 'UPDATE-NEW-POST-TEXT'
+    newPostText: string
+}
+type SendNewMsgActionType = {
+    actionType: 'SEND-NEW-MSG'
+}
+type UpdNewMsgTextActionType = {
+    actionType: 'UPDATE-NEW-MSG-TEXT'
+    newMsgText: string
 }
 
 export const store: StoreType = {
+    dispatch(action: any) {
+        if (action.type === 'ADD-NEW-POST') {
+            let newPost: PostsTextsType = {id: 4, messageText: store._state.profilePage.newPostText, likeCount: '0'}
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ""
+            this._rerenderEntireTree()
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newPostText
+            this._rerenderEntireTree()
+        } else if (action.type === 'SEND-NEW-MSG') {
+            let newMessage: MessagesTextsType = {id: 4, messageText: store._state.dialogsPage.newMessageText}
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ""
+            this._rerenderEntireTree()
+        } else if (action.type === 'UPDATE-NEW-MSG-TEXT') {
+            this._state.dialogsPage.newMessageText = action.newMsgText
+            this._rerenderEntireTree()
+        }
+    },
     _state: {
         dialogsPage: {
             dialogs: [
@@ -117,25 +153,7 @@ export const store: StoreType = {
         this._rerenderEntireTree()
     },
 
-    dispatch(action: string) {
-        if (action.type === 'ADD-NEW-POST') {
-            let newPost: PostsTextsType = {id: 4, messageText: store._state.profilePage.newPostText, likeCount: '0'}
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ""
-            this._rerenderEntireTree()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.profilePage.newPostText = action.newPostText
-            this._rerenderEntireTree()
-        } else if (action.type === 'SEND-NEW-MSG') {
-            let newMessage: MessagesTextsType = {id: 4, messageText: store._state.dialogsPage.newMessageText}
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ""
-            this._rerenderEntireTree()
-        } else if (action.type === 'UPDATE-NEW-MSG-TEXT') {
-            this._state.dialogsPage.newMessageText = action.newMsgText
-            this._rerenderEntireTree()
-        }
-            }
+
 }
 
 

@@ -8,14 +8,15 @@ import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
 import {Friends} from "./components/Friends/Friends";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {RootStateType, StoreType, DialogsPageType, ProfilePageType, store} from "./redux/state";
+import {RootStateType, StoreType, DialogsPageType, ProfilePageType, store, ActionTypes} from "./redux/state";
 
 type AppPropsType = {
     store: StoreType
-    updateNewPostText: (newMsgText: string) => void
+    /*updateNewPostText: (newMsgText: string) => void
     addPost: () => void
     sendMessageCallback: () => void
     updateMessageText: (newMsgText: string) => void
+    dispatch: (action:ActionTypes) => void*/
 }
 
 
@@ -33,12 +34,14 @@ let App = (props: AppPropsType) => {
                         <Route path="/dialogs/*" element={<Dialogs avatar={"ghhghg"}
                                                                    name={"panda"}
                                                                    dialogsPage={state.dialogsPage}
-                                                                   sendMessageCallback={props.store.sendMessage.bind(store)}
-                                                                   updateMessageText={props.store.updateMessageText.bind(store)}/>}/>
+                                                                   sendMessageCallback={props.store.sendMessage.bind(props.store)}
+                                                                   updateMessageText={props.store.updateMessageText.bind(props.store)}/>}/>
                         <Route path="/profile" element={<Profile
-                            addPost={props.store.addPost.bind(store)}
-                            updateNewPostText={props.updateNewPostText.bind(store)}
-                            profilePage={state.profilePage}/>}/>
+                            /*addPost={props.store.addPost.bind(store)}*/
+                            dispatch={props.store.dispatch.bind(props.store)}
+                            /*updateNewPostText={props.updateNewPostText.bind(props.store)}*/
+                            profilePage={state.profilePage}
+                        />}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                         <Route path="/friends" element={<Friends friends={state.friends}/>}/>

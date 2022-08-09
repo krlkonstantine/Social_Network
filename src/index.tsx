@@ -10,10 +10,12 @@ export const rerenderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <App store={store}
-                 updateNewPostText={store.updateNewPostText.bind(store)}
-                 addPost={store.addPost.bind(store)}
-                 sendMessageCallback={store.sendMessage.bind(store)}
-                 updateMessageText={store.updateMessageText}/>
+                /*dispatch={store.dispatch}
+                updateNewPostText={store.updateNewPostText.bind(store)}
+                addPost={store.dispatch.bind(store.dispatch)}
+                sendMessageCallback={store.sendMessage.bind(store)}
+                updateMessageText={store.updateMessageText}*/
+            />
         </React.StrictMode>,
         document.getElementById('root')
     )

@@ -1,12 +1,14 @@
 import React, {ChangeEvent} from "react";
 import {Post} from "./Post/Post";
 import mpsts from "./MyPosts.module.css"
-import {ProfilePageType} from "../../../redux/state";
+import {ActionTypes, ProfilePageType} from "../../../redux/state";
+//import {type} from "os";
 
 type MyPostsPropsType = {
     profilePage: ProfilePageType
-    addPost: (newPostText: string) => void
-    updateNewPostText: (newPostText: string) => void
+    dispatch: (action: ActionTypes) => void
+    /*addPost: (newPostText: string) => void
+    updateNewPostText: (newPostText: string) => void*/
 }
 
 
@@ -18,12 +20,14 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
     const onAddPostClickHandler = () => {
         debugger
-        props.addPost(props.profilePage.newPostText)
+        //props.addPost(props.profilePage.newPostText)
+        props.dispatch({actionType: 'ADD-NEW-POST'})
     }
 
 
-    const onNewPostTextChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) => {
-            props.updateNewPostText(e.currentTarget.value)
+    const onNewPostTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        //props.updateNewPostText(e.currentTarget.value)
+        props.dispatch({actionType: 'UPDATE-NEW-POST-TEXT', newPostText: e.currentTarget.value},)
     }
 
     return (
@@ -33,7 +37,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
 
             <div>
                 <div>
-                    <textarea onChange={onNewPostTextChangeHandler} value={props.profilePage.newPostText} />
+                    <textarea onChange={onNewPostTextChangeHandler} value={props.profilePage.newPostText}/>
                 </div>
                 <div>
                     <button onClick={onAddPostClickHandler}>Add post</button>
