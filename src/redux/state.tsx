@@ -1,4 +1,3 @@
-
 export type DialogsTextsType = {
     id: number
     name: string
@@ -41,7 +40,8 @@ export type StoreType = {
     sendMessage: () => void
     updateMessageText: (newMsgText: string) => void
     _rerenderEntireTree: () => void
-    subscribe: (observer: ()=>void) => void
+    subscribe: (observer: () => void) => void
+    dispatch: (action: string) => void
 }
 
 export const store: StoreType = {
@@ -85,9 +85,17 @@ export const store: StoreType = {
             {id: 7, name: "Gagiu"},
         ]
     },
+    _rerenderEntireTree() {
+        console.log('state rendered')
+    },
+    subscribe(observer: () => void) {
+        this._rerenderEntireTree = observer
+    },
+
     getState() {
         return this._state
     },
+
     addPost() {
         let newPost: PostsTextsType = {id: 4, messageText: store._state.profilePage.newPostText, likeCount: '0'}
         this._state.profilePage.posts.push(newPost)
@@ -108,12 +116,26 @@ export const store: StoreType = {
         this._state.dialogsPage.newMessageText = newMsgText
         this._rerenderEntireTree()
     },
-    _rerenderEntireTree() {
-        console.log('state rendered')
-    },
-    subscribe(observer: ()=>void) {
-        this._rerenderEntireTree = observer
-    },
+
+    dispatch(action: string) {
+        if (action.type === 'ADD-NEW-POST') {
+            let newPost: PostsTextsType = {id: 4, messageText: store._state.profilePage.newPostText, likeCount: '0'}
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ""
+            this._rerenderEntireTree()
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newPostText
+            this._rerenderEntireTree()
+        } else if (action.type === 'SEND-NEW-MSG') {
+            let newMessage: MessagesTextsType = {id: 4, messageText: store._state.dialogsPage.newMessageText}
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ""
+            this._rerenderEntireTree()
+        } else if (action.type === 'UPDATE-NEW-MSG-TEXT') {
+            this._state.dialogsPage.newMessageText = action.newMsgText
+            this._rerenderEntireTree()
+        }
+            }
 }
 
 
