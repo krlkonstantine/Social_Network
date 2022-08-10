@@ -64,7 +64,6 @@ type UpdNewMsgTextActionType = {
 export const store: StoreType = {
     dispatch(action: ActionTypes) {
         if (action.actionType === 'ADD-NEW-POST') {
-            debugger
             let newPost: PostsTextsType = {id: 4, messageText: store._state.profilePage.newPostText, likeCount: '0'}
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = ""
