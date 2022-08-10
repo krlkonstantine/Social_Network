@@ -1,3 +1,5 @@
+import {ChangeEvent} from "react";
+
 export type DialogsTextsType = {
     id: number
     name: string
@@ -24,14 +26,11 @@ export type FriendsType = {
     id: number
     name: string
 }
-
 export type RootStateType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
     friends: Array<FriendsType>
 }
-
-
 export type StoreType = {
     _state: RootStateType
     getState: () => RootStateType
@@ -43,9 +42,6 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionTypes) => void
 }
-
-export type ActionTypes = AddNewPostActionType | UpdNewPostTextActionType | SendNewMsgActionType | UpdNewMsgTextActionType
-
 type AddNewPostActionType = {
     actionType: 'ADD-NEW-POST'
 }
@@ -60,23 +56,34 @@ type UpdNewMsgTextActionType = {
     actionType: 'UPDATE-NEW-MSG-TEXT'
     newMsgText: string
 }
+export type ActionTypes = AddNewPostActionType | UpdNewPostTextActionType | SendNewMsgActionType | UpdNewMsgTextActionType
+
+export const addNewPost= 'ADD-NEW-POST'
+export const updNewPostText= 'UPDATE-NEW-POST-TEXT'
+export const sendNewMsg= 'SEND-NEW-MSG'
+export const updNewMsgText= 'UPDATE-NEW-MSG-TEXT'
+
+export const addPostAC = ():AddNewPostActionType => ({actionType: addNewPost})
+export const updNewPostTextAC = (e: ChangeEvent<HTMLTextAreaElement>):UpdNewPostTextActionType => ({actionType: updNewPostText, newPostText: (e.currentTarget.value)})
+export const sendNewMsgAC = ():SendNewMsgActionType => ({actionType: sendNewMsg})
+export const updNewMsgTextAC = (e: ChangeEvent<HTMLTextAreaElement>):UpdNewMsgTextActionType =>({actionType: updNewMsgText, newMsgText: (e.currentTarget.value)})
 
 export const store: StoreType = {
     dispatch(action: ActionTypes) {
-        if (action.actionType === 'ADD-NEW-POST') {
-            let newPost: PostsTextsType = {id: 4, messageText: store._state.profilePage.newPostText, likeCount: '0'}
+        if (action.actionType === addNewPost) {
+                        let newPost: PostsTextsType = {id: 4, messageText: store._state.profilePage.newPostText, likeCount: '0'}
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = ""
             this._rerenderEntireTree()
-        } else if (action.actionType === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.actionType === updNewPostText) {
             this._state.profilePage.newPostText = action.newPostText
             this._rerenderEntireTree()
-        } else if (action.actionType === 'SEND-NEW-MSG') {
+        } else if (action.actionType === sendNewMsg) {
             let newMessage: MessagesTextsType = {id: 4, messageText: store._state.dialogsPage.newMessageText}
             this._state.dialogsPage.messages.push(newMessage)
             this._state.dialogsPage.newMessageText = ""
             this._rerenderEntireTree()
-        } else if (action.actionType === 'UPDATE-NEW-MSG-TEXT') {
+        } else if (action.actionType === updNewMsgText) {
             this._state.dialogsPage.newMessageText = action.newMsgText
             this._rerenderEntireTree()
         }
@@ -152,9 +159,9 @@ export const store: StoreType = {
         this._state.dialogsPage.newMessageText = newMsgText
         this._rerenderEntireTree()
     },
-
-
 }
+
+
 
 
 

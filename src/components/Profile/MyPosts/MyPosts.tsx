@@ -1,14 +1,11 @@
 import React, {ChangeEvent} from "react";
 import {Post} from "./Post/Post";
 import mpsts from "./MyPosts.module.css"
-import {ActionTypes, ProfilePageType} from "../../../redux/state";
-//import {type} from "os";
+import {ActionTypes, ProfilePageType, addPostAC, updNewPostTextAC} from "../../../redux/state";
 
 type MyPostsPropsType = {
     profilePage: ProfilePageType
     dispatch: (action: ActionTypes) => void
-    /*addPost: (newPostText: string) => void
-    updateNewPostText: (newPostText: string) => void*/
 }
 
 
@@ -18,17 +15,8 @@ export const MyPosts = (props: MyPostsPropsType) => {
                                                                  likeCount={pst.likeCount}
                                                                  key={pst.id}/>)
 
-    const onAddPostClickHandler = () => {
-
-        //props.addPost(props.profilePage.newPostText)
-        props.dispatch({actionType: 'ADD-NEW-POST'})
-    }
-
-
-    const onNewPostTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        //props.updateNewPostText(e.currentTarget.value)
-        props.dispatch({actionType: 'UPDATE-NEW-POST-TEXT', newPostText: (e.currentTarget.value)},)
-    }
+    const onAddPostClickHandler = () => props.dispatch(addPostAC())
+    const onNewPostTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => props.dispatch(updNewPostTextAC(e))
 
     return (
         <div className={mpsts.postsBlock}>

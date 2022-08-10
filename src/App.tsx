@@ -12,11 +12,6 @@ import {RootStateType, StoreType, DialogsPageType, ProfilePageType, store, Actio
 
 type AppPropsType = {
     store: StoreType
-    /*updateNewPostText: (newMsgText: string) => void
-    addPost: () => void
-    sendMessageCallback: () => void
-    updateMessageText: (newMsgText: string) => void
-    dispatch: (action:ActionTypes) => void*/
 }
 
 
@@ -34,13 +29,9 @@ let App = (props: AppPropsType) => {
                         <Route path="/dialogs/*" element={<Dialogs avatar={"ghhghg"}
                                                                    name={"panda"}
                                                                    dialogsPage={state.dialogsPage}
-                                                                   //sendMessageCallback={props.store.sendMessage.bind(props.store)}
-                                                                   //updateMessageText={props.store.updateMessageText.bind(props.store)}
-                            dispatch={props.store.dispatch.bind(props.store)}
-                            />}/>
+                                                                   dispatch={props.store.dispatch.bind(props.store)}
+                        />}/>
                         <Route path="/profile" element={<Profile
-                            /*addPost={props.store.addPost.bind(store)}*/
-                            /*updateNewPostText={props.updateNewPostText.bind(props.store)}*/
                             dispatch={props.store.dispatch.bind(props.store)}
                             profilePage={state.profilePage}
                         />}/>
