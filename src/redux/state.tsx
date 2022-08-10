@@ -62,21 +62,22 @@ type UpdNewMsgTextActionType = {
 }
 
 export const store: StoreType = {
-    dispatch(action: any) {
-        if (action.type === 'ADD-NEW-POST') {
+    dispatch(action: ActionTypes) {
+        if (action.actionType === 'ADD-NEW-POST') {
+            debugger
             let newPost: PostsTextsType = {id: 4, messageText: store._state.profilePage.newPostText, likeCount: '0'}
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = ""
             this._rerenderEntireTree()
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.actionType === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newPostText
             this._rerenderEntireTree()
-        } else if (action.type === 'SEND-NEW-MSG') {
+        } else if (action.actionType === 'SEND-NEW-MSG') {
             let newMessage: MessagesTextsType = {id: 4, messageText: store._state.dialogsPage.newMessageText}
             this._state.dialogsPage.messages.push(newMessage)
             this._state.dialogsPage.newMessageText = ""
             this._rerenderEntireTree()
-        } else if (action.type === 'UPDATE-NEW-MSG-TEXT') {
+        } else if (action.actionType === 'UPDATE-NEW-MSG-TEXT') {
             this._state.dialogsPage.newMessageText = action.newMsgText
             this._rerenderEntireTree()
         }

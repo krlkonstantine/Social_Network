@@ -19,7 +19,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
                                                                  key={pst.id}/>)
 
     const onAddPostClickHandler = () => {
-        debugger
+
         //props.addPost(props.profilePage.newPostText)
         props.dispatch({actionType: 'ADD-NEW-POST'})
     }
