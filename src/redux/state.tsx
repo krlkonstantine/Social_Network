@@ -42,36 +42,43 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionTypes) => void
 }
-type AddNewPostActionType = {
-    actionType: 'ADD-NEW-POST'
-}
-type UpdNewPostTextActionType = {
-    actionType: 'UPDATE-NEW-POST-TEXT'
-    newPostText: string
-}
-type SendNewMsgActionType = {
-    actionType: 'SEND-NEW-MSG'
-}
-type UpdNewMsgTextActionType = {
-    actionType: 'UPDATE-NEW-MSG-TEXT'
-    newMsgText: string
-}
-export type ActionTypes = AddNewPostActionType | UpdNewPostTextActionType | SendNewMsgActionType | UpdNewMsgTextActionType
 
-export const addNewPost= 'ADD-NEW-POST'
-export const updNewPostText= 'UPDATE-NEW-POST-TEXT'
-export const sendNewMsg= 'SEND-NEW-MSG'
-export const updNewMsgText= 'UPDATE-NEW-MSG-TEXT'
+export type ActionTypes =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof updNewPostTextAC>
+    | ReturnType<typeof sendNewMsgAC>
+    | ReturnType<typeof updNewMsgTextAC>
 
-export const addPostAC = ():AddNewPostActionType => ({actionType: addNewPost})
-export const updNewPostTextAC = (e: ChangeEvent<HTMLTextAreaElement>):UpdNewPostTextActionType => ({actionType: updNewPostText, newPostText: (e.currentTarget.value)})
-export const sendNewMsgAC = ():SendNewMsgActionType => ({actionType: sendNewMsg})
-export const updNewMsgTextAC = (e: ChangeEvent<HTMLTextAreaElement>):UpdNewMsgTextActionType =>({actionType: updNewMsgText, newMsgText: (e.currentTarget.value)})
+export const addNewPost = 'ADD-NEW-POST'
+export const updNewPostText = 'UPDATE-NEW-POST-TEXT'
+export const sendNewMsg = 'SEND-NEW-MSG'
+export const updNewMsgText = 'UPDATE-NEW-MSG-TEXT'
+
+export const addPostAC = () => {
+    return {
+        actionType: addNewPost
+    } as const
+}
+export const updNewPostTextAC = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    return {
+        actionType: updNewPostText, newPostText: (e.currentTarget.value)
+    } as const
+}
+export const sendNewMsgAC = () => {
+    return {
+        actionType: sendNewMsg
+    } as const
+}
+export const updNewMsgTextAC = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    return {
+        actionType: updNewMsgText, newMsgText: (e.currentTarget.value)
+    } as const
+}
 
 export const store: StoreType = {
     dispatch(action: ActionTypes) {
         if (action.actionType === addNewPost) {
-                        let newPost: PostsTextsType = {id: 4, messageText: store._state.profilePage.newPostText, likeCount: '0'}
+            let newPost: PostsTextsType = {id: 4, messageText: store._state.profilePage.newPostText, likeCount: '0'}
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.newPostText = ""
             this._rerenderEntireTree()
