@@ -8,7 +8,7 @@ import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
 import {Friends} from "./components/Friends/Friends";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {RootStateType, StoreType, DialogsPageType, ProfilePageType, store, ActionTypes} from "./redux/state";
+import {StoreType} from "./redux/state";
 
 type AppPropsType = {
     store: StoreType
