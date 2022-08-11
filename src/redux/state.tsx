@@ -34,10 +34,6 @@ export type RootStateType = {
 export type StoreType = {
     _state: RootStateType
     getState: () => RootStateType
-    addPost: () => void
-    updateNewPostText: (newPostText: string) => void
-    sendMessage: () => void
-    updateMessageText: (newMsgText: string) => void
     _rerenderEntireTree: () => void
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionTypes) => void
@@ -144,27 +140,6 @@ export const store: StoreType = {
 
     getState() {
         return this._state
-    },
-
-    addPost() {
-        let newPost: PostsTextsType = {id: 4, messageText: store._state.profilePage.newPostText, likeCount: '0'}
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = ""
-        this._rerenderEntireTree()
-    },
-    updateNewPostText(newPostText: string) {
-        this._state.profilePage.newPostText = newPostText
-        this._rerenderEntireTree()
-    },
-    sendMessage() {
-        let newMessage: MessagesTextsType = {id: 4, messageText: store._state.dialogsPage.newMessageText}
-        this._state.dialogsPage.messages.push(newMessage)
-        this._state.dialogsPage.newMessageText = ""
-        this._rerenderEntireTree()
-    },
-    updateMessageText(newMsgText: string) {
-        this._state.dialogsPage.newMessageText = newMsgText
-        this._rerenderEntireTree()
     },
 }
 
