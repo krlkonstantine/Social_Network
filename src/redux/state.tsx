@@ -1,4 +1,6 @@
 import {ChangeEvent} from "react";
+import dialogsReducer from "./dialogs-reducers";
+import profileReducer from "./profile-reducers";
 
 export type DialogsTextsType = {
     id: number
@@ -73,23 +75,9 @@ export const updNewMsgTextAC = (e: ChangeEvent<HTMLTextAreaElement>) => {
 
 export const store: StoreType = {
     dispatch(action: ActionTypes) {
-        if (action.actionType === addNewPost) {
-            let newPost: PostsTextsType = {id: 4, messageText: store._state.profilePage.newPostText, likeCount: '0'}
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.newPostText = ""
-            this._rerenderEntireTree()
-        } else if (action.actionType === updNewPostText) {
-            this._state.profilePage.newPostText = action.newPostText
-            this._rerenderEntireTree()
-        } else if (action.actionType === sendNewMsg) {
-            let newMessage: MessagesTextsType = {id: 4, messageText: store._state.dialogsPage.newMessageText}
-            this._state.dialogsPage.messages.push(newMessage)
-            this._state.dialogsPage.newMessageText = ""
-            this._rerenderEntireTree()
-        } else if (action.actionType === updNewMsgText) {
-            this._state.dialogsPage.newMessageText = action.newMsgText
-            this._rerenderEntireTree()
-        }
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._rerenderEntireTree()
     },
     _state: {
         dialogsPage: {

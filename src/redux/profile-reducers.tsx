@@ -1,25 +1,20 @@
-import React from 'react';
-import {ActionTypes, PostsTextsType, StoreType} from "./state";
+import React, {ChangeEvent, useState} from 'react';
+import {ActionTypes, DialogsPageType, PostsTextsType, ProfilePageType, StoreType} from "./state";
 
-type ProfileReducerType = {
-    store:StoreType
-}
 
  const addNewPost = 'ADD-NEW-POST'
  const updNewPostText = 'UPDATE-NEW-POST-TEXT'
 
-export const ProfileReducer = (props:ProfileReducerType) => {
+ const profileReducer = (state:ProfilePageType,action:ActionTypes) => {
 
-    const profilePageReducer = (state:StoreType,action:ActionTypes) => {
         if (action.actionType === addNewPost) {
-            let newPost: PostsTextsType = {id: 4, messageText: props.store._state.profilePage.newPostText, likeCount: '0'}
-            props.store._state.profilePage.posts.push(newPost)
-            props.store._state.profilePage.newPostText = ""
-            props.store._rerenderEntireTree()
+            let newPost: PostsTextsType = {id: 4, messageText: state.newPostText, likeCount: '0'}
+            state.posts.push(newPost)
+            state.newPostText = ""
         } else if (action.actionType === updNewPostText) {
-            props.store._state.profilePage.newPostText = action.newPostText
-            props.store._rerenderEntireTree()
+            state.newPostText = action.newPostText
         }
-    }
+        return state
 }
 
+export default profileReducer
