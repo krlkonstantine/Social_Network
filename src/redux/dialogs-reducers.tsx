@@ -4,7 +4,6 @@ import {ActionTypes, DialogsPageType, MessagesTextsType, StoreType} from "./stat
  const sendNewMsg = 'SEND-NEW-MSG'
  const updNewMsgText = 'UPDATE-NEW-MSG-TEXT'
 
-
 const dialogsReducer = (state:DialogsPageType,action:ActionTypes) => {
     if (action.actionType === sendNewMsg) {
         let newMessage: MessagesTextsType = {id: 4, messageText: state.newMessageText}
