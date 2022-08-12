@@ -4,6 +4,17 @@ import {ActionTypes, DialogsPageType, MessagesTextsType} from "./state";
 const sendNewMsg = 'SEND-NEW-MSG'
 const updNewMsgText = 'UPDATE-NEW-MSG-TEXT'
 
+export const sendNewMsgAC = () => {
+    return {
+        actionType: sendNewMsg
+    } as const
+}
+export const updNewMsgTextAC = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    return {
+        actionType: updNewMsgText, newMsgText: (e.currentTarget.value)
+    } as const
+}
+
 const dialogsReducer = (state: DialogsPageType, action: ActionTypes) => {
     switch (action.actionType) {
         case sendNewMsg:

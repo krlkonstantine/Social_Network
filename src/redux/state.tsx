@@ -1,6 +1,6 @@
 import {ChangeEvent} from "react";
-import dialogsReducer from "./dialogs-reducers";
-import profileReducer from "./profile-reducers";
+import dialogsReducer, {sendNewMsgAC, updNewMsgTextAC} from "./dialogs-reducers";
+import profileReducer, {addPostAC, updNewPostTextAC} from "./profile-reducers";
 
 export type DialogsTextsType = {
     id: number
@@ -47,12 +47,12 @@ export type ActionTypes =
     | ReturnType<typeof sendNewMsgAC>
     | ReturnType<typeof updNewMsgTextAC>
 
-export const addNewPost = 'ADD-NEW-POST'
+/*export const addNewPost = 'ADD-NEW-POST'
 export const updNewPostText = 'UPDATE-NEW-POST-TEXT'
 export const sendNewMsg = 'SEND-NEW-MSG'
-export const updNewMsgText = 'UPDATE-NEW-MSG-TEXT'
+export const updNewMsgText = 'UPDATE-NEW-MSG-TEXT'*/
 
-export const addPostAC = () => {
+/*export const addPostAC = () => {
     return {
         actionType: addNewPost
     } as const
@@ -71,7 +71,7 @@ export const updNewMsgTextAC = (e: ChangeEvent<HTMLTextAreaElement>) => {
     return {
         actionType: updNewMsgText, newMsgText: (e.currentTarget.value)
     } as const
-}
+}*/
 
 export const store: StoreType = {
     dispatch(action: ActionTypes) {
