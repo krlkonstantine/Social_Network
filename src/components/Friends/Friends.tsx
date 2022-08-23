@@ -1,6 +1,6 @@
 import React from "react";
 import dlg from "../Dialogs/Dialogs.module.css";
-import {FriendsType} from "../../redux/state";
+import {FriendsType} from "../../redux/store";
 
 type FriendsItemType = {
     friends: Array<FriendsType>

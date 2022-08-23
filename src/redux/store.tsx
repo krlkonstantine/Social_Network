@@ -1,4 +1,3 @@
-import {ChangeEvent} from "react";
 import dialogsReducer, {sendNewMsgAC, updNewMsgTextAC} from "./dialogs-reducers";
 import profileReducer, {addPostAC, updNewPostTextAC} from "./profile-reducers";
 

@@ -5,7 +5,7 @@ import {MessageItem} from "./Message/Message";
 import {
     ActionTypes,
     DialogsPageType,
-} from "../../redux/state";
+} from "../../redux/store";
 import {sendNewMsgAC, updNewMsgTextAC} from "../../redux/dialogs-reducers"
 
 type DialogsPropsType = {

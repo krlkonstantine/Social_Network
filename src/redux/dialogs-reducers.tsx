@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import {ActionTypes, DialogsPageType, MessagesTextsType} from "./state";
+import {ActionTypes, DialogsPageType, MessagesTextsType} from "./store";
 
 const SEND_NEW_MSG = 'SEND-NEW-MSG'
 const UPD_NEW_MSG_TEXT = 'UPDATE-NEW-MSG-TEXT'

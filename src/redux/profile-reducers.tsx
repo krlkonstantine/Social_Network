@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react';
-import {ActionTypes, DialogsPageType, PostsTextsType, ProfilePageType, StoreType} from "./state";
+import {ActionTypes, DialogsPageType, PostsTextsType, ProfilePageType, StoreType} from "./store";
 
 const ADD_NEW_POST = 'ADD-NEW-POST'
 const UPD_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
