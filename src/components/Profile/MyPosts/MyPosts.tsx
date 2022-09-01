@@ -1,11 +1,12 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, Dispatch} from "react";
 import {Post} from "./Post/Post";
 import mpsts from "./MyPosts.module.css"
 import {ActionTypes, ProfilePageType} from "../../../redux/store";
 import {addPostAC, updNewPostTextAC} from "../../../redux/profile-reducers"
+import {ActionsType} from "../../../redux/redux-store";
 type MyPostsPropsType = {
     profilePage: ProfilePageType
-    dispatch: (action: ActionTypes) => void
+    dispatch: Dispatch<ActionsType>
 }
 
 
@@ -16,7 +17,8 @@ export const MyPosts = (props: MyPostsPropsType) => {
                                                                  key={pst.id}/>)
 
     const onAddPostClickHandler = () => props.dispatch(addPostAC())
-    const onNewPostTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => props.dispatch(updNewPostTextAC(e))
+    const onNewPostTextChangeHandler = (e:any) =>
+        props.dispatch(updNewPostTextAC(e.currentTarget.value.toString()))
 
     return (
         <div className={mpsts.postsBlock}>

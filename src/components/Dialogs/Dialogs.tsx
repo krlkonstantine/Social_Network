@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ChangeEventHandler} from "react";
+import React, {ChangeEvent, ChangeEventHandler, Dispatch} from "react";
 import dlg from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./Message/Message";
@@ -7,12 +7,13 @@ import {
     DialogsPageType,
 } from "../../redux/store";
 import {sendNewMsgAC, updNewMsgTextAC} from "../../redux/dialogs-reducers"
+import {ActionsType} from "../../redux/redux-store";
 
 type DialogsPropsType = {
     name: string
     avatar: string
     dialogsPage: DialogsPageType
-    dispatch: (action: ActionTypes) => void
+    dispatch: Dispatch<ActionsType>
 }
 
 

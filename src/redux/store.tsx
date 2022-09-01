@@ -1,5 +1,6 @@
-import dialogsReducer, {sendNewMsgAC, updNewMsgTextAC} from "./dialogs-reducers";
-import profileReducer, {addPostAC, updNewPostTextAC} from "./profile-reducers";
+import dialogsReducer, {dialogsReducerType, sendNewMsgAC, updNewMsgTextAC} from "./dialogs-reducers";
+import profileReducer, {addPostAC, ProfileReducerType, updNewPostTextAC} from "./profile-reducers";
+import friendsReducer from "./friends-reducers";
 
 export type DialogsTextsType = {
     id: number
@@ -40,16 +41,17 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export type ActionTypes =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof updNewPostTextAC>
-    | ReturnType<typeof sendNewMsgAC>
-    | ReturnType<typeof updNewMsgTextAC>
+export type ActionTypes = ProfileReducerType & dialogsReducerType
+    // ReturnType<typeof addPostAC>
+    // | ReturnType<typeof updNewPostTextAC>
+    // | ReturnType<typeof sendNewMsgAC>
+    // | ReturnType<typeof updNewMsgTextAC>
 
 export const store: StoreType = {
-    dispatch(action: ActionTypes) {
+    dispatch(action: any) {
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.friends = friendsReducer(this._state.friends, action)
         this._rerenderEntireTree()
     },
     _state: {

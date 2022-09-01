@@ -3,7 +3,7 @@ import dlg from "../Dialogs/Dialogs.module.css";
 import {FriendsType} from "../../redux/store";
 
 type FriendsItemType = {
-    friends: Array<FriendsType>
+    friends: FriendsType[]
 }
 
 
@@ -18,7 +18,6 @@ export const Friends = (props: FriendsItemType) => {
         </div>
     )
 }
-
 
 const FriendsItem = (props: FriendsType) => {
     return (
