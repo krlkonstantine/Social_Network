@@ -9,14 +9,10 @@ import {Music} from "./components/Music/Music";
 import {Friends} from "./components/Friends/Friends";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {StoreType} from "./redux/redux-store";
-import friendsReducer, {returnFriendsAC} from "./redux/friends-reducers";
 
 type AppPropsType = {
     store: StoreType
 }
-
-
-
 
 let App = (props: AppPropsType) => {
 

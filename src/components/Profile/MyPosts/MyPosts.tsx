@@ -17,7 +17,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
                                                                  key={pst.id}/>)
 
     const onAddPostClickHandler = () => props.dispatch(addPostAC())
-    const onNewPostTextChangeHandler = (e:any) =>
+    const onNewPostTextChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) =>
         props.dispatch(updNewPostTextAC(e.currentTarget.value.toString()))
 
     return (

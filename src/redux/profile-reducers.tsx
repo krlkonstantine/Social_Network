@@ -24,16 +24,16 @@ const profileReducer = (state: ProfilePageType = initProfileState, action: Profi
     }
     return state
 }
-export type ProfileReducerType = addPostACType | updNewPostTextACType
+export type ProfileReducerType = AddPostACType | UpdNewPostTextACType
 
-type addPostACType = ReturnType<typeof addPostAC>
+type AddPostACType = ReturnType<typeof addPostAC>
 
 export const addPostAC = () => {
     return {
         type: ADD_NEW_POST
     } as const
 }
-type updNewPostTextACType = ReturnType<typeof updNewPostTextAC>
+type UpdNewPostTextACType = ReturnType<typeof updNewPostTextAC>
 
 export const updNewPostTextAC = (value:string) => {
     return {

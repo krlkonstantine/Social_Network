@@ -26,7 +26,7 @@ let initDialogState = {
     newMessageText: "Hi"
 }
 
-const dialogsReducer = (state: DialogsPageType = initDialogState, action: dialogsReducerType) => {
+const dialogsReducer = (state: DialogsPageType = initDialogState, action: DialogsReducerType) => {
     switch (action.type) {
         case SEND_NEW_MSG:
             let newMessage: MessagesTextsType = {id: 4, messageText: state.newMessageText}
@@ -42,15 +42,15 @@ const dialogsReducer = (state: DialogsPageType = initDialogState, action: dialog
             return state
     }
 }
-export type dialogsReducerType = sendNewMsgACType | updNewMsgTextAC
+export type DialogsReducerType = SendNewMsgACType | UpdNewMsgTextAC
 
-type sendNewMsgACType = ReturnType<typeof sendNewMsgAC>
+type SendNewMsgACType = ReturnType<typeof sendNewMsgAC>
 export const sendNewMsgAC = () => {
     return {
         type: SEND_NEW_MSG
     } as const
 }
-type updNewMsgTextAC = ReturnType<typeof updNewMsgTextAC>
+type UpdNewMsgTextAC = ReturnType<typeof updNewMsgTextAC>
 export const updNewMsgTextAC = (e: ChangeEvent<HTMLTextAreaElement>) => {
     return {
         type: UPD_NEW_MSG_TEXT,

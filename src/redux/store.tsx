@@ -1,4 +1,4 @@
-import dialogsReducer, {dialogsReducerType, sendNewMsgAC, updNewMsgTextAC} from "./dialogs-reducers";
+import dialogsReducer, {DialogsReducerType, sendNewMsgAC, updNewMsgTextAC} from "./dialogs-reducers";
 import profileReducer, {addPostAC, ProfileReducerType, updNewPostTextAC} from "./profile-reducers";
 import friendsReducer from "./friends-reducers";
 
@@ -41,7 +41,7 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export type ActionTypes = ProfileReducerType & dialogsReducerType
+export type ActionTypes = ProfileReducerType & DialogsReducerType
     // ReturnType<typeof addPostAC>
     // | ReturnType<typeof updNewPostTextAC>
     // | ReturnType<typeof sendNewMsgAC>
