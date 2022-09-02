@@ -38,7 +38,6 @@ let App = (props: AppPropsType) => {
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Routes>
-
                 </div>
             </div>
         </BrowserRouter>

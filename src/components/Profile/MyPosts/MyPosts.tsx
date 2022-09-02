@@ -1,12 +1,12 @@
 import React, {ChangeEvent, Dispatch} from "react";
 import {Post} from "./Post/Post";
-import mpsts from "./MyPosts.module.css"
-import {ActionTypes, ProfilePageType} from "../../../redux/store";
-import {addPostAC, updNewPostTextAC} from "../../../redux/profile-reducers"
-import {ActionsType} from "../../../redux/redux-store";
+import myPosts from "./MyPosts.module.css"
+import {ProfilePageType} from "../../../redux/store";
+
 type MyPostsPropsType = {
     profilePage: ProfilePageType
-    dispatch: Dispatch<ActionsType>
+    addPost: () => void
+    updNewPostText: (newPostText: string) => void
 }
 
 
@@ -16,12 +16,14 @@ export const MyPosts = (props: MyPostsPropsType) => {
                                                                  likeCount={pst.likeCount}
                                                                  key={pst.id}/>)
 
-    const onAddPostClickHandler = () => props.dispatch(addPostAC())
-    const onNewPostTextChangeHandler = (e:ChangeEvent<HTMLTextAreaElement>) =>
-        props.dispatch(updNewPostTextAC(e.currentTarget.value.toString()))
+    const onAddPostClickHandler = () => {
+        props.addPost()
+    }
+    const onNewPostTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>
+        props.updNewPostText(e.currentTarget.value.toString())
 
     return (
-        <div className={mpsts.postsBlock}>
+        <div className={myPosts.postsBlock}>
             <h3>My Posts</h3>
 
             <div>
@@ -32,7 +34,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
                     <button onClick={onAddPostClickHandler}>Add post</button>
                 </div>
             </div>
-            <div className={mpsts.posts}> {postsElements} </div>
+            <div className={myPosts.posts}> {postsElements} </div>
         </div>
     )
 }
