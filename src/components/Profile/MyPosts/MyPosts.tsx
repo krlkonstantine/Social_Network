@@ -25,7 +25,6 @@ export const MyPosts = (props: MyPostsPropsType) => {
     return (
         <div className={myPosts.postsBlock}>
             <h3>My Posts</h3>
-
             <div>
                 <div>
                     <textarea onChange={onNewPostTextChangeHandler} value={props.profilePage.newPostText}/>

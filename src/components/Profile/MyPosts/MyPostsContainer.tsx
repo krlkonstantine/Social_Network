@@ -1,24 +1,25 @@
-import React, {ChangeEvent, Dispatch} from "react";
-import {ActionTypes, ProfilePageType} from "../../../redux/store";
+import React from "react";
+import {ProfilePageType} from "../../../redux/store";
 import {addPostAC, updNewPostTextAC} from "../../../redux/profile-reducers"
-import {ActionsType} from "../../../redux/redux-store";
+import {StoreType} from "../../../redux/redux-store";
 import {MyPosts} from "./MyPosts";
 
 type MyPostsContainerType = {
-    profilePage: ProfilePageType
-    dispatch: Dispatch<ActionsType>
+    store: StoreType
 }
 
 
 export const MyPostsContainer = (props: MyPostsContainerType) => {
 
+    let state = props.store.getState()
+
     const addPost = () => {
-        props.dispatch(addPostAC())
+        props.store.dispatch(addPostAC())
     }
     const updNewPostText = (newPostText: string) => {
-        props.dispatch(updNewPostTextAC(newPostText))
+        props.store.dispatch(updNewPostTextAC(newPostText))
     }
     return (
-        <MyPosts profilePage={props.profilePage} updNewPostText={updNewPostText} addPost={addPost}/>
+        <MyPosts profilePage={state.profilePage} updNewPostText={updNewPostText} addPost={addPost}/>
     )
 }

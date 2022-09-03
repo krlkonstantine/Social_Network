@@ -51,10 +51,10 @@ export const sendNewMsgAC = () => {
     } as const
 }
 type UpdNewMsgTextAC = ReturnType<typeof updNewMsgTextAC>
-export const updNewMsgTextAC = (e: ChangeEvent<HTMLTextAreaElement>) => {
+export const updNewMsgTextAC = (newMessageText: string) => {
     return {
         type: UPD_NEW_MSG_TEXT,
-        newMsgText: (e.currentTarget.value)
+        newMsgText: newMessageText
     } as const
 }
 
