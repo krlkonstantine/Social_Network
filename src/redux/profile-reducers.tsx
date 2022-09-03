@@ -17,7 +17,7 @@ const profileReducer = (state: ProfilePageType = initProfileState, action: Profi
 
     if (action.type === ADD_NEW_POST) {
         let newPost: PostsTextsType = {id: 4, messageText: state.newPostText, likeCount: '0'}
-        state.posts.push(newPost)
+        state.posts.unshift(newPost)
         state.newPostText = ""
     } else if (action.type === UPD_NEW_POST_TEXT) {
         state.newPostText = action.newPostText

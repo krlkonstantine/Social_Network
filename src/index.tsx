@@ -5,20 +5,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {Provider, StoreContext} from "./StoreContext";
 
 export const rerenderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
-            <App store={store}
-            />
+            <Provider store={store}>
+                <App/>
+            </Provider>
         </React.StrictMode>,
         document.getElementById('root')
     )
 }
 
 rerenderEntireTree()
-store.subscribe(()=> {
-    //let state = store.getState()
+store.subscribe(() => {
     rerenderEntireTree()
 })
 

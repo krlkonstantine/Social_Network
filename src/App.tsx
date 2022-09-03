@@ -12,12 +12,10 @@ import {StoreType} from "./redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
-    store: StoreType
+
 }
 
 let App = (props: AppPropsType) => {
-
-    const state = props.store.getState()
 
     return (
         <BrowserRouter>
@@ -26,11 +24,9 @@ let App = (props: AppPropsType) => {
                 <NavBar/>
                 <div className='app-wrapper-content'>
                     <Routes>
-                        <Route path="/dialogs/*" element={<DialogsContainer store={props.store}/>}/>
-                        <Route path="/profile" element={<Profile
-                            store={props.store}
-                        />}/>
-                        <Route path="/friends" element={<Friends friends={props.store.getState().friends}/>}/>
+                        <Route path="/dialogs/*" element={<DialogsContainer/>}/>
+                        <Route path="/profile" element={<Profile/>}/>
+                        <Route path="/friends" element={<Friends/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Routes>

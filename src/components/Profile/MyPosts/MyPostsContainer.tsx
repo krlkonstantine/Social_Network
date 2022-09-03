@@ -3,23 +3,29 @@ import {ProfilePageType} from "../../../redux/store";
 import {addPostAC, updNewPostTextAC} from "../../../redux/profile-reducers"
 import {StoreType} from "../../../redux/redux-store";
 import {MyPosts} from "./MyPosts";
+import {StoreContext} from "../../../StoreContext";
 
-type MyPostsContainerType = {
-    store: StoreType
-}
-
+type MyPostsContainerType = {}
 
 export const MyPostsContainer = (props: MyPostsContainerType) => {
 
-    let state = props.store.getState()
-
-    const addPost = () => {
-        props.store.dispatch(addPostAC())
-    }
-    const updNewPostText = (newPostText: string) => {
-        props.store.dispatch(updNewPostTextAC(newPostText))
-    }
     return (
-        <MyPosts profilePage={state.profilePage} updNewPostText={updNewPostText} addPost={addPost}/>
+        <StoreContext.Consumer>{
+            (value) => {
+
+                const addPost = () => {
+                    value.dispatch(addPostAC())
+                }
+                const updNewPostText = (newPostText: string) => {
+                    value.dispatch(updNewPostTextAC(newPostText))
+                }
+
+                return <MyPosts profilePage={value.getState().profilePage} updNewPostText={updNewPostText}
+                                addPost={addPost}/>
+            }
+        }
+
+        </StoreContext.Consumer>
+
     )
 }
