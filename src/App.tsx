@@ -8,6 +8,7 @@ import {Music} from "./components/Music/Music";
 import {Friends} from "./components/Friends/Friends";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {FriendsContainer} from "./components/Friends/FriendsContainer";
 
 type AppPropsType = {
 
@@ -24,7 +25,7 @@ let App = (props: AppPropsType) => {
                     <Routes>
                         <Route path="/dialogs/*" element={<DialogsContainer/>}/>
                         <Route path="/profile" element={<Profile/>}/>
-                        <Route path="/friends" element={<Friends/>}/>
+                        <Route path="/friends" element={<FriendsContainer/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>
                     </Routes>

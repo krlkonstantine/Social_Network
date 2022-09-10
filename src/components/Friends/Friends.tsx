@@ -1,24 +1,21 @@
-import React from "react";
+import React, {Dispatch} from "react";
 import dlg from "../Dialogs/Dialogs.module.css";
 import {FriendsType} from "../../redux/store";
-import {StoreContext} from "../../StoreContext";
 
-type FriendsItemType = {}
+
+type FriendsItemType = {
+    friends: FriendsType[]
+}
+
 
 export const Friends = (props: FriendsItemType) => {
+    let friendElements = props.friends.map(f => <FriendsItem name={f.name} id={f.id}/>)
 
     return (
-        <StoreContext.Consumer>
-            {
-                (value) => {
-                    let friendElements = value.getState().friends.map(f => <FriendsItem name={f.name} id={f.id}/>)
-                    return <div className={dlg.isActive}>
-                        {friendElements}
-                    </div>
-                }
-            }
-        </StoreContext.Consumer>
 
+        <div className={dlg.isActive}>
+            {friendElements}
+        </div>
     )
 }
 
@@ -29,3 +26,4 @@ const FriendsItem = (props: FriendsType) => {
         </div>
     )
 }
+
