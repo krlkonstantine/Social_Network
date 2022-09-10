@@ -1,12 +1,15 @@
 import React, {Dispatch} from "react";
 
 import {sendNewMsgAC, updNewMsgTextAC} from "../../redux/dialogs-reducers"
-import {ActionsType, StoreType} from "../../redux/redux-store";
+import {ActionsType, AppStateType, DialogsPageType} from "../../redux/redux-store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
-import {RootStateType} from "../../redux/store";
 
-
+type mapStateToPropsType = {
+    dialogsPage: DialogsPageType
+    avatar: string
+    name: string
+}
 
 /*export const DialogsContainer = (props: DialogsPropsType) => {
 
@@ -32,9 +35,10 @@ import {RootStateType} from "../../redux/store";
         </StoreContext.Consumer>
     )
 }*/
+
 //задача этой фн превратить часть стейта в пропсы
 //чтомы мыоттуда взяли что нам надо и вернули объект с данными
-let mapStateToProps = (state: RootStateType) => {
+let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage,
         avatar: "ghhghg",
@@ -43,12 +47,16 @@ let mapStateToProps = (state: RootStateType) => {
 }
 //задача этой фн превратить часть коллбэков в пропсы
 //диспатч приходит сюда как store.dispatch(bind(store))
-let mapDispatchToProps = (dispatch:Dispatch<ActionsType>) => {
+let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
     return {
         //стора у нас уже не будет
         //sendMessageCallback: ()=> {store.dispatch(sendNewMsgAC())} ,
-        sendMessageCallback: ()=> {dispatch(sendNewMsgAC())} ,
-        changeMessageText: (newMessageText: string)=> {dispatch(updNewMsgTextAC(newMessageText))},
+        sendMessageCallback: () => {
+            dispatch(sendNewMsgAC())
+        },
+        changeMessageText: (newMessageText: string) => {
+            dispatch(updNewMsgTextAC(newMessageText))
+        },
     }
 }
 

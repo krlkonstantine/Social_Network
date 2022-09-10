@@ -1,7 +1,6 @@
 import React, {Dispatch} from "react";
-import {ProfilePageType, RootStateType} from "../../../redux/store";
 import {addPostAC, updNewPostTextAC} from "../../../redux/profile-reducers"
-import {ActionsType, StoreType} from "../../../redux/redux-store";
+import {ActionsType, AppStateType, StoreType} from "../../../redux/redux-store";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 
@@ -29,7 +28,7 @@ import {connect} from "react-redux";
     )
 }*/
 
-const mapStateToProps = (state: RootStateType) => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         profilePage: state.profilePage
     }

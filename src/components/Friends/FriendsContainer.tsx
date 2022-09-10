@@ -1,13 +1,10 @@
 import React, {Dispatch} from "react";
-import {RootStateType} from "../../redux/store";
 import {connect} from "react-redux";
-import {ActionsType} from "../../redux/redux-store";
+import {ActionsType, AppStateType} from "../../redux/redux-store";
 import {Friends} from "./Friends";
 
-type FriendsItemType = {}
 
-
-let mapStateToProps = (state: RootStateType) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         friends: state.friends
     }

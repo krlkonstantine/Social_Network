@@ -2,52 +2,47 @@ import dialogsReducer, {DialogsReducerType, sendNewMsgAC, updNewMsgTextAC} from 
 import profileReducer, {addPostAC, ProfileReducerType, updNewPostTextAC} from "./profile-reducers";
 import friendsReducer from "./friends-reducers";
 
-export type DialogsTextsType = {
+type DialogsTextsType = {
     id: number
     name: string
 }
-export type MessagesTextsType = {
+type MessagesTextsType = {
     id: number
     messageText: string
 }
-export type PostsTextsType = {
+type PostsTextsType = {
     id: number
     messageText: string
     likeCount: string
 }
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogs: Array<DialogsTextsType>
     messages: Array<MessagesTextsType>
     newMessageText: string
 }
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: Array<PostsTextsType>
     newPostText: string
 }
-export type FriendsType = {
+type FriendsType = {
     id: number
     name: string
 }
-export type RootStateType = {
+type RootStateType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
     friends: Array<FriendsType>
 }
-export type StoreType = {
+type StoreType = {
     _state: RootStateType
     getState: () => RootStateType
     _rerenderEntireTree: () => void
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionTypes) => void
 }
+type ActionTypes = ProfileReducerType & DialogsReducerType
 
-export type ActionTypes = ProfileReducerType & DialogsReducerType
-    // ReturnType<typeof addPostAC>
-    // | ReturnType<typeof updNewPostTextAC>
-    // | ReturnType<typeof sendNewMsgAC>
-    // | ReturnType<typeof updNewMsgTextAC>
-
-export const store: StoreType = {
+const store: StoreType = {
     dispatch(action: any) {
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
         this._state.profilePage = profileReducer(this._state.profilePage, action)

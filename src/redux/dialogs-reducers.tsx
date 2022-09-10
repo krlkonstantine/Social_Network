@@ -1,10 +1,11 @@
-import React, {ChangeEvent, useState} from 'react';
-import {ActionTypes, DialogsPageType, MessagesTextsType} from "./store";
+import React from 'react';
+import {DialogsPageType, MessagesTextsType} from "./redux-store";
 
 const SEND_NEW_MSG = 'SEND-NEW-MSG'
 const UPD_NEW_MSG_TEXT = 'UPDATE-NEW-MSG-TEXT'
+export type InitialDialogsStateType = DialogsPageType
 
-let initDialogState = {
+let initDialogState:InitialDialogsStateType = {
     dialogs: [
         {id: 1, name: "Dimych"},
         {id: 2, name: "Sandu"},
@@ -26,7 +27,7 @@ let initDialogState = {
     newMessageText: "Hi"
 }
 
-const dialogsReducer = (state: DialogsPageType = initDialogState, action: DialogsReducerType) => {
+const dialogsReducer = (state: DialogsPageType = initDialogState, action: DialogsReducerType):InitialDialogsStateType => {
     switch (action.type) {
         case SEND_NEW_MSG:
             let newMessage: MessagesTextsType = {id: 4, messageText: state.newMessageText}

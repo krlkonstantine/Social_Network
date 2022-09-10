@@ -1,9 +1,9 @@
 import React from 'react';
-import {FriendsType} from "./store";
+import {FriendType} from "./redux-store";
 
 const SHOW_FRIENDS = 'SHOW_FRIENDS'
 
-let initFriendsState: FriendsType[] = [
+let initFriendsState: FriendType[] = [
     {id: 1, name: "Dimych"},
     {id: 2, name: "Sandu"},
     {id: 3, name: "Viktor"},
@@ -13,7 +13,7 @@ let initFriendsState: FriendsType[] = [
     {id: 7, name: "Gagiu"},
 ]
 
-const friendsReducer = (state: FriendsType[] = initFriendsState, action: FriendsReducerType) => {
+const friendsReducer = (state: FriendType[] = initFriendsState, action: FriendsReducerType) => {
     if (action.type === SHOW_FRIENDS) {
         return state
     } else return state
