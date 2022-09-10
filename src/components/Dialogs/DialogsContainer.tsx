@@ -1,32 +1,29 @@
-import React from "react";
+import React, {Dispatch} from "react";
 
 import {sendNewMsgAC, updNewMsgTextAC} from "../../redux/dialogs-reducers"
-import {StoreType} from "../../redux/redux-store";
+import {ActionsType, StoreType} from "../../redux/redux-store";
 import {Dialogs} from "./Dialogs";
-import {StoreContext} from "../../StoreContext";
-
-type DialogsPropsType = {
-}
+import {connect} from "react-redux";
+import {RootStateType} from "../../redux/store";
 
 
-export const DialogsContainer = (props: DialogsPropsType) => {
 
+/*export const DialogsContainer = (props: DialogsPropsType) => {
 
 
     return (
         <StoreContext.Consumer>
             {
                 (value) => {
-                    let state = value.getState()
                     const sendMessageFnc = () => value.dispatch(sendNewMsgAC())
                     const onMsgTextChangeFnc = (newMessageText: string) => value.dispatch(updNewMsgTextAC(newMessageText))
 
                     return <Dialogs avatar={"ghhghg"}
-                             name={"panda"}
-                             dialogsPage={value.getState().dialogsPage}
-                             dispatch={value.dispatch}
-                             sendMessageCallback={sendMessageFnc}
-                             changeMessageText={onMsgTextChangeFnc}
+                                    name={"panda"}
+                                    dialogsPage={value.getState().dialogsPage}
+                                    //dispatch={value.dispatch}
+                                    sendMessageCallback={sendMessageFnc}
+                                    changeMessageText={onMsgTextChangeFnc}
                     />
                 }
 
@@ -34,6 +31,32 @@ export const DialogsContainer = (props: DialogsPropsType) => {
             }
         </StoreContext.Consumer>
     )
+}*/
+//задача этой фн превратить часть стейта в пропсы
+//чтомы мыоттуда взяли что нам надо и вернули объект с данными
+let mapStateToProps = (state: RootStateType) => {
+    return {
+        dialogsPage: state.dialogsPage,
+        avatar: "ghhghg",
+        name: "panda",
+    }
+}
+//задача этой фн превратить часть коллбэков в пропсы
+//диспатч приходит сюда как store.dispatch(bind(store))
+let mapDispatchToProps = (dispatch:Dispatch<ActionsType>) => {
+    return {
+        //стора у нас уже не будет
+        //sendMessageCallback: ()=> {store.dispatch(sendNewMsgAC())} ,
+        sendMessageCallback: ()=> {dispatch(sendNewMsgAC())} ,
+        changeMessageText: (newMessageText: string)=> {dispatch(updNewMsgTextAC(newMessageText))},
+    }
 }
 
-
+//fn connect есть в React-Redux
+//Dialogs, мы хотим созд през.комп ктр снабдит тебя даннными
+//первым вызовом коннекта мы как бы настраиваем нашу контейнерную
+//сначала коннект создаст контенерную компоненту, потом отрисует презентационную
+//и запихнет в нее через атрибуты. Формируются 2 bj, склеиваются в 1 и go как пропсы в диалогс
+//эти две фнк без вызова (), коннекст их вызовет сам, а в них он передаст store
+//эти две fnc настраивают наш коннект,
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);

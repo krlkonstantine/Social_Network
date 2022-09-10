@@ -9,7 +9,7 @@ type DialogsPropsType = {
     name: string
     avatar: string
     dialogsPage: DialogsPageType
-    dispatch: Dispatch<ActionsType>
+    //dispatch: Dispatch<ActionsType>
     sendMessageCallback: () => void
     changeMessageText: (newMessageText: string) => void
 }
