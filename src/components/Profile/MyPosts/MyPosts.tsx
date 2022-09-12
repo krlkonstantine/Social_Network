@@ -20,8 +20,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
         props.addPost()
     }
     const onNewPostTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>
-        props.updNewPostText(e.currentTarget.value.toString())
-
+        props.updNewPostText(e.currentTarget.value)
     return (
         <div className={myPosts.postsBlock}>
             <h3>My Posts</h3>

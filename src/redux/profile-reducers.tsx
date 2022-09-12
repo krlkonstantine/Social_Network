@@ -1,5 +1,5 @@
 import React from 'react';
-import {PostsTextsType, ProfilePageType} from "./redux-store";
+import {PostsTextsType, ProfilePageType, store} from "./redux-store";
 
 const ADD_NEW_POST = 'ADD-NEW-POST'
 const UPD_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -14,14 +14,19 @@ let initProfileState: InitialProfileStateType = {
     newPostText: "it-kamasutra.com"
 }
 
-const profileReducer = (state: InitialProfileStateType = initProfileState, action: ProfileReducerType): InitialProfileStateType => {
 
+const profileReducer = (state: InitialProfileStateType = initProfileState, action: ProfileReducerType): InitialProfileStateType => {
     if (action.type === ADD_NEW_POST) {
+        debugger;
         let newPost: PostsTextsType = {id: 4, messageText: state.newPostText, likeCount: '0'}
-        state.posts.unshift(newPost)
-        state.newPostText = ""
+        let stateCopy = {...state}
+        stateCopy.posts.unshift(newPost)
+        stateCopy.newPostText = ""
+        return stateCopy
     } else if (action.type === UPD_NEW_POST_TEXT) {
-        state.newPostText = action.newPostText
+        let stateCopy1 = {...state}
+        stateCopy1.newPostText = action.payload.value
+        return stateCopy1
     }
     return state
 }
@@ -39,7 +44,9 @@ type UpdNewPostTextACType = ReturnType<typeof updNewPostTextAC>
 export const updNewPostTextAC = (value: string) => {
     return {
         type: UPD_NEW_POST_TEXT,
-        newPostText: value
+        payload: {
+            value
+        }
     } as const
 }
 

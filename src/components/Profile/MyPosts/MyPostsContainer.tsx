@@ -28,6 +28,8 @@ import {connect} from "react-redux";
     )
 }*/
 
+
+
 const mapStateToProps = (state: AppStateType) => {
     return {
         profilePage: state.profilePage
@@ -37,7 +39,7 @@ const mapStateToProps = (state: AppStateType) => {
 const mapDispatchToProps = (dispatch:Dispatch<ActionsType>) => {
     return {
         addPost: ()=>{dispatch(addPostAC())},
-        updNewPostText: (newPostText: string)=>{updNewPostTextAC(newPostText)},
+        updNewPostText: (newPostText: string)=>{dispatch(updNewPostTextAC(newPostText))},
     }
 }
 
