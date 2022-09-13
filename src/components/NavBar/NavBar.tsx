@@ -13,6 +13,9 @@ export const NavBar = () => {
                 <NavLink className={({ isActive }) =>  isActive ? `${st.active}` : `${st.item}`}  to="/dialogs">Messages</NavLink>
             </div>
             <div>
+                <NavLink className={({ isActive }) =>  isActive ? `${st.active}` : `${st.item}`}  to="/users">Users</NavLink>
+            </div>
+            <div>
                 <NavLink className={({ isActive }) =>  isActive ? `${st.active}` : `${st.item}`}  to="/music">Music</NavLink>
             </div>
             <div>

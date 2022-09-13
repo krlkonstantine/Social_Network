@@ -18,7 +18,9 @@ let initProfileState: InitialProfileStateType = {
 const profileReducer = (state: InitialProfileStateType = initProfileState, action: ProfileReducerType): InitialProfileStateType => {
     if (action.type === ADD_NEW_POST) {
         let newPost: PostsTextsType = {id: 4, messageText: state.newPostText, likeCount: '0'}
-        return{...state,posts:[newPost,...state.posts], newPostText: ""}
+        if (state.newPostText) {
+            return{...state,posts:[newPost,...state.posts], newPostText: ""}
+        }
     } else if (action.type === UPD_NEW_POST_TEXT) {
         return {...state, newPostText:action.payload.value}
     }

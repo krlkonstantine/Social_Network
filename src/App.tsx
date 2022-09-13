@@ -5,10 +5,10 @@ import {NavBar} from "./components/NavBar/NavBar";
 import {Profile} from "./components/Profile/Profile";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
-import {Friends} from "./components/Friends/Friends";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {FriendsContainer} from "./components/Friends/FriendsContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 type AppPropsType = {
 
@@ -28,6 +28,7 @@ let App = (props: AppPropsType) => {
                         <Route path="/friends" element={<FriendsContainer/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>
+                        <Route path="/users" element={<UsersContainer/>}/>
                     </Routes>
                 </div>
             </div>
