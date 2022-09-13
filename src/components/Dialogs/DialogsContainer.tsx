@@ -11,8 +11,6 @@ type mapStateToPropsType = {
     name: string
 }
 
-//задача этой фн превратить часть стейта в пропсы
-//чтомы мыоттуда взяли что нам надо и вернули объект с данными
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         dialogsPage: state.dialogsPage,
@@ -20,12 +18,12 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         name: "panda",
     }
 }
-//задача этой фн превратить часть коллбэков в пропсы
-//диспатч приходит сюда как store.dispatch(bind(store))
-let mapDispatchToProps = (dispatch: Dispatch<ActionsType>) => {
+type mapDispatchToPropsType = {
+    sendMessageCallback: () => void
+    changeMessageText: (newMessageText: string) => void
+}
+let mapDispatchToProps = (dispatch: Dispatch<ActionsType>): mapDispatchToPropsType => {
     return {
-        //стора у нас уже не будет
-        //sendMessageCallback: ()=> {store.dispatch(sendNewMsgAC())} ,
         sendMessageCallback: () => {
             dispatch(sendNewMsgAC())
         },

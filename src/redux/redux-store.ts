@@ -1,8 +1,9 @@
 import React from 'react';
-import {combineReducers,createStore} from 'redux';
+import {combineReducers, createStore} from 'redux';
 import dialogsReducer, {DialogsReducerType} from "./dialogs-reducers";
 import profileReducer, {ProfileReducerType} from "./profile-reducers";
 import friendsReducer, {FriendsReducerType} from "./friends-reducers";
+import usersReducer, {UserReducerType} from "./users-reducers";
 
 export type FriendType = {
     id: number
@@ -30,15 +31,26 @@ export type ProfilePageType = {
     posts: Array<PostsTextsType>
     newPostText: string
 }
+type LocationType = {
+    country: string
+    city: string
+}
+export type UserType = {
+    userId: number
+    userFollowed: boolean
+    userFullName: string
+    userStatus: string
+    userLocation: LocationType
+}
 
 export const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     profilePage: profileReducer,
-    friends:friendsReducer
+    friends: friendsReducer,
+    usersPage: usersReducer
 })
 
 export let store = createStore(rootReducer)
 export type AppStateType = ReturnType<typeof rootReducer>
+export type ActionsType = ProfileReducerType | DialogsReducerType | FriendsReducerType | UserReducerType
 
-export type StoreType = typeof store
-export type ActionsType = ProfileReducerType | DialogsReducerType | FriendsReducerType
