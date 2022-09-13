@@ -11,31 +11,6 @@ type mapStateToPropsType = {
     name: string
 }
 
-/*export const DialogsContainer = (props: DialogsPropsType) => {
-
-
-    return (
-        <StoreContext.Consumer>
-            {
-                (value) => {
-                    const sendMessageFnc = () => value.dispatch(sendNewMsgAC())
-                    const onMsgTextChangeFnc = (newMessageText: string) => value.dispatch(updNewMsgTextAC(newMessageText))
-
-                    return <Dialogs avatar={"ghhghg"}
-                                    name={"panda"}
-                                    dialogsPage={value.getState().dialogsPage}
-                                    //dispatch={value.dispatch}
-                                    sendMessageCallback={sendMessageFnc}
-                                    changeMessageText={onMsgTextChangeFnc}
-                    />
-                }
-
-
-            }
-        </StoreContext.Consumer>
-    )
-}*/
-
 //задача этой фн превратить часть стейта в пропсы
 //чтомы мыоттуда взяли что нам надо и вернули объект с данными
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {

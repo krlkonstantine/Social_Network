@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Dispatch} from "react";
+import React, {ChangeEvent} from "react";
 import {Post} from "./Post/Post";
 import myPosts from "./MyPosts.module.css"
 import {ProfilePageType} from "../../../redux/redux-store";

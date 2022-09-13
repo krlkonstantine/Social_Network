@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Dispatch} from "react";
+import React, {ChangeEvent} from "react";
 import dlg from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./Message/Message";

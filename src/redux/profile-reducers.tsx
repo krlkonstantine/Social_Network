@@ -1,5 +1,5 @@
 import React from 'react';
-import {PostsTextsType, ProfilePageType, store} from "./redux-store";
+import {PostsTextsType, ProfilePageType} from "./redux-store";
 
 const ADD_NEW_POST = 'ADD-NEW-POST'
 const UPD_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -17,16 +17,10 @@ let initProfileState: InitialProfileStateType = {
 
 const profileReducer = (state: InitialProfileStateType = initProfileState, action: ProfileReducerType): InitialProfileStateType => {
     if (action.type === ADD_NEW_POST) {
-        debugger;
         let newPost: PostsTextsType = {id: 4, messageText: state.newPostText, likeCount: '0'}
-        let stateCopy = {...state}
-        stateCopy.posts.unshift(newPost)
-        stateCopy.newPostText = ""
-        return stateCopy
+        return{...state,posts:[newPost,...state.posts], newPostText: ""}
     } else if (action.type === UPD_NEW_POST_TEXT) {
-        let stateCopy1 = {...state}
-        stateCopy1.newPostText = action.payload.value
-        return stateCopy1
+        return {...state, newPostText:action.payload.value}
     }
     return state
 }

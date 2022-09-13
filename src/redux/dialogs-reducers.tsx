@@ -5,7 +5,7 @@ const SEND_NEW_MSG = 'SEND-NEW-MSG'
 const UPD_NEW_MSG_TEXT = 'UPDATE-NEW-MSG-TEXT'
 export type InitialDialogsStateType = DialogsPageType
 
-let initDialogState:InitialDialogsStateType = {
+let initDialogState: InitialDialogsStateType = {
     dialogs: [
         {id: 1, name: "Dimych"},
         {id: 2, name: "Sandu"},
@@ -27,18 +27,19 @@ let initDialogState:InitialDialogsStateType = {
     newMessageText: "Hi"
 }
 
-const dialogsReducer = (state: DialogsPageType = initDialogState, action: DialogsReducerType):InitialDialogsStateType => {
+const dialogsReducer = (state: DialogsPageType = initDialogState, action: DialogsReducerType): InitialDialogsStateType => {
+
+    let stateCopy
+
     switch (action.type) {
         case SEND_NEW_MSG:
-            let newMessage: MessagesTextsType = {id: 4, messageText: state.newMessageText}
-            state.messages.push(newMessage)
-            state.newMessageText = ""
-            return state
-
+            let newMessage: MessagesTextsType = {id: 7, messageText: state.newMessageText}
+            return {...state, newMessageText: "", messages: [...state.messages, newMessage]}
+            //stateCopy.messages.push(newMessage)
+            //return stateCopy
         case UPD_NEW_MSG_TEXT:
-            state.newMessageText = action.newMsgText
-            return state
-
+            stateCopy = {...state, newMessageText: action.payload.newMessageText}
+            return stateCopy
         default:
             return state
     }
@@ -55,7 +56,9 @@ type UpdNewMsgTextAC = ReturnType<typeof updNewMsgTextAC>
 export const updNewMsgTextAC = (newMessageText: string) => {
     return {
         type: UPD_NEW_MSG_TEXT,
-        newMsgText: newMessageText
+        payload: {
+            newMessageText
+        }
     } as const
 }
 
