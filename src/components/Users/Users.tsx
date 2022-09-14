@@ -9,9 +9,8 @@ export const Users = (props: UsersPropsType) => {
         props.unFollowUserCallback(userId)
     }
     const onFollowClickHandler = (userId:number) => {
-        props.unFollowUserCallback(userId)
+        props.followUserCallback(userId)
     }
-
     if (props.usersPage.users.length ===0){
         props.setUsersCallback([
             {
