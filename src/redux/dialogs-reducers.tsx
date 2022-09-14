@@ -1,11 +1,26 @@
 import React from 'react';
-import {DialogsPageType, MessagesTextsType} from "./redux-store";
 
 const SEND_NEW_MSG = 'SEND-NEW-MSG'
 const UPD_NEW_MSG_TEXT = 'UPDATE-NEW-MSG-TEXT'
-export type InitialDialogsStateType = DialogsPageType
 
-let initDialogState: InitialDialogsStateType = {
+export type DialogsTextsType = {
+    id: number
+    name: string
+}
+export type MessagesTextsType = {
+    id: number
+    messageText: string
+}
+
+export type DialogsPageType = {
+    dialogs: Array<DialogsTextsType>
+    messages: Array<MessagesTextsType>
+    newMessageText: string
+}
+
+export type InitialDialogsStateType = typeof initDialogState
+
+let initDialogState = {
     dialogs: [
         {id: 1, name: "Dimych"},
         {id: 2, name: "Sandu"},
@@ -14,7 +29,7 @@ let initDialogState: InitialDialogsStateType = {
         {id: 5, name: "Vadim"},
         {id: 6, name: "Gagiu"},
         {id: 7, name: "Catherine"},
-    ],
+    ] as Array<DialogsTextsType>,
     messages: [
         {id: 7, messageText: "Hi there"},
         {id: 1, messageText: "Does it really works??"},
@@ -23,11 +38,11 @@ let initDialogState: InitialDialogsStateType = {
         {id: 4, messageText: "Lorem ipsum dolor"},
         {id: 5, messageText: "The price per unit is"},
         {id: 6, messageText: "Please do not..."},
-    ],
+    ] as Array<MessagesTextsType>,
     newMessageText: "Hi"
 }
 
-const dialogsReducer = (state: DialogsPageType = initDialogState, action: DialogsReducerType): InitialDialogsStateType => {
+const dialogsReducer = (state: InitialDialogsStateType = initDialogState, action: DialogsReducerType): InitialDialogsStateType => {
 
     let stateCopy
 

@@ -1,90 +1,68 @@
-import React, {Dispatch} from "react";
-import dlg from "../Dialogs/Dialogs.module.css";
-import {FriendType, UserType} from "../../redux/redux-store";
+import React from "react";
+import styles from "./Users.module.css";
+import {UsersPropsType} from "./UsersContainer";
 
 
-type UsersPageType = {
-    //friends: FriendType[]
-    followUserCallback: (userId:number)=> void
-    unFollowUserCallback: (userId:number)=> void
-    setUsersCallback: (users:UserType[])=> void
-}
+export const Users = (props: UsersPropsType) => {
 
+    const onUnfollowClickHandler = (userId:number) => {
+        props.unFollowUserCallback(userId)
+    }
+    const onFollowClickHandler = (userId:number) => {
+        props.unFollowUserCallback(userId)
+    }
 
-export const Users = (props: UsersPageType) => {
-    let users: UserType[] = [
-        {
-            userId: 1,
-            userFollowed: true,
-            userFullName: 'Timur Smirnov',
-            userStatus: 'Practicing yoga',
-            userLocation: {country: 'Belarus', city: 'Minsk'}
-        },
-        {
-            userId: 2,
-            userFollowed: true,
-            userFullName: 'Alexander Popov',
-            userStatus: 'Looking for a  girlfriend',
-            userLocation: {country: 'France', city: 'Paris'}
-        },
-        {
-            userId: 3,
-            userFollowed: false,
-            userFullName: 'Vadim Stinga',
-            userStatus: 'Spending time with my baby',
-            userLocation: {country: 'Moldova', city: 'Balts'}
-        },
-        {
-            userId: 4,
-            userFollowed: true,
-            userFullName: 'Nastasiale Emotsionale',
-            userStatus: 'Getting ready for an Ayahuasca session',
-            userLocation: {country: 'Germany', city: 'Düsseldorf'}
-        },
-        {
-            userId: 5,
-            userFollowed: true,
-            userFullName: 'Viktor Kushnirov',
-            userStatus: 'Playing in a rock band',
-            userLocation: {country: 'Moldova', city: 'Soroca'}
-        },
-        {
-            userId: 6,
-            userFollowed: false,
-            userFullName: 'Nicu Gagiu',
-            userStatus: 'Cutting people for treatment reasons',
-            userLocation: {country: 'Moldova', city: 'Kishinau'}
-        },
-        {
-            userId: 7,
-            userFollowed: false,
-            userFullName: 'Vlad Filipenko',
-            userStatus: 'Looking for a spiritual teacher',
-            userLocation: {country: 'Transnistria', city: 'Rybnitsa'}
-        },
-        {
-            userId: 8,
-            userFollowed: false,
-            userFullName: 'Dmitry Rabiy',
-            userStatus: 'Trying t be the best doctor',
-            userLocation: {country: 'Moldova', city: 'Kishinau'}
-        },
-    ]
-
-let usersElement = users.map(el=>el.userFullName)
+    if (props.usersPage.users.length ===0){
+        props.setUsersCallback([
+            {
+                userId: 1,
+                userImgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo3bPjZ2rUluAWsPaZpcYUkjCVozuYupnxNg&usqp=CAU",
+                userFollowed: true,
+                userFullName: 'Timur Smirnov',
+                userStatus: 'Practicing yoga',
+                userLocation: {country: 'Belarus', city: 'Minsk'}
+            },
+            {
+                userId: 2,
+                userImgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo3bPjZ2rUluAWsPaZpcYUkjCVozuYupnxNg&usqp=CAU",
+                userFollowed: true,
+                userFullName: 'Alexander Popov',
+                userStatus: 'Looking for a  girlfriend',
+                userLocation: {country: 'France', city: 'Paris'}
+            },
+            {
+                userId: 3,
+                userImgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo3bPjZ2rUluAWsPaZpcYUkjCVozuYupnxNg&usqp=CAU",
+                userFollowed: false,
+                userFullName: 'Vadim Stinga',
+                userStatus: 'Spending time with my baby',
+                userLocation: {country: 'Moldova', city: 'Balts'}
+            },
+        ])
+    }
     return (
+        <div className={styles.isActive}>
 
-        <div className={dlg.isActive}>
-            {usersElement}
+            {props.usersPage.users.map(el => <div key={el.userId}>
+                <span>
+                    <div><img className={styles.useAvatar} src={el.userImgURL} alt=""/></div>
+                    <div>{el.userFollowed
+                        ? <button onClick={()=>onUnfollowClickHandler(el.userId)}>unfollow</button>
+                        : <button onClick={()=>onFollowClickHandler(el.userId)}>follow</button>}
+                        </div>
+                </span>
+                <span>
+                    <span><div>{el.userFullName}</div>
+                            <div>{el.userStatus}</div>
+                    </span>
+                    <span>
+                        <div>{el.userLocation.country}</div>
+                        <div>{el.userLocation.city}</div>
+                    </span>
+                </span>
+            </div>)}
         </div>
     )
 }
 
-/*const UserItem = (props: FriendType) => {
-    return (
-        <div>
-            {users.userFullName}
-        </div>
-    )
-}*/
 

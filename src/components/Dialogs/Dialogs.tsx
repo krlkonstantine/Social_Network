@@ -2,13 +2,12 @@ import React, {ChangeEvent} from "react";
 import dlg from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./Message/Message";
-import {DialogsPageType} from "../../redux/redux-store";
+import {DialogsPageType} from "../../redux/dialogs-reducers";
 
 type DialogsPropsType = {
     name: string
     avatar: string
     dialogsPage: DialogsPageType
-    //dispatch: Dispatch<ActionsType>
     sendMessageCallback: () => void
     changeMessageText: (newMessageText: string) => void
 }

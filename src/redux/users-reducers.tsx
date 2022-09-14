@@ -1,30 +1,32 @@
 import React from 'react';
 import {UserType} from "./redux-store";
 
-type InitialUsersState = Array<UserType>
 const FOLLOW = 'FOLLOW-THIS-USER'
 const UNFOLLOW = 'UNFOLLOW-THIS-USER'
 const SET_USERS = 'SET_USERS'
 
-type InitialUsersStateType = {
+export type InitialUsersStateType = {
     users: UserType[]
 }
 
-const initialUsersState ={
-    users:[]
+const initialUsersState = {
+    users: []
 }
-
-
-
 
 const usersReducer = (state: InitialUsersStateType = initialUsersState, action: UserReducerType): InitialUsersStateType => {
     switch (action.type) {
         case FOLLOW:
-            return {...state,users : state.users.map(el=>el.userId===action.payload.userId ? {...el,userFollowed:true} : el)}
+            return {
+                ...state,
+                users: state.users.map(el => el.userId === action.payload.userId ? {...el, userFollowed: true} : el)
+            }
         case UNFOLLOW:
-            return {...state, users: state.users.map(el=>el.userId===action.payload.userId? {...el,userFollowed:false} : el )}
+            return {
+                ...state,
+                users: state.users.map(el => el.userId === action.payload.userId ? {...el, userFollowed: false} : el)
+            }
         case SET_USERS:
-            return {...state, users : {...state.users, ...action.payload.users}}
+            return {...state, users: {...state.users, ...action.payload.users}}
         default:
             return state
     }

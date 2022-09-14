@@ -9,15 +9,15 @@ export type FriendType = {
     id: number
     name: string
 }
-export type DialogsTextsType = {
+ type DialogsTextsType = {
     id: number
     name: string
 }
-export type MessagesTextsType = {
+ type MessagesTextsType = {
     id: number
     messageText: string
 }
-export type DialogsPageType = {
+ type DialogsPageType = {
     dialogs: Array<DialogsTextsType>
     messages: Array<MessagesTextsType>
     newMessageText: string
@@ -37,10 +37,15 @@ type LocationType = {
 }
 export type UserType = {
     userId: number
+    userImgURL:string
     userFollowed: boolean
     userFullName: string
     userStatus: string
     userLocation: LocationType
+}
+
+export type usersPageType = {
+    users: UserType[]
 }
 
 export const rootReducer = combineReducers({

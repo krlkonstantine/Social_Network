@@ -1,8 +1,15 @@
-import React, {Dispatch} from "react";
+import React from "react";
+import {Dispatch} from "redux";
 import {connect} from "react-redux";
-import {ActionsType, AppStateType, UserType} from "../../redux/redux-store";
+import {ActionsType, AppStateType, usersPageType, UserType} from "../../redux/redux-store";
 import {Users} from "./Users";
-import {followUserAC, setUsersAC, unFollowUserAC} from "../../redux/users-reducers";
+import {followUserAC, InitialUsersStateType, setUsersAC, unFollowUserAC} from "../../redux/users-reducers";
+
+
+
+type MapStateToPropsType = {
+    usersPage: InitialUsersStateType
+}
 
 type MapDispatchToPropsType = {
     followUserCallback: (userId: number) => void
@@ -10,14 +17,15 @@ type MapDispatchToPropsType = {
     setUsersCallback: (users:UserType[]) => void
 }
 
+export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-let mapStateToProps = (state: AppStateType) => {
+let mapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
-        users: state.usersPage
+        usersPage: state.usersPage
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch<ActionsType>): MapDispatchToPropsType => {
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         followUserCallback: (userId: number) => {
             dispatch(followUserAC(userId))
@@ -25,7 +33,8 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionsType>): MapDispatchToPropsTy
         unFollowUserCallback: (userId: number) => {
             dispatch(unFollowUserAC(userId))
         },
-        setUsersCallback: (users:UserType[]) => {dispatch(setUsersAC(users))}
+        setUsersCallback: (users:UserType[]) => {
+            dispatch(setUsersAC(users))}
     }
 }
 
