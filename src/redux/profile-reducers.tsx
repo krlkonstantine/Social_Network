@@ -9,7 +9,8 @@ let initProfileState: InitialProfileStateType = {
     posts: [
         {id: 1, messageText: "Hello everybody!", likeCount: '15'},
         {id: 2, messageText: "Is anybody here?", likeCount: '15'},
-        {id: 3, messageText: "Here's the first post o.O!", likeCount: '20'},
+        {id: 3, messageText: "Well, let's meet each other!", likeCount: '20'},
+        {id: 4, messageText: "Here's the first post o.O!", likeCount: '20'},
     ],
     newPostText: "it-kamasutra.com"
 }
