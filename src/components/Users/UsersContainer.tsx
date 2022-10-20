@@ -1,7 +1,7 @@
 import React from "react";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
-import {ActionsType, AppStateType, usersPageType, UserType} from "../../redux/redux-store";
+import {AppStateType, UserType} from "../../redux/redux-store";
 import {Users} from "./Users";
 import {followUserAC, InitialUsersStateType, setUsersAC, unFollowUserAC} from "../../redux/users-reducers";
 
@@ -18,6 +18,8 @@ type MapDispatchToPropsType = {
 }
 
 export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+const CloseFriends = []
 
 let mapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
