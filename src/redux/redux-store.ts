@@ -36,12 +36,12 @@ type LocationType = {
     city: string
 }
 export type UserType = {
-    userId: number
-    userImgURL:string
-    userFollowed: boolean
-    userFullName: string
-    userStatus: string
-    userLocation: LocationType
+    id: number
+    photos: { small:string,large:string }
+    followed: boolean
+    name: string
+    status: string
+    //userLocation: LocationType
 }
 
 export type usersPageType = {

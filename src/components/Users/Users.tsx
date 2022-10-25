@@ -1,6 +1,9 @@
 import React from "react";
 import styles from "./Users.module.css";
 import {UsersPropsType} from "./UsersContainer";
+import axios from "axios";
+import {UserType} from "../../redux/redux-store";
+import  default_avatar from '../../assets/images/default_avatar.jpg'
 
 
 export const Users = (props: UsersPropsType) => {
@@ -12,7 +15,10 @@ export const Users = (props: UsersPropsType) => {
         props.followUserCallback(userId)
     }
     if (props.usersPage.users.length ===0){
-        props.setUsersCallback([
+        axios.get<any>('https://social-network.samuraijs.com/api/1.0/users').then(response =>{
+            props.setUsersCallback(response.data.items)
+        })
+        /*props.setUsersCallback([
             {
                 userId: 1,
                 userImgURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo3bPjZ2rUluAWsPaZpcYUkjCVozuYupnxNg&usqp=CAU",
@@ -37,26 +43,26 @@ export const Users = (props: UsersPropsType) => {
                 userStatus: 'Spending time with my baby',
                 userLocation: {country: 'Moldova', city: 'Balts'}
             },
-        ])
+        ])*/
     }
     return (
         <div className={styles.isActive}>
 
-            {props.usersPage.users.map(el => <div key={el.userId}>
+            {props.usersPage.users.map(el => <div key={el.id}>
                 <span>
-                    <div><img className={styles.useAvatar} src={el.userImgURL} alt=""/></div>
-                    <div>{el.userFollowed
-                        ? <button onClick={()=>onUnfollowClickHandler(el.userId)}>unfollow</button>
-                        : <button onClick={()=>onFollowClickHandler(el.userId)}>follow</button>}
+                    <div><img className={styles.useAvatar} src={el.photos.small ? el.photos.small : default_avatar} alt=""/></div>
+                    <div>{el.followed
+                        ? <button onClick={()=>onUnfollowClickHandler(el.id)}>unfollow</button>
+                        : <button onClick={()=>onFollowClickHandler(el.id)}>follow</button>}
                         </div>
                 </span>
                 <span>
-                    <span><div>{el.userFullName}</div>
-                            <div>{el.userStatus}</div>
+                    <span><div>{el.name}</div>
+                            <div>{el.status}</div>
                     </span>
                     <span>
-                        <div>{el.userLocation.country}</div>
-                        <div>{el.userLocation.city}</div>
+                        <div>'userCountry'</div>
+                        <div>'userCity'</div>
                     </span>
                 </span>
             </div>)}
