@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./Users.module.css";
-import {UsersPropsType} from "./UsersContainer";
 import axios from "axios";
 import {UserType} from "../../redux/redux-store";
 import  default_avatar from '../../assets/images/default_avatar.jpg'
@@ -27,7 +26,7 @@ type MapDispatchToPropsType = {
 type usersPropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
 
 
-export class Users_Class extends React.Component<usersPropsType, StateType>{
+export class Users extends React.Component<usersPropsType, StateType>{
 
 
     onUnfollowClickHandler = (userId:number) => {
