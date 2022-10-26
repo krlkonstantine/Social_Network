@@ -14,10 +14,14 @@ export const Users = (props: UsersPropsType) => {
     const onFollowClickHandler = (userId:number) => {
         props.followUserCallback(userId)
     }
-    if (props.usersPage.users.length ===0){
-        axios.get<any>('https://social-network.samuraijs.com/api/1.0/users').then(response =>{
-            props.setUsersCallback(response.data.items)
-        })
+    const onShowUsersClickHandler = () => {
+        if (props.usersPage.users.length ===0) {
+            axios.get<any>('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                props.setUsersCallback(response.data.items)
+            })
+        }
+    }
+
         /*props.setUsersCallback([
             {
                 userId: 1,
@@ -44,9 +48,11 @@ export const Users = (props: UsersPropsType) => {
                 userLocation: {country: 'Moldova', city: 'Balts'}
             },
         ])*/
-    }
+
     return (
+
         <div className={styles.isActive}>
+            <button onClick={onShowUsersClickHandler}>Show Users</button>
 
             {props.usersPage.users.map(el => <div key={el.id}>
                 <span>
