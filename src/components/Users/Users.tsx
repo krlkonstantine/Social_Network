@@ -28,6 +28,11 @@ type usersPropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsTyp
 
 export class Users extends React.Component<usersPropsType, StateType>{
 
+    constructor(props:usersPropsType) {
+        super(props)
+            axios.get<any>('https://social-network.samuraijs.com/api/1.0/users')
+                .then(response => this.props.setUsersCallback(response.data.items))
+    }
 
     onUnfollowClickHandler = (userId:number) => {
         this.props.unFollowUserCallback(userId)
@@ -36,17 +41,16 @@ export class Users extends React.Component<usersPropsType, StateType>{
         this.props.followUserCallback(userId)
     }
     onShowUsersClickHandler = () => {
-        if (this.props.usersPage.users.length ===0) {
+        /*if (this.props.usersPage.users.length ===0) {
             axios.get<any>('https://social-network.samuraijs.com/api/1.0/users').then(response => {
                 this.props.setUsersCallback(response.data.items)
             })
-        }
+        }*/
     }
 
     render(){
         return(
         <div className={styles.isActive}>
-            <button onClick={this.onShowUsersClickHandler}>Show Users</button>
 
             {this.props.usersPage.users.map((el:UserType) => <div key={el.id}>
                 <span>
