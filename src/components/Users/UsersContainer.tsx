@@ -2,16 +2,16 @@ import React from "react";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {AppStateType, UserType} from "../../redux/redux-store";
-import {Users} from "./Users";
+import {Users_Class} from "./Users_Class";
 import {followUserAC, InitialUsersStateType, setUsersAC, unFollowUserAC} from "../../redux/users-reducers";
 
 
 
-type MapStateToPropsType = {
+export type MapStateToPropsType = {
     usersPage: InitialUsersStateType
 }
 
-type MapDispatchToPropsType = {
+export type MapDispatchToPropsType = {
     followUserCallback: (userId: number) => void
     unFollowUserCallback: (userId: number) => void
     setUsersCallback: (users:UserType[]) => void
@@ -19,7 +19,6 @@ type MapDispatchToPropsType = {
 
 export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
-const CloseFriends = []
 
 let mapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
@@ -40,5 +39,5 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     }
 }
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users_Class)
 
