@@ -10,7 +10,9 @@ export type InitialUsersStateType = {
 }
 
 const initialUsersState = {
-    users: []
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0
 }
 
 const usersReducer = (state: InitialUsersStateType = initialUsersState, action: UserReducerType): InitialUsersStateType => {

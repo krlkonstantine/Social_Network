@@ -1,4 +1,11 @@
-.useAvatar{
+.useAvatar {
     width: auto;
     height: 70px;
+}
+
+.selectedPage {
+    font-weight: 700;
+}
+.pageNumber {
+    margin-left: 5px;
 }

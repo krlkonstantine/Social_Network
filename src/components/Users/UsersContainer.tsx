@@ -9,6 +9,7 @@ import {Users} from "./Users";
 
 export type MapStateToPropsType = {
     usersPage: InitialUsersStateType
+    //pageSize: number
 }
 
 export type MapDispatchToPropsType = {
@@ -23,6 +24,7 @@ export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 let mapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
         usersPage: state.usersPage
+        //pageSize: state.usersPage.pageSize
     }
 }
 
