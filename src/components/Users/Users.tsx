@@ -1,96 +1,45 @@
-import React from "react";
+import React from 'react';
 import styles from "./Users.module.css";
-import axios from "axios";
 import {UserType} from "../../redux/redux-store";
-import default_avatar from '../../assets/images/default_avatar.jpg'
+import default_avatar from "../../assets/images/default_avatar.jpg";
 import {InitialUsersStateType} from "../../redux/users-reducers";
 
-type StateType = {
+type UserPropsType = {
+    onPageChanged: (p: number) => void
+    onUnfollowClickHandler: (id: number) => void
+    onFollowClickHandler: (id: number) => void
     usersPage: InitialUsersStateType
-    pageSize: number
     totalUsersCount: number
+    pageSize: number
     currentPageNo: number
 }
+export const Users = (props: UserPropsType) => {
 
-type OwnPropsType = {
-    usersPage: InitialUsersStateType
-}
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    let pages = []
 
-type MapStateToPropsType = {
-    usersPage: InitialUsersStateType
-    pageSize: number
-    totalUsersCount: number
-    currentPageNo: number
-}
-
-type MapDispatchToPropsType = {
-    followUserCallback: (userId: number) => void
-    unFollowUserCallback: (userId: number) => void
-    setUsersCallback: (users: UserType[]) => void
-    onUsersPagNoClickHandlerCallback: (newCurrentPage: number) => void
-    setTotalUsersCountCallback: (totalCount: number) => void
-}
-
-type usersPropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
-
-
-export class Users extends React.Component<usersPropsType, StateType> {
-
-    constructor(props: usersPropsType) {
-        super(props)
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
-    onUnfollowClickHandler = (userId: number) => {
-        this.props.unFollowUserCallback(userId)
-    }
-    onFollowClickHandler = (userId: number) => {
-        this.props.followUserCallback(userId)
-    }
-    onUsersPagNoClickHandler = (newCurrentPageNo: number) => {
-        this.props.onUsersPagNoClickHandlerCallback(newCurrentPageNo)
-    }
-    onPageChanged = (newPageNumber: number) => {
-        this.onUsersPagNoClickHandler(newPageNumber)
-        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${newPageNumber}&count=${this.props.pageSize}`)
-            .then(response => this.props.setUsersCallback(response.data.items))
-    }
-
-    componentDidMount() {
-        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPageNo}&count=${this.props.pageSize}`)
-            .then(response => {
-                    this.props.setUsersCallback(response.data.items)
-                    this.props.setTotalUsersCountCallback(response.data.totalCount)
-                }
-            )
-    }
-
-    render() {
-
-        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
-        let pages = []
-
-        for (let i = 1; i <= pagesCount; i++) {
-            pages.push(i)
-        }
-
-        return (
-            <div className={styles.isActive}>
-                <div>
-                    {pages.map(p => {
-                        return <span onClick={() => this.onPageChanged(p)}
-                                     className={p === this.props.currentPageNo ? styles.selectedPage : styles.pageNumber}>{p}</span>
-                    })}
-                </div>
-                {this.props.usersPage.users.map((el: UserType) => <div key={el.id}>
+    return (
+        <div className={styles.isActive}>
+            <div>
+                {pages.map(p => {
+                    return <span onClick={() => props.onPageChanged(p)}
+                                 className={p === props.currentPageNo ? styles.selectedPage : styles.pageNumber}>{p}</span>
+                })}
+            </div>
+            {props.usersPage.users.map((el: UserType) => <div key={el.id}>
                 <span>
                     <div><img className={styles.useAvatar} src={el.photos.small ? el.photos.small : default_avatar}
                               alt=""/></div>
                     <div>{el.followed
-                        ? <button onClick={() => this.onUnfollowClickHandler(el.id)}>unfollow</button>
-                        : <button onClick={() => this.onFollowClickHandler(el.id)}>follow</button>}
+                        ? <button onClick={() => props.onUnfollowClickHandler(el.id)}>unfollow</button>
+                        : <button onClick={() => props.onFollowClickHandler(el.id)}>follow</button>}
                         </div>
                 </span>
-                    <span>
+                <span>
                     <span><div>{el.name}</div>
                             <div>{el.status}</div>
                     </span>
@@ -99,9 +48,7 @@ export class Users extends React.Component<usersPropsType, StateType> {
                         <div>'userCity'</div>
                     </span>
                 </span>
-                </div>)}
-            </div>
-        )
-    }
-}
-
+            </div>)}
+        </div>
+    );
+};

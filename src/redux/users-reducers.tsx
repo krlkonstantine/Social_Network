@@ -94,5 +94,4 @@ export const setTotalCountAC = (totalCount:number) => {
     } as const
 }
 
-
 export default usersReducer
