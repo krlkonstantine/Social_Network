@@ -52,7 +52,7 @@ export class Users extends React.Component<usersPropsType, StateType> {
 
     render() {
 
-        let pagesCount  = this.props.totalUsersCount / this.props.pageSize
+        let pagesCount  = Math.ceil( this.props.totalUsersCount / this.props.pageSize)
         let pages = []
 
         for (let i=1;i<=pagesCount;i++){
