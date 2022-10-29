@@ -7,6 +7,9 @@ import {InitialUsersStateType} from "../../redux/users-reducers";
 
 type StateType = {
     usersPage: InitialUsersStateType
+    pageSize: number
+    totalUsersCount: number
+    currentPageNo: number
 }
 
 type OwnPropsType = {
@@ -15,6 +18,9 @@ type OwnPropsType = {
 
 type MapStateToPropsType = {
     usersPage: InitialUsersStateType
+    pageSize: number
+    totalUsersCount: number
+    currentPageNo: number
 }
 
 type MapDispatchToPropsType = {
@@ -45,14 +51,20 @@ export class Users extends React.Component<usersPropsType, StateType> {
     }
 
     render() {
+
+        let pagesCount  = this.props.totalUsersCount / this.props.pageSize
+        let pages = []
+
+        for (let i=1;i<=pagesCount;i++){
+            pages.push(i)
+        }
+
         return (
             <div className={styles.isActive}>
                 <div>
-                    <span className={styles.selectedPage}>1</span>
-                    <span className={styles.pageNumber}>2</span>
-                    <span className={styles.pageNumber}>3</span>
-                    <span className={styles.pageNumber}>4</span>
-                    <span className={styles.pageNumber}>5</span>
+                    {pages.map(p => {
+                       return <span className={ p === this.props.currentPageNo ? styles.selectedPage : styles.pageNumber}>{p}</span>
+                    })}
                 </div>
                 {this.props.usersPage.users.map((el: UserType) => <div key={el.id}>
                 <span>

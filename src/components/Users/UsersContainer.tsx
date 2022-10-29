@@ -11,6 +11,7 @@ export type MapStateToPropsType = {
     usersPage: InitialUsersStateType
     pageSize: number
     totalUsersCount: number
+    currentPageNo: number
 }
 
 export type MapDispatchToPropsType = {
@@ -19,14 +20,13 @@ export type MapDispatchToPropsType = {
     setUsersCallback: (users:UserType[]) => void
 }
 
-export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
-
 
 let mapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
         usersPage: state.usersPage,
         pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount
+        totalUsersCount: state.usersPage.totalUsersCount,
+        currentPageNo: state.usersPage.currentPageNo
     }
 }
 

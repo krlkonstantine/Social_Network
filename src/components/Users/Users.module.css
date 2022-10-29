@@ -5,6 +5,7 @@
 
 .selectedPage {
     font-weight: 700;
+    margin-left: 5px;
 }
 .pageNumber {
     margin-left: 5px;
