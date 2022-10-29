@@ -9,7 +9,8 @@ import {Users} from "./Users";
 
 export type MapStateToPropsType = {
     usersPage: InitialUsersStateType
-    //pageSize: number
+    pageSize: number
+    totalUsersCount: number
 }
 
 export type MapDispatchToPropsType = {
@@ -23,8 +24,9 @@ export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 let mapStateToProps = (state: AppStateType):MapStateToPropsType => {
     return {
-        usersPage: state.usersPage
-        //pageSize: state.usersPage.pageSize
+        usersPage: state.usersPage,
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount
     }
 }
 
