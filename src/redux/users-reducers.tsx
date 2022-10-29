@@ -19,7 +19,7 @@ const initialUsersState = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPageNo: 5
+    currentPageNo: 1
 }
 
 const usersReducer = (state: InitialUsersStateType = initialUsersState, action: UserReducerType): InitialUsersStateType => {
