@@ -5,7 +5,7 @@ import {AppStateType, UserType} from "../../redux/redux-store";
 import {
     followUserAC,
     InitialUsersStateType,
-    setCurrentPageAC,
+    setCurrentPageAC, setTotalCountAC,
     setUsersAC,
     unFollowUserAC,
 
@@ -18,6 +18,7 @@ export type MapStateToPropsType = {
     pageSize: number
     totalUsersCount: number
     currentPageNo: number
+    setTotalUsersCount: number
 }
 
 export type MapDispatchToPropsType = {
@@ -25,6 +26,7 @@ export type MapDispatchToPropsType = {
     unFollowUserCallback: (userId: number) => void
     setUsersCallback: (users: UserType[]) => void
     onUsersPagNoClickHandlerCallback: (newCurrentPage: number) => void
+    setTotalUsersCountCallback: (totalCount:number)=>void
 }
 
 
@@ -33,7 +35,8 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         usersPage: state.usersPage,
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
-        currentPageNo: state.usersPage.currentPageNo
+        currentPageNo: state.usersPage.currentPageNo,
+        setTotalUsersCount: state.usersPage.totalUsersCount
     }
 }
 
@@ -50,6 +53,9 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         },
         onUsersPagNoClickHandlerCallback: (newCurrentPage: number) => {
             dispatch(setCurrentPageAC(newCurrentPage))
+        },
+        setTotalUsersCountCallback: (totalCount:number) => {
+            dispatch(setTotalCountAC(totalCount))
         }
     }
 }

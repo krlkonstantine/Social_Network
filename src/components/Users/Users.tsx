@@ -1,4 +1,4 @@
-import React, {MouseEventHandler} from "react";
+import React from "react";
 import styles from "./Users.module.css";
 import axios from "axios";
 import {UserType} from "../../redux/redux-store";
@@ -27,7 +27,8 @@ type MapDispatchToPropsType = {
     followUserCallback: (userId: number) => void
     unFollowUserCallback: (userId: number) => void
     setUsersCallback: (users: UserType[]) => void
-    onUsersPagNoClickHandlerCallback:(newCurrentPage: number)=>void
+    onUsersPagNoClickHandlerCallback: (newCurrentPage: number) => void
+    setTotalUsersCountCallback: (totalCount: number) => void
 }
 
 type usersPropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
@@ -45,21 +46,30 @@ export class Users extends React.Component<usersPropsType, StateType> {
     onFollowClickHandler = (userId: number) => {
         this.props.followUserCallback(userId)
     }
-    onUsersPagNoClickHandler = (newCurrentPageNo: number) =>{
+    onUsersPagNoClickHandler = (newCurrentPageNo: number) => {
         this.props.onUsersPagNoClickHandlerCallback(newCurrentPageNo)
+    }
+    onPageChanged = (newPageNumber: number) => {
+        this.onUsersPagNoClickHandler(newPageNumber)
+        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${newPageNumber}&count=${this.props.pageSize}`)
+            .then(response => this.props.setUsersCallback(response.data.items))
     }
 
     componentDidMount() {
         axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPageNo}&count=${this.props.pageSize}`)
-            .then(response => this.props.setUsersCallback(response.data.items))
+            .then(response => {
+                    this.props.setUsersCallback(response.data.items)
+                    this.props.setTotalUsersCountCallback(response.data.totalCount)
+                }
+            )
     }
 
     render() {
 
-        let pagesCount  = Math.ceil( this.props.totalUsersCount / this.props.pageSize)
+        let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
         let pages = []
 
-        for (let i=1;i<=pagesCount;i++){
+        for (let i = 1; i <= pagesCount; i++) {
             pages.push(i)
         }
 
@@ -67,7 +77,8 @@ export class Users extends React.Component<usersPropsType, StateType> {
             <div className={styles.isActive}>
                 <div>
                     {pages.map(p => {
-                       return <span onClick={()=>this.onUsersPagNoClickHandler(p)} className={p === this.props.currentPageNo ? styles.selectedPage : styles.pageNumber}>{p}</span>
+                        return <span onClick={() => this.onPageChanged(p)}
+                                     className={p === this.props.currentPageNo ? styles.selectedPage : styles.pageNumber}>{p}</span>
                     })}
                 </div>
                 {this.props.usersPage.users.map((el: UserType) => <div key={el.id}>
