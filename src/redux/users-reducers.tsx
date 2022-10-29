@@ -4,6 +4,8 @@ import {UserType} from "./redux-store";
 const FOLLOW = 'FOLLOW-THIS-USER'
 const UNFOLLOW = 'UNFOLLOW-THIS-USER'
 const SET_USERS = 'SET_USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+
 
 export type InitialUsersStateType = {
     users: UserType[]
@@ -16,7 +18,7 @@ const initialUsersState = {
     users: [],
     pageSize: 5,
     totalUsersCount: 26,
-    currentPageNo: 1
+    currentPageNo: 5
 }
 
 const usersReducer = (state: InitialUsersStateType = initialUsersState, action: UserReducerType): InitialUsersStateType => {
@@ -33,14 +35,19 @@ const usersReducer = (state: InitialUsersStateType = initialUsersState, action: 
             }
         case SET_USERS:
             return {...state, users: [...state.users, ...action.payload.users]}
+       case SET_CURRENT_PAGE:
+            return {...state, currentPageNo : action.payload.newCurrentPage}
         default:
             return state
     }
 }
 
-export type UserReducerType = FollowUserACType | UnFollowUserACType | setUsersACType
+export type UserReducerType = FollowUserACType | UnFollowUserACType | setUsersACType | setCurrentPageACType
 
 type FollowUserACType = ReturnType<typeof followUserAC>
+type setUsersACType = ReturnType<typeof setUsersAC>
+type UnFollowUserACType = ReturnType<typeof unFollowUserAC>
+type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 
 export const followUserAC = (userId: number) => {
     return {
@@ -50,8 +57,6 @@ export const followUserAC = (userId: number) => {
         }
     } as const
 }
-
-type UnFollowUserACType = ReturnType<typeof unFollowUserAC>
 export const unFollowUserAC = (userId: number) => {
     return {
         type: UNFOLLOW,
@@ -60,14 +65,19 @@ export const unFollowUserAC = (userId: number) => {
         }
     } as const
 }
-
-type setUsersACType = ReturnType<typeof setUsersAC>
-
 export const setUsersAC = (users: UserType[]) => {
     return {
         type: SET_USERS,
         payload: {
             users
+        }
+    } as const
+}
+export const setCurrentPageAC = (newCurrentPage: number) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        payload: {
+            newCurrentPage
         }
     } as const
 }

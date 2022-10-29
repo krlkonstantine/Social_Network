@@ -1,4 +1,4 @@
-import React from "react";
+import React, {MouseEventHandler} from "react";
 import styles from "./Users.module.css";
 import axios from "axios";
 import {UserType} from "../../redux/redux-store";
@@ -27,6 +27,7 @@ type MapDispatchToPropsType = {
     followUserCallback: (userId: number) => void
     unFollowUserCallback: (userId: number) => void
     setUsersCallback: (users: UserType[]) => void
+    onUsersPagNoClickHandlerCallback:(newCurrentPage: number)=>void
 }
 
 type usersPropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
@@ -44,9 +45,12 @@ export class Users extends React.Component<usersPropsType, StateType> {
     onFollowClickHandler = (userId: number) => {
         this.props.followUserCallback(userId)
     }
+    onUsersPagNoClickHandler = (newCurrentPageNo: number) =>{
+        this.props.onUsersPagNoClickHandlerCallback(newCurrentPageNo)
+    }
 
     componentDidMount() {
-        axios.get<any>('https://social-network.samuraijs.com/api/1.0/users/')
+        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPageNo}&count=${this.props.pageSize}`)
             .then(response => this.props.setUsersCallback(response.data.items))
     }
 
@@ -63,7 +67,7 @@ export class Users extends React.Component<usersPropsType, StateType> {
             <div className={styles.isActive}>
                 <div>
                     {pages.map(p => {
-                       return <span className={ p === this.props.currentPageNo ? styles.selectedPage : styles.pageNumber}>{p}</span>
+                       return <span onClick={()=>this.onUsersPagNoClickHandler(p)} className={p === this.props.currentPageNo ? styles.selectedPage : styles.pageNumber}>{p}</span>
                     })}
                 </div>
                 {this.props.usersPage.users.map((el: UserType) => <div key={el.id}>
