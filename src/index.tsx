@@ -17,9 +17,5 @@ import {Provider} from "react-redux";
         document.getElementById('root')
     )
 
-/*rerenderEntireTree()
-store.subscribe(() => {
-    rerenderEntireTree()
-})*/
 
 reportWebVitals()
