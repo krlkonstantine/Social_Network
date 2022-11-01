@@ -129,7 +129,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+/*let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         followUserCallback: (userId: number) => {
             dispatch(followUserAC(userId))
@@ -150,7 +150,13 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
             dispatch(setToggleFetchingAC(isFetching))
         }
     }
-}
+}*/
 
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer)
+export const UsersContainer = connect(mapStateToProps, {
+    followUserCallback:followUserAC,
+    unFollowUserCallback:unFollowUserAC,
+    setUsersCallback:setUsersAC,
+    onUsersPagNoClickHandlerCallback:setCurrentPageAC,
+    setTotalUsersCountCallback:setTotalCountAC,
+    toggleFetchingCallback:setToggleFetchingAC})(UsersAPIContainer)
 
