@@ -1,33 +1,17 @@
 import React from "react";
-import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import {AppStateType, UserType} from "../../redux/redux-store";
 import axios from "axios";
 import {
-    followUserAC,
+    followUser,
     InitialUsersStateType,
-    setCurrentPageAC, setToggleFetchingAC, setTotalCountAC,
-    setUsersAC,
-    unFollowUserAC,
+    setCurrentPage, setToggleFetching, setTotalCount,
+    setUsers,
+    unFollowUser,
 
 } from "../../redux/users-reducers";
 import loading from "../../assets/images/loading.svg"
 import {Users} from "./Users";
-import styles from "Users.module.css"
-
-/*type MapStateToPropsType1 = {
-    usersPage: InitialUsersStateType
-    pageSize: number
-    totalUsersCount: number
-    currentPageNo: number
-}
-type MapDispatchToPropsType1 = {
-    followUserCallback: (userId: number) => void
-    unFollowUserCallback: (userId: number) => void
-    setUsersCallback: (users: UserType[]) => void
-    onUsersPagNoClickHandlerCallback: (newCurrentPage: number) => void
-    setTotalUsersCountCallback: (totalCount: number) => void
-}*/
 
 type StateType = {
     usersPage: InitialUsersStateType
@@ -42,38 +26,38 @@ type OwnPropsType = {
 type usersPropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
 
 
-export class UsersAPIContainer extends React.Component<usersPropsType, StateType>  {
+export class UsersAPIContainer extends React.Component<usersPropsType, StateType> {
 
     constructor(props: usersPropsType) {
         super(props)
     }
 
     onUnfollowClickHandler = (userId: number) => {
-        this.props.unFollowUserCallback(userId)
+        this.props.unFollowUser(userId)
     }
     onFollowClickHandler = (userId: number) => {
-        this.props.followUserCallback(userId)
+        this.props.followUser(userId)
     }
-    onUsersPagNoClickHandler = (newCurrentPageNo: number) => {
-        this.props.onUsersPagNoClickHandlerCallback(newCurrentPageNo)
+    setUsers = (newCurrentPageNo: number) => {
+        this.props.setCurrentPage(newCurrentPageNo)
     }
     onPageChanged = (newPageNumber: number) => {
-        this.onUsersPagNoClickHandler(newPageNumber)
-        this.props.toggleFetchingCallback(true)
+        this.props.setCurrentPage(newPageNumber)
+        this.props.setToggleFetching(true)
         axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${newPageNumber}&count=${this.props.pageSize}`)
             .then(response => {
-                this.props.toggleFetchingCallback(false)
-                this.props.setUsersCallback(response.data.items)
+                this.props.setToggleFetching(false)
+                this.props.setUsers(response.data.items)
             })
     }
 
     componentDidMount() {
-        this.props.toggleFetchingCallback(true)
+        this.props.setToggleFetching(true)
         axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPageNo}&count=${this.props.pageSize}`)
             .then(response => {
-                    this.props.toggleFetchingCallback(false)
-                    this.props.setUsersCallback(response.data.items)
-                    this.props.setTotalUsersCountCallback(response.data.totalCount)
+                    this.props.setToggleFetching(false)
+                    this.props.setUsers(response.data.items)
+                    this.props.setTotalCount(response.data.totalCount)
                 }
             )
     }
@@ -83,7 +67,7 @@ export class UsersAPIContainer extends React.Component<usersPropsType, StateType
             <>
                 {this.props.isFetching ?
                     <div>
-                        < img alt="loading"  src={loading}/>
+                        < img alt="loading" src={loading}/>
                     </div> : null}
                 <Users
                     onUnfollowClickHandler={this.onUnfollowClickHandler}
@@ -108,12 +92,12 @@ export type MapStateToPropsType = {
     isFetching: boolean
 }
 export type MapDispatchToPropsType = {
-    followUserCallback: (userId: number) => void
-    unFollowUserCallback: (userId: number) => void
-    setUsersCallback: (users: UserType[]) => void
-    onUsersPagNoClickHandlerCallback: (newCurrentPage: number) => void
-    setTotalUsersCountCallback: (totalCount: number) => void
-    toggleFetchingCallback: (isFetching: boolean) => void
+    followUser: (userId: number) => void
+    unFollowUser: (userId: number) => void
+    setUsers: (users: UserType[]) => void
+    setCurrentPage: (newCurrentPage: number) => void
+    setTotalCount: (totalCount: number) => void
+    setToggleFetching: (isFetching: boolean) => void
 }
 
 
@@ -152,11 +136,8 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }*/
 
-export const UsersContainer = connect(mapStateToProps, {
-    followUserCallback:followUserAC,
-    unFollowUserCallback:unFollowUserAC,
-    setUsersCallback:setUsersAC,
-    onUsersPagNoClickHandlerCallback:setCurrentPageAC,
-    setTotalUsersCountCallback:setTotalCountAC,
-    toggleFetchingCallback:setToggleFetchingAC})(UsersAPIContainer)
+export const UsersContainer = connect(mapStateToProps,
+    {
+        followUser, unFollowUser, setUsers, setCurrentPage, setTotalCount, setToggleFetching,
+    })(UsersAPIContainer)
 

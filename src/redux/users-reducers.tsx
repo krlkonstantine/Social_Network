@@ -58,14 +58,14 @@ export type UserReducerType = FollowUserACType
     | setTotalCountACType
     | toggleFetchingACType
 
-type FollowUserACType = ReturnType<typeof followUserAC>
-type setUsersACType = ReturnType<typeof setUsersAC>
-type UnFollowUserACType = ReturnType<typeof unFollowUserAC>
-type setCurrentPageACType = ReturnType<typeof setCurrentPageAC>
-type setTotalCountACType = ReturnType<typeof setTotalCountAC>
-type toggleFetchingACType = ReturnType<typeof setToggleFetchingAC>
+type FollowUserACType = ReturnType<typeof followUser>
+type setUsersACType = ReturnType<typeof setUsers>
+type UnFollowUserACType = ReturnType<typeof unFollowUser>
+type setCurrentPageACType = ReturnType<typeof setCurrentPage>
+type setTotalCountACType = ReturnType<typeof setTotalCount>
+type toggleFetchingACType = ReturnType<typeof setToggleFetching>
 
-export const followUserAC = (userId: number) => {
+export const followUser = (userId: number) => {
     return {
         type: FOLLOW,
         payload: {
@@ -73,7 +73,7 @@ export const followUserAC = (userId: number) => {
         }
     } as const
 }
-export const unFollowUserAC = (userId: number) => {
+export const unFollowUser = (userId: number) => {
     return {
         type: UNFOLLOW,
         payload: {
@@ -81,7 +81,7 @@ export const unFollowUserAC = (userId: number) => {
         }
     } as const
 }
-export const setUsersAC = (users: UserType[]) => {
+export const setUsers = (users: UserType[]) => {
     return {
         type: SET_USERS,
         payload: {
@@ -89,7 +89,7 @@ export const setUsersAC = (users: UserType[]) => {
         }
     } as const
 }
-export const setCurrentPageAC = (newCurrentPage: number) => {
+export const setCurrentPage = (newCurrentPage: number) => {
     return {
         type: SET_CURRENT_PAGE,
         payload: {
@@ -97,7 +97,7 @@ export const setCurrentPageAC = (newCurrentPage: number) => {
         }
     } as const
 }
-export const setTotalCountAC = (totalCount:number) => {
+export const setTotalCount = (totalCount:number) => {
     return {
         type: SET_TOTAL_COUNT,
         payload: {
@@ -105,7 +105,7 @@ export const setTotalCountAC = (totalCount:number) => {
         }
     } as const
 }
-export const setToggleFetchingAC = (isFetching:boolean) => {
+export const setToggleFetching = (isFetching:boolean) => {
     return {
         type: TOGGLE_IS_FETCHING,
         payload: {
