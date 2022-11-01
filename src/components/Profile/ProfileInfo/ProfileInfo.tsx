@@ -1,8 +1,19 @@
 import React from "react";
 import pf from './ProfileInfo.module.css';
+import {Preloader} from "../../common/Preloader/Preloader";
+import {ProfileType} from "../../../redux/redux-store";
 
-export const ProfileInfo = () => {
+type ProfileInfoPropsType = {
+    userProfilePage: any
+}
+
+export const ProfileInfo = (props: ProfileInfoPropsType) => {
+    if (!props.userProfilePage) {
+        return <Preloader/>
+    }
+
     return (
+
         <div>
             <div>
                 <img
@@ -10,7 +21,8 @@ export const ProfileInfo = () => {
                     alt=""/>
             </div>
             <div className={pf.profileInfoDescriptionBlock}>
-                avaatar + description
+                <img alt="avatar" src={props.userProfilePage?.photos?.large}/>
+                avatar + description
             </div>
         </div>
     )

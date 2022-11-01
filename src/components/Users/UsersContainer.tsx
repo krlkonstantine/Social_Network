@@ -23,6 +23,24 @@ type StateType = {
 type OwnPropsType = {
     usersPage: InitialUsersStateType
 }
+
+export type MapStateToPropsType = {
+    usersPage: InitialUsersStateType
+    pageSize: number
+    totalUsersCount: number
+    currentPageNo: number
+    setTotalUsersCount: number
+    isFetching: boolean
+}
+export type MapDispatchToPropsType = {
+    followUser: (userId: number) => void
+    unFollowUser: (userId: number) => void
+    setUsers: (users: UserType[]) => void
+    setCurrentPage: (newCurrentPage: number) => void
+    setTotalCount: (totalCount: number) => void
+    setToggleFetching: (isFetching: boolean) => void
+}
+
 type usersPropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
 
 
@@ -83,22 +101,6 @@ export class UsersAPIContainer extends React.Component<usersPropsType, StateType
     }
 }
 
-export type MapStateToPropsType = {
-    usersPage: InitialUsersStateType
-    pageSize: number
-    totalUsersCount: number
-    currentPageNo: number
-    setTotalUsersCount: number
-    isFetching: boolean
-}
-export type MapDispatchToPropsType = {
-    followUser: (userId: number) => void
-    unFollowUser: (userId: number) => void
-    setUsers: (users: UserType[]) => void
-    setCurrentPage: (newCurrentPage: number) => void
-    setTotalCount: (totalCount: number) => void
-    setToggleFetching: (isFetching: boolean) => void
-}
 
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {

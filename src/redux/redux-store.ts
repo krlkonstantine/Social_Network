@@ -9,15 +9,15 @@ export type FriendType = {
     id: number
     name: string
 }
- type DialogsTextsType = {
+type DialogsTextsType = {
     id: number
     name: string
 }
- type MessagesTextsType = {
+type MessagesTextsType = {
     id: number
     messageText: string
 }
- type DialogsPageType = {
+type DialogsPageType = {
     dialogs: Array<DialogsTextsType>
     messages: Array<MessagesTextsType>
     newMessageText: string
@@ -27,26 +27,46 @@ export type PostsTextsType = {
     messageText: string
     likeCount: string
 }
+type ContactType = {
+    facebook?: string
+    github?: string
+    instagram?: string
+    mainLink?: string
+    twitter?: string
+    vk?: string
+    website?: null
+    youtube?: null
+}
+
+export type ProfileType = {
+    aboutMe: string
+    contacts?: ContactType
+    fullName: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    photos: {
+        large: string
+        small: string
+    }
+    userId: number
+}
+
 export type ProfilePageType = {
     posts: Array<PostsTextsType>
     newPostText: string
+    userProfilePage: ProfileType
+
 }
-type LocationType = {
-    country: string
-    city: string
-}
+
 export type UserType = {
     id: number
-    photos: { small:string,large:string }
+    photos: { small: string, large: string }
     followed: boolean
     name: string
     status: string
     //userLocation: LocationType
 }
 
-export type usersPageType = {
-    users: UserType[]
-}
 
 export const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
@@ -57,5 +77,8 @@ export const rootReducer = combineReducers({
 
 export let store = createStore(rootReducer)
 export type AppStateType = ReturnType<typeof rootReducer>
-export type ActionsType = ProfileReducerType | DialogsReducerType | FriendsReducerType | UserReducerType
+export type ActionsType = ProfileReducerType
+    | DialogsReducerType
+    | FriendsReducerType
+    | UserReducerType
 
