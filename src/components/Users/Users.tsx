@@ -3,6 +3,7 @@ import styles from "./Users.module.css";
 import {UserType} from "../../redux/redux-store";
 import default_avatar from "../../assets/images/default_avatar.jpg";
 import {InitialUsersStateType} from "../../redux/users-reducers";
+import {NavLink} from "react-router-dom";
 
 type UserPropsType = {
     onPageChanged: (p: number) => void
@@ -32,8 +33,12 @@ export const Users = (props: UserPropsType) => {
             </div>
             {props.usersPage.users.map((el: UserType) => <div key={el.id}>
                 <span>
-                    <div><img className={styles.useAvatar} src={el.photos.small ? el.photos.small : default_avatar}
-                              alt=""/></div>
+                    <div>
+                        <NavLink to={'/profile/' + el.id}  >
+                        <img className={styles.useAvatar} src={el.photos.small ? el.photos.small : default_avatar}
+                              alt=""/>
+                        </NavLink>
+                    </div>
                     <div>{el.followed
                         ? <button onClick={() => props.onUnfollowClickHandler(el.id)}>unfollow</button>
                         : <button onClick={() => props.onFollowClickHandler(el.id)}>follow</button>}
