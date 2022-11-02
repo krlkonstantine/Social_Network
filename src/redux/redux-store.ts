@@ -9,6 +9,7 @@ export type FriendType = {
     id: number
     name: string
 }
+/*
 type DialogsTextsType = {
     id: number
     name: string
@@ -21,7 +22,7 @@ type DialogsPageType = {
     dialogs: Array<DialogsTextsType>
     messages: Array<MessagesTextsType>
     newMessageText: string
-}
+}*/
 export type PostsTextsType = {
     id: number
     messageText: string

@@ -2,7 +2,7 @@ import React from "react";
 import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {AppStateType, PostsTextsType, ProfileType} from "../../redux/redux-store";
+import {AppStateType, ProfileType} from "../../redux/redux-store";
 import {setUserProfile} from "../../redux/profile-reducers";
 import {InitialUsersStateType} from "../../redux/users-reducers";
 
