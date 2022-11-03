@@ -21,7 +21,9 @@ let App = () => {
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-                        <Route path="/profile/*" element={<ProfileExtContainer/>}/>
+                        <Route path="/profile/*" element={<ProfileExtContainer/>} >
+                        <Route path=":userId" element={<ProfileExtContainer/>}/>
+                            </Route>
                         <Route path="/friends" element={<FriendsContainer/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>
