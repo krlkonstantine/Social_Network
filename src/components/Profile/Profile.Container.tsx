@@ -9,9 +9,6 @@ import {NavigateFunction, Params, useLocation, useNavigate, useParams,} from "re
 import {ComponentType} from "react";
 
 
-type OwnPropsType = {
-    usersPage: InitialUsersStateType
-}
 type ProfileContainerPropsType = MapStateToPropsType & MapDispatchToPropsType & PathParamsType
 
 export type MapStateToPropsType = {
@@ -24,10 +21,6 @@ export type MapDispatchToPropsType = {
 type PathParamsType = {
     router?: { params: { userId: string } }
 }
-
-// type CommonPropType = RouteComponentProps<PathParamsType> & {
-//     someString: string
-// }
 
 export class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
