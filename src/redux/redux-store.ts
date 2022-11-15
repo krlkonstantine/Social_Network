@@ -65,7 +65,6 @@ export type UserType = {
     followed: boolean
     name: string
     status: string
-    //userLocation: LocationType
 }
 
 
