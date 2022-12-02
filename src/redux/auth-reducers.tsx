@@ -1,9 +1,6 @@
 import React from 'react';
-import {UserType} from "./redux-store";
 
 const SET_USER_DATA = 'SET-USER-DATA'
-const UNFOLLOW = 'UNFOLLOW-THIS-USER'
-
 
 
 export type InitialAuthStateType = {
@@ -28,7 +25,6 @@ export const authReducer = (state: InitialAuthStateType = initialAuthState, acti
                 ...state,
                 ...action.usrData
             }
-
         default:
             return state
     }
@@ -37,15 +33,15 @@ export const authReducer = (state: InitialAuthStateType = initialAuthState, acti
 export type AuthReducerType = SetUserDataACType
 
 
-type SetUserDataACType = ReturnType<typeof setUserDataAC>
+type SetUserDataACType = ReturnType<typeof setAuthUserDataAC>
 
-export const setUserDataAC = (id: number,email: string,login: string) => {
+export const setAuthUserDataAC = (id: number, login: string, email: string) => {
     return {
         type: SET_USER_DATA,
         usrData: {
             id,
-            email,
-            login
+            login,
+            email
         }
     } as const
 }

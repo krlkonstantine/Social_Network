@@ -4,7 +4,7 @@ import dialogsReducer, {DialogsReducerType} from "./dialogs-reducers";
 import profileReducer, {ProfileReducerType} from "./profile-reducers";
 import friendsReducer, {FriendsReducerType} from "./friends-reducers";
 import usersReducer, {UserReducerType} from "./users-reducers";
-import {authReducer} from "./auth-reducers";
+import {authReducer, AuthReducerType} from "./auth-reducers";
 
 export type FriendType = {
     id: number
@@ -83,4 +83,6 @@ export type ActionsType = ProfileReducerType
     | DialogsReducerType
     | FriendsReducerType
     | UserReducerType
+    | AuthReducerType
+
 

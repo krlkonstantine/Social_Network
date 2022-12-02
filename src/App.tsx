@@ -8,8 +8,8 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {FriendsContainer} from "./components/Friends/FriendsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
-import {ProfileContainer, ProfileExtContainer} from "./components/Profile/Profile.Container";
-import {HeaderContainer} from "./components/Header/HeaderContainer";
+import {ProfileExtContainer} from "./components/Profile/Profile.Container";
+import {HeaderExtContainer} from "./components/Header/HeaderContainer";
 
 
 let App = () => {
@@ -17,14 +17,14 @@ let App = () => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
-                <HeaderContainer/>
+                <HeaderExtContainer/>
                 <NavBar/>
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-                        <Route path="/profile/*" element={<ProfileExtContainer/>} >
-                        <Route path=":userId" element={<ProfileExtContainer/>}/>
-                            </Route>
+                        <Route path="/profile/*" element={<ProfileExtContainer/>}>
+                            <Route path=":userId" element={<ProfileExtContainer/>}/>
+                        </Route>
                         <Route path="/friends" element={<FriendsContainer/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>

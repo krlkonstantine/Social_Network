@@ -29,13 +29,11 @@ export class ProfileContainer extends React.Component<ProfileContainerPropsType>
     }
 
     componentDidMount() {
-        console.log(this.props, 'params')
 
         let userId = this.props.router?.params?.userId
         if (!userId) {
             userId = '2'
         }
-        console.log('hello')
         axios.get<any>(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then(response => {
                     this.props.setUserProfile(response.data)
