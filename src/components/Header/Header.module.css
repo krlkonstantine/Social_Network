@@ -6,3 +6,23 @@
 .header img {
     width: 50px;
 }
+
+.loginBlock {
+    float: right;
+
+}
+
+.loginBlock a {
+    color: white;
+    font-weight: 550;
+    font-size: 17px;
+    text-decoration: none;
+    padding-right: 7px;
+}
+.loginBlock a:hover {
+    color: green;
+    font-weight: 550;
+    font-size: 18px;
+    text-decoration: none;
+    padding-right: 7px;
+}

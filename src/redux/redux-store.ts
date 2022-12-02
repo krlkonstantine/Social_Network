@@ -4,6 +4,7 @@ import dialogsReducer, {DialogsReducerType} from "./dialogs-reducers";
 import profileReducer, {ProfileReducerType} from "./profile-reducers";
 import friendsReducer, {FriendsReducerType} from "./friends-reducers";
 import usersReducer, {UserReducerType} from "./users-reducers";
+import {authReducer} from "./auth-reducers";
 
 export type FriendType = {
     id: number
@@ -72,7 +73,8 @@ export const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     profilePage: profileReducer,
     friends: friendsReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    auth: authReducer
 })
 
 export let store = createStore(rootReducer)
