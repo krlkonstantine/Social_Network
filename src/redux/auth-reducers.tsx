@@ -7,14 +7,15 @@ export type InitialAuthStateType = {
     id: number
     email: string
     login: string
-    isFetching: boolean
+    isAuth: boolean
+
 }
 
 const initialAuthState = {
     id: 1,
     email: "",
     login: "",
-    isFetching: false
+    isAuth: false
 
 }
 
@@ -23,7 +24,8 @@ export const authReducer = (state: InitialAuthStateType = initialAuthState, acti
         case SET_USER_DATA:
             return {
                 ...state,
-                ...action.usrData
+                ...action.usrData,
+                isAuth: true
             }
         default:
             return state

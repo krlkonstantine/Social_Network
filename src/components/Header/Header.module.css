@@ -26,3 +26,20 @@
     text-decoration: none;
     padding-right: 7px;
 }
+
+.loginDisplayer {
+    float: right;
+     color: white;
+     font-weight: 550;
+     font-size: 17px;
+     text-decoration: none;
+     padding-right: 7px;
+ }
+.loginDisplayer:hover {
+    float: right;
+    color: green;
+    font-weight: 550;
+    font-size: 18px;
+    text-decoration: none;
+    padding-right: 7px;
+}

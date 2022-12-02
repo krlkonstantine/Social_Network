@@ -9,7 +9,6 @@ import {useLocation, useNavigate, useParams,} from "react-router-dom";
 import {ComponentType} from "react";
 
 
-type ProfileContainerPropsType = MapStateToPropsType & MapDispatchToPropsType & PathParamsType
 
 export type MapStateToPropsType = {
     usersPage: InitialUsersStateType
@@ -21,6 +20,7 @@ export type MapDispatchToPropsType = {
 type PathParamsType = {
     router?: { params: { userId: string } }
 }
+type ProfileContainerPropsType = MapStateToPropsType & MapDispatchToPropsType & PathParamsType
 
 export class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
@@ -56,7 +56,6 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-//type WithRouterType = Location & NavigateFunction & Readonly<Params<string>>;
 
 let withURLDataContainerComponent = withRouter<MapStateToPropsType & MapDispatchToPropsType>(ProfileContainer)
 
