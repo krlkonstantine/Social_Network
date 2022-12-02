@@ -9,6 +9,7 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import {FriendsContainer} from "./components/Friends/FriendsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer, ProfileExtContainer} from "./components/Profile/Profile.Container";
+import {HeaderContainer} from "./components/Header/HeaderContainer";
 
 
 let App = () => {
@@ -16,7 +17,7 @@ let App = () => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
-                <Header/>
+                <HeaderContainer/>
                 <NavBar/>
                 <div className='app-wrapper-content'>
                     <Routes>
