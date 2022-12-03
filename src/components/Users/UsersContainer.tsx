@@ -12,6 +12,7 @@ import {
 } from "../../redux/users-reducers";
 import loading from "../../assets/images/loading.svg"
 import {Users} from "./Users";
+import {getUsers} from "../api/api";
 
 type StateType = {
     usersPage: InitialUsersStateType
@@ -71,15 +72,17 @@ export class UsersAPIContainer extends React.Component<usersPropsType, StateType
             })
     }
 
+
+
     componentDidMount() {
         this.props.setToggleFetching(true)
-        axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPageNo}&count=${this.props.pageSize}`,{
+        /*axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPageNo}&count=${this.props.pageSize}`,{
             withCredentials: true
-        })
-            .then(response => {
+        })*/
+        getUsers().then(response => {
                     this.props.setToggleFetching(false)
-                    this.props.setUsers(response.data.items)
-                    this.props.setTotalCount(response.data.totalCount)
+                    this.props.setUsers(response.items)
+                    this.props.setTotalCount(response.totalCount)
                 }
             )
     }
