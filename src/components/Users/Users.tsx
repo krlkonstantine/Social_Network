@@ -4,6 +4,8 @@ import {UserType} from "../../redux/redux-store";
 import default_avatar from "../../assets/images/default_avatar.jpg";
 import {InitialUsersStateType} from "../../redux/users-reducers";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
+
 
 type UserPropsType = {
     onPageChanged: (p: number) => void
@@ -36,12 +38,42 @@ export const Users = (props: UserPropsType) => {
                     <div>
                         <NavLink to={'/profile/' + el.id}>
                         <img className={styles.useAvatar} src={el.photos.small ? el.photos.small : default_avatar}
-                              alt=""/>
+                             alt=""/>
                         </NavLink>
                     </div>
                     <div>{el.followed
-                        ? <button onClick={() => props.onUnfollowClickHandler(el.id)}>unfollow</button>
-                        : <button onClick={() => props.onFollowClickHandler(el.id)}>follow</button>}
+                        ? <button onClick={() => {
+                            axios.delete<any>(`https://social-network.samuraijs.com/api/1.0//follow/${el.id}`, {
+                                withCredentials: true,
+                                headers: {
+                                    "API-KEY": "1e9519c8-eb9a-4811-b847-4ddb840b0506"
+                                }
+                            })
+                                .then(response => {
+                                        if (response.data.resultCode === 0) {
+                                            props.onUnfollowClickHandler(el.id)
+                                        }
+                                    }
+                                )
+
+                        }}>unfollow</button>
+                        : <button onClick={() => {
+                            //в get запросе мы передавали withCredentials с нашими настройками как вторым арг
+                            //сейчас же он будет третим, вторым идет пустой obj
+                            axios.post<any>(`https://social-network.samuraijs.com/api/1.0//follow/${el.id}`, {}, {
+                                withCredentials: true,
+                                headers: {
+                                    "API-KEY": "1e9519c8-eb9a-4811-b847-4ddb840b0506"
+                                }
+                            })
+                                .then(response => {
+                                        if (response.data.resultCode === 0) {
+                                            props.onFollowClickHandler(el.id)
+                                        }
+                                    }
+                                )
+
+                        }}>follow</button>}
                         </div>
                 </span>
                 <span>
