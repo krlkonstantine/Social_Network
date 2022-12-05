@@ -20,3 +20,7 @@ export const getUsers = (currentPageNo = 1, pageSize = 5) => {
     }).then(response => response.data)
 
 }
+
+export const getCertainUserProfile = (userId: string | undefined = '2') => {
+    return instance.get<any>(`profile/` + userId)
+}

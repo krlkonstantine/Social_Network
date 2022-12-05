@@ -1,7 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
 import {AppStateType, UserType} from "../../redux/redux-store";
-import axios from "axios";
 import {
     followUser,
     InitialUsersStateType,
@@ -74,11 +73,7 @@ export class UsersAPIContainer extends React.Component<usersPropsType, StateType
 
     componentDidMount() {
         this.props.setToggleFetching(true)
-        /*axios.get<any>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPageNo}&count=${this.props.pageSize}`,{
-            withCredentials: true
-        })*/
         getUsers(this.props.currentPageNo,this.props.pageSize).then(data => {
-            debugger
                     this.props.setToggleFetching(false)
                     this.props.setUsers(data.items)
                     this.props.setTotalCount(data.totalCount)
