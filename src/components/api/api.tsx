@@ -15,7 +15,7 @@ export const instance = axios.create({
 
 
 export const getUsers = (currentPageNo = 1, pageSize = 5) => {
-    return instance.get<ItemsApiPropsType>(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPageNo}&count=${pageSize}`, {
+    return instance.get<ItemsApiPropsType>(`/users?page=${currentPageNo}&count=${pageSize}`, {
         withCredentials: true
     }).then(response => response.data)
 
