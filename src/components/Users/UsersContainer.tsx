@@ -4,7 +4,7 @@ import {AppStateType, UserType} from "../../redux/redux-store";
 import {
     followUser,
     InitialUsersStateType,
-    setCurrentPage, setToggleFetching, setTotalCount,
+    setCurrentPage, setToggleFollowing, setToggleFetching, setTotalCount,
     setUsers,
     unFollowUser,
 
@@ -19,6 +19,7 @@ type StateType = {
     totalUsersCount: number
     currentPageNo: number
     isFetching: boolean
+    isFollowing: boolean
 }
 type OwnPropsType = {
     usersPage: InitialUsersStateType
@@ -31,6 +32,7 @@ export type MapStateToPropsType = {
     currentPageNo: number
     setTotalUsersCount: number
     isFetching: boolean
+    isFollowing: boolean
 }
 export type MapDispatchToPropsType = {
     followUser: (userId: number) => void
@@ -39,6 +41,7 @@ export type MapDispatchToPropsType = {
     setCurrentPage: (newCurrentPage: number) => void
     setTotalCount: (totalCount: number) => void
     setToggleFetching: (isFetching: boolean) => void
+    setToggleFollowing: (isFetching: boolean, isFollowing: boolean)=>void
 }
 
 type usersPropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
@@ -111,8 +114,8 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPageNo: state.usersPage.currentPageNo,
         setTotalUsersCount: state.usersPage.totalUsersCount,
-        isFetching: state.usersPage.isFetching
-
+        isFetching: state.usersPage.isFetching,
+        isFollowing: state.usersPage.isFollowing,
     }
 }
 
@@ -141,6 +144,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 export const UsersContainer = connect(mapStateToProps,
     {
-        followUser, unFollowUser, setUsers, setCurrentPage, setTotalCount, setToggleFetching,
+        followUser, unFollowUser, setUsers, setCurrentPage,
+        setTotalCount, setToggleFetching,setToggleFollowing
     })(UsersAPIContainer)
 

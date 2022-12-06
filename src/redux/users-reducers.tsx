@@ -7,6 +7,7 @@ const SET_USERS = 'SET_USERS'
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const TOGGLE_FOLLOWING = 'TOGGLE_FOLLOWING_IN_PROGRESS'
 
 
 export type InitialUsersStateType = {
@@ -15,6 +16,7 @@ export type InitialUsersStateType = {
     totalUsersCount: number
     currentPageNo: number
     isFetching: boolean
+    isFollowing: boolean
 }
 
 const initialUsersState = {
@@ -22,7 +24,8 @@ const initialUsersState = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPageNo: 1,
-    isFetching: false
+    isFetching: false,
+    isFollowing: false,
 
 }
 
@@ -40,12 +43,18 @@ const usersReducer = (state: InitialUsersStateType = initialUsersState, action: 
             }
         case SET_USERS:
             return {...state, users: [...action.payload.users]}
-       case SET_CURRENT_PAGE:
-            return {...state, currentPageNo : action.payload.newCurrentPage}
+        case SET_CURRENT_PAGE:
+            return {...state, currentPageNo: action.payload.newCurrentPage}
         case SET_TOTAL_COUNT:
-            return {...state, totalUsersCount : action.payload.totalCount}
+            return {...state, totalUsersCount: action.payload.totalCount}
         case TOGGLE_IS_FETCHING:
-            return {...state, isFetching : action.payload.isFetching}
+            return {...state, isFetching: action.payload.isFetching}
+        case TOGGLE_FOLLOWING:
+            return {
+                ...state,
+                isFetching: action.payload.isFetching,
+                isFollowing: action.payload.isFollowing
+            }
         default:
             return state
     }
@@ -57,6 +66,7 @@ export type UserReducerType = FollowUserACType
     | setCurrentPageACType
     | setTotalCountACType
     | toggleFetchingACType
+    | toggleFollowingACType
 
 type FollowUserACType = ReturnType<typeof followUser>
 type setUsersACType = ReturnType<typeof setUsers>
@@ -64,6 +74,7 @@ type UnFollowUserACType = ReturnType<typeof unFollowUser>
 type setCurrentPageACType = ReturnType<typeof setCurrentPage>
 type setTotalCountACType = ReturnType<typeof setTotalCount>
 type toggleFetchingACType = ReturnType<typeof setToggleFetching>
+type toggleFollowingACType = ReturnType<typeof setToggleFollowing>
 
 export const followUser = (userId: number) => {
     return {
@@ -97,7 +108,7 @@ export const setCurrentPage = (newCurrentPage: number) => {
         }
     } as const
 }
-export const setTotalCount = (totalCount:number) => {
+export const setTotalCount = (totalCount: number) => {
     return {
         type: SET_TOTAL_COUNT,
         payload: {
@@ -105,11 +116,20 @@ export const setTotalCount = (totalCount:number) => {
         }
     } as const
 }
-export const setToggleFetching = (isFetching:boolean) => {
+export const setToggleFetching = (isFetching: boolean) => {
     return {
         type: TOGGLE_IS_FETCHING,
         payload: {
             isFetching
+        }
+    } as const
+}
+export const setToggleFollowing = (isFetching: boolean, isFollowing: boolean) => {
+    return {
+        type: TOGGLE_FOLLOWING,
+        payload: {
+            isFetching,
+            isFollowing
         }
     } as const
 }

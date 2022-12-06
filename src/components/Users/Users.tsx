@@ -2,9 +2,10 @@ import React from 'react';
 import styles from "./Users.module.css";
 import {UserType} from "../../redux/redux-store";
 import default_avatar from "../../assets/images/default_avatar.jpg";
-import {InitialUsersStateType} from "../../redux/users-reducers";
+import {InitialUsersStateType, setToggleFollowing, setToggleFetching} from "../../redux/users-reducers";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {getSubscribed, getUnsubscribed} from "../api/api";
 
 
 type UserPropsType = {
@@ -43,13 +44,14 @@ export const Users = (props: UserPropsType) => {
                     </div>
                     <div>{el.followed
                         ? <button onClick={() => {
+                            setToggleFollowing(true,true)
                             axios.delete<any>(`https://social-network.samuraijs.com/api/1.0//follow/${el.id}`, {
                                 withCredentials: true,
                                 headers: {
                                     "API-KEY": "1e9519c8-eb9a-4811-b847-4ddb840b0506"
                                 }
                             })
-                                .then(response => {
+                            /*getUnsubscribed(el.id)*/.then(response => {
                                         if (response.data.resultCode === 0) {
                                             props.onUnfollowClickHandler(el.id)
                                         }
@@ -66,7 +68,7 @@ export const Users = (props: UserPropsType) => {
                                     "API-KEY": "1e9519c8-eb9a-4811-b847-4ddb840b0506"
                                 }
                             })
-                                .then(response => {
+                            /*getSubscribed(el.id)*/.then(response => {
                                         if (response.data.resultCode === 0) {
                                             props.onFollowClickHandler(el.id)
                                         }

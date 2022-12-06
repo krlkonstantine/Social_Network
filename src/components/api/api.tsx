@@ -25,7 +25,15 @@ export const getCertainUserProfile = (userId: string | undefined = '2') => {
 }
 
 export const getAuthorized = () => {
-    return instance.get<any>(`auth/me`,{
+    return instance.get<any>(`auth/me`, {
         withCredentials: true
     }).then(response => response.data)
+}
+
+export const getUnsubscribed = (userId: number | undefined = undefined) => {
+    return (instance.delete<any>(`follow/${userId}`)).then(response => response.data)
+}
+
+export const getSubscribed = (userId: number | undefined = undefined) => {
+    return (instance.post<any>(`follow/${userId}`)).then(response => response.data)
 }
