@@ -15,9 +15,8 @@ export const instance = axios.create({
 
 
 export const getUsers = (currentPageNo = 1, pageSize = 5) => {
-    return instance.get<UsersApiPropsType>(`/users?page=${currentPageNo}&count=${pageSize}`, {
-        withCredentials: true
-    }).then(response => response.data)
+    return instance.get<UsersApiPropsType>(`/users?page=${currentPageNo}&count=${pageSize}`)
+        .then(response => response.data)
 }
 
 export const getCertainUserProfile = (userId: string | undefined = '2') => {
@@ -25,9 +24,7 @@ export const getCertainUserProfile = (userId: string | undefined = '2') => {
 }
 
 export const getAuthorized = () => {
-    return instance.get<any>(`auth/me`, {
-        withCredentials: true
-    }).then(response => response.data)
+    return instance.get<any>(`auth/me`).then(response => response.data)
 }
 
 export const getUnsubscribed = (userId: number | undefined = undefined) => {
