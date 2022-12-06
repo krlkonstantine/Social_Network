@@ -4,16 +4,16 @@ const SET_USER_DATA = 'SET-USER-DATA'
 
 
 export type InitialAuthStateType = {
-    id: number
     email: string
+    id: number
     login: string
     isAuth: boolean
 
 }
 
 const initialAuthState = {
-    id: 1,
     email: "",
+    id: 1,
     login: "",
     isAuth: false
 
@@ -37,13 +37,13 @@ export type AuthReducerType = SetUserDataACType
 
 type SetUserDataACType = ReturnType<typeof setAuthUserDataAC>
 
-export const setAuthUserDataAC = (id: number, login: string, email: string) => {
+export const setAuthUserDataAC = (email: string, id: number, login: string) => {
     return {
         type: SET_USER_DATA,
         usrData: {
+            email,
             id,
-            login,
-            email
+            login
         }
     } as const
 }

@@ -18,9 +18,14 @@ export const getUsers = (currentPageNo = 1, pageSize = 5) => {
     return instance.get<ItemsApiPropsType>(`/users?page=${currentPageNo}&count=${pageSize}`, {
         withCredentials: true
     }).then(response => response.data)
-
 }
 
 export const getCertainUserProfile = (userId: string | undefined = '2') => {
-    return instance.get<any>(`profile/` + userId)
+    return (instance.get<any>(`profile/` + userId))
+}
+
+export const getAuthorized = () => {
+    return instance.get<any>(`auth/me`,{
+        withCredentials: true
+    }).then(response => response.data)
 }
