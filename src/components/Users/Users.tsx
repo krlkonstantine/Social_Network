@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./Users.module.css";
 import {UserType} from "../../redux/redux-store";
 import default_avatar from "../../assets/images/default_avatar.jpg";
-import {InitialUsersStateType, setToggleFollowing, setToggleFetching} from "../../redux/users-reducers";
+import {InitialUsersStateType, setToggleFetching} from "../../redux/users-reducers";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
 import {getSubscribed, getUnsubscribed} from "../api/api";
@@ -12,10 +12,12 @@ type UserPropsType = {
     onPageChanged: (p: number) => void
     onUnfollowClickHandler: (id: number) => void
     onFollowClickHandler: (id: number) => void
+    setToggleFollowingAC: (isFetching: boolean, isFollowing: number[], userId: number) => void
     usersPage: InitialUsersStateType
     totalUsersCount: number
     pageSize: number
     currentPageNo: number
+    isFollowing: number[]
 }
 export const Users = (props: UserPropsType) => {
 
@@ -26,6 +28,7 @@ export const Users = (props: UserPropsType) => {
         pages.push(i)
     }
 
+    // @
     return (
         <div className={styles.isActive}>
             <div>
@@ -43,38 +46,27 @@ export const Users = (props: UserPropsType) => {
                         </NavLink>
                     </div>
                     <div>{el.followed
-                        ? <button onClick={() => {
-                            setToggleFollowing(true,true)
-                                /*axios.delete<any>(`https://social-network.samuraijs.com/api/1.0//follow/${el.id}`, {
-                                    withCredentials: true,
-                                    headers: {
-                                        "API-KEY": "1e9519c8-eb9a-4811-b847-4ddb840b0506"
-                                    }
-                                })*/
-                                getUnsubscribed(el.id).then(response => {
+                        ? <button disabled={props.isFollowing.some(id => id === el.id)} onClick={() => {
+                            props.setToggleFollowingAC(true, props.isFollowing, el.id)
+                            getUnsubscribed(el.id)
+                                .then(response => {
                                         if (response.data.resultCode === 0) {
                                             props.onUnfollowClickHandler(el.id)
                                         }
+                                        props.setToggleFollowingAC(false, props.isFollowing, el.id)
                                     }
                                 )
-
                         }}>unfollow</button>
-                        : <button onClick={() => {
-                            //в get запросе мы передавали withCredentials с нашими настройками как вторым арг
-                            //сейчас же он будет третим, вторым идет пустой obj
-                            /*axios.post<any>(`https://social-network.samuraijs.com/api/1.0//follow/${el.id}`, {}, {
-                                withCredentials: true,
-                                headers: {
-                                    "API-KEY": "1e9519c8-eb9a-4811-b847-4ddb840b0506"
-                                }
-                            })*/
-                            getSubscribed(el.id).then(response => {
-                                        if (response.data.resultCode === 0) {
-                                            props.onFollowClickHandler(el.id)
-                                        }
-                                    }
-                                )
 
+                        : <button disabled={props.isFollowing.some(id => id === el.id)} onClick={() => {
+                            props.setToggleFollowingAC(true, props.isFollowing, el.id)
+                            getSubscribed(el.id).then(response => {
+                                    if (response.data.resultCode === 0) {
+                                        props.onFollowClickHandler(el.id)
+                                    }
+                                    props.setToggleFollowingAC(false, props.isFollowing, el.id)
+                                }
+                            )
                         }}>follow</button>}
                         </div>
                 </span>

@@ -23,7 +23,6 @@ export class HeaderContainer extends React.Component<HeaderContainerPropType, St
 
     componentDidMount() {
         getAuthorized().then(response => {
-                debugger
                 if (response.resultCode === 0) {
                     let {email, id, login} = response.data
                     this.props.setAuthUserDataAC(email, id, login)

@@ -16,17 +16,16 @@ export type InitialUsersStateType = {
     totalUsersCount: number
     currentPageNo: number
     isFetching: boolean
-    isFollowing: boolean
+    isFollowing: number[]
 }
 
 const initialUsersState = {
     users: [],
-    pageSize: 5,
+    pageSize: 10,
     totalUsersCount: 0,
     currentPageNo: 1,
     isFetching: false,
-    isFollowing: false,
-
+    isFollowing: [] as Array<number>,
 }
 
 const usersReducer = (state: InitialUsersStateType = initialUsersState, action: UserReducerType): InitialUsersStateType => {
@@ -50,10 +49,12 @@ const usersReducer = (state: InitialUsersStateType = initialUsersState, action: 
         case TOGGLE_IS_FETCHING:
             return {...state, isFetching: action.payload.isFetching}
         case TOGGLE_FOLLOWING:
+            debugger
             return {
                 ...state,
-                isFetching: action.payload.isFetching,
-                isFollowing: action.payload.isFollowing
+                isFollowing: action.payload.isFetching
+                    ? [...state.isFollowing, action.payload.userId]
+                    : state.isFollowing.filter(id => id !== action.payload.userId)
             }
         default:
             return state
@@ -74,7 +75,7 @@ type UnFollowUserACType = ReturnType<typeof unFollowUser>
 type setCurrentPageACType = ReturnType<typeof setCurrentPage>
 type setTotalCountACType = ReturnType<typeof setTotalCount>
 type toggleFetchingACType = ReturnType<typeof setToggleFetching>
-type toggleFollowingACType = ReturnType<typeof setToggleFollowing>
+type toggleFollowingACType = ReturnType<typeof setToggleFollowingAC>
 
 export const followUser = (userId: number) => {
     return {
@@ -124,12 +125,13 @@ export const setToggleFetching = (isFetching: boolean) => {
         }
     } as const
 }
-export const setToggleFollowing = (isFetching: boolean, isFollowing: boolean) => {
+export const setToggleFollowingAC = (isFetching: boolean, isFollowing: number[] , userId: number) => {
     return {
         type: TOGGLE_FOLLOWING,
         payload: {
             isFetching,
-            isFollowing
+            isFollowing,
+            userId,
         }
     } as const
 }

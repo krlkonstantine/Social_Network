@@ -4,9 +4,9 @@ import {AppStateType, UserType} from "../../redux/redux-store";
 import {
     followUser,
     InitialUsersStateType,
-    setCurrentPage, setToggleFollowing, setToggleFetching, setTotalCount,
+    setCurrentPage, setToggleFetching, setTotalCount,
     setUsers,
-    unFollowUser,
+    unFollowUser, setToggleFollowingAC,
 
 } from "../../redux/users-reducers";
 import loading from "../../assets/images/loading.svg"
@@ -32,7 +32,7 @@ export type MapStateToPropsType = {
     currentPageNo: number
     setTotalUsersCount: number
     isFetching: boolean
-    isFollowing: boolean
+    isFollowing: number[]
 }
 export type MapDispatchToPropsType = {
     followUser: (userId: number) => void
@@ -41,7 +41,7 @@ export type MapDispatchToPropsType = {
     setCurrentPage: (newCurrentPage: number) => void
     setTotalCount: (totalCount: number) => void
     setToggleFetching: (isFetching: boolean) => void
-    setToggleFollowing: (isFetching: boolean, isFollowing: boolean)=>void
+    setToggleFollowingAC: (isFetching: boolean, isFollowing: number[] , userId: number)=>void
 }
 
 type usersPropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
@@ -99,6 +99,8 @@ export class UsersAPIContainer extends React.Component<usersPropsType, StateType
                     usersPage={this.props.usersPage}
                     totalUsersCount={this.props.totalUsersCount}
                     pageSize={this.props.pageSize}
+                    isFollowing={this.props.isFollowing}
+                    setToggleFollowingAC={this.props.setToggleFollowingAC}
                 />
             </>
         )
@@ -145,6 +147,6 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 export const UsersContainer = connect(mapStateToProps,
     {
         followUser, unFollowUser, setUsers, setCurrentPage,
-        setTotalCount, setToggleFetching,setToggleFollowing
+        setTotalCount, setToggleFetching,setToggleFollowingAC
     })(UsersAPIContainer)
 

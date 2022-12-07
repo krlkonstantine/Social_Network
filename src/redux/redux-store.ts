@@ -10,20 +10,7 @@ export type FriendType = {
     id: number
     name: string
 }
-/*
-type DialogsTextsType = {
-    id: number
-    name: string
-}
-type MessagesTextsType = {
-    id: number
-    messageText: string
-}
-type DialogsPageType = {
-    dialogs: Array<DialogsTextsType>
-    messages: Array<MessagesTextsType>
-    newMessageText: string
-}*/
+
 export type PostsTextsType = {
     id: number
     messageText: string
@@ -74,7 +61,8 @@ export const rootReducer = combineReducers({
     profilePage: profileReducer,
     friends: friendsReducer,
     usersPage: usersReducer,
-    auth: authReducer
+    auth: authReducer,
+
 })
 
 export let store = createStore(rootReducer)
