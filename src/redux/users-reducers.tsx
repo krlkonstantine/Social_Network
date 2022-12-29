@@ -77,6 +77,8 @@ type setTotalCountACType = ReturnType<typeof setTotalCount>
 type toggleFetchingACType = ReturnType<typeof setToggleFetching>
 type toggleFollowingACType = ReturnType<typeof setToggleFollowingAC>
 
+const getUsers = () => {}
+
 export const followUser = (userId: number) => {
     return {
         type: FOLLOW,
