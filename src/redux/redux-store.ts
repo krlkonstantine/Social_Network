@@ -1,5 +1,6 @@
 import React from 'react';
-import {combineReducers, createStore} from 'redux';
+import { configureStore, combineReducers, applyMiddleware } from "@reduxjs/toolkit";
+import thunkMiddleware from 'redux-thunk';
 import dialogsReducer, {DialogsReducerType} from "./dialogs-reducers";
 import profileReducer, {ProfileReducerType} from "./profile-reducers";
 import friendsReducer, {FriendsReducerType} from "./friends-reducers";
@@ -10,7 +11,6 @@ export type FriendType = {
     id: number
     name: string
 }
-
 export type PostsTextsType = {
     id: number
     messageText: string
@@ -26,7 +26,6 @@ type ContactType = {
     website?: null
     youtube?: null
 }
-
 export type ProfileType = {
     aboutMe: string
     contacts?: ContactType
@@ -39,14 +38,12 @@ export type ProfileType = {
     }
     userId: number
 }
-
 export type ProfilePageType = {
     posts: Array<PostsTextsType>
     newPostText: string
     userProfilePage: ProfileType
 
 }
-
 export type UserType = {
     id: number
     photos: { small: string, large: string }
@@ -54,7 +51,6 @@ export type UserType = {
     name: string
     status: string
 }
-
 
 export const rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
@@ -65,7 +61,7 @@ export const rootReducer = combineReducers({
 
 })
 
-export let store = createStore(rootReducer)
+export let store = configureStore({reducer:rootReducer})
 export type AppStateType = ReturnType<typeof rootReducer>
 export type ActionsType = ProfileReducerType
     | DialogsReducerType

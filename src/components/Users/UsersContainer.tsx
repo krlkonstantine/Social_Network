@@ -42,6 +42,7 @@ export type MapDispatchToPropsType = {
     setTotalCount: (totalCount: number) => void
     setToggleFetching: (isFetching: boolean) => void
     setToggleFollowingAC: (isFetching: boolean, isFollowing: number[] , userId: number)=>void
+    getUsersThunkCreator: (currentPageNo: number, pageSize: number)=>void
 }
 
 type usersPropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
@@ -75,7 +76,7 @@ export class UsersAPIContainer extends React.Component<usersPropsType, StateType
 
 
     componentDidMount() {
-        getUsersThunkCreator(this.props.currentPageNo,this.props.pageSize)
+        this.props.getUsersThunkCreator(this.props.currentPageNo,this.props.pageSize)
         /*this.props.setToggleFetching(true)
         getUsers(this.props.currentPageNo,this.props.pageSize).then(data => {
                     this.props.setToggleFetching(false)
@@ -148,6 +149,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 export const UsersContainer = connect(mapStateToProps,
     {
         followUser, unFollowUser, setUsers, setCurrentPage,
-        setTotalCount, setToggleFetching,setToggleFollowingAC
+        setTotalCount, setToggleFetching,
+        setToggleFollowingAC,getUsersThunkCreator
     })(UsersAPIContainer)
 

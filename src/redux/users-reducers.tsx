@@ -1,6 +1,7 @@
 import React from 'react';
-import {UserType} from "./redux-store";
+import {AppStateType, UserType} from "./redux-store";
 import {getUsers} from "../components/api/api";
+import {Dispatch} from "redux";
 
 const FOLLOW = 'FOLLOW-THIS-USER'
 const UNFOLLOW = 'UNFOLLOW-THIS-USER'
@@ -79,9 +80,9 @@ type toggleFetchingACType = ReturnType<typeof setToggleFetching>
 type toggleFollowingACType = ReturnType<typeof setToggleFollowingAC>
 
 export const getUsersThunkCreator = (currentPageNo: number, pageSize: number) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<UserReducerType>,getState: ()=>AppStateType) => {
         dispatch(setToggleFetching(true))
-        getUsers(currentPageNo, pageSize).then(data => {
+                getUsers(currentPageNo, pageSize).then(data => {
                 dispatch(setToggleFetching(false))
                 dispatch(setUsers(data.items))
                 dispatch(setTotalCount(data.totalCount))
