@@ -1,9 +1,8 @@
 import React from "react";
 import {Header} from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
 import {setAuthUserDataAC} from "../../redux/auth-reducers";
-import {getAuthorized} from "../api/api";
+import {usersApi} from "../api/api";
 
 
 type StateType = any
@@ -22,7 +21,7 @@ type HeaderContainerPropType = MapStateToPropsType & MapDispatchToPropsType & Au
 export class HeaderContainer extends React.Component<HeaderContainerPropType, StateType> {
 
     componentDidMount() {
-        getAuthorized().then(response => {
+        usersApi.getAuthorized().then(response => {
                 if (response.resultCode === 0) {
                     let {email, id, login} = response.data
                     this.props.setAuthUserDataAC(email, id, login)

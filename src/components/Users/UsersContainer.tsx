@@ -11,7 +11,6 @@ import {
 } from "../../redux/users-reducers";
 import loading from "../../assets/images/loading.svg"
 import {Users} from "./Users";
-import {getUsers} from "../api/api";
 
 type StateType = {
     usersPage: InitialUsersStateType
@@ -67,27 +66,12 @@ export class UsersAPIContainer extends React.Component<usersPropsType, StateType
     onPageChanged = (newPageNumber: number) => {
         this.props.onPageChangedThunkCreator(newPageNumber)
         this.props.getUsersThunkCreator(newPageNumber,this.props.pageSize)
-
-        /*this.props.setCurrentPage(newPageNumber)
-        this.props.setToggleFetching(true)
-        getUsers(newPageNumber,this.props.pageSize)
-            .then(data => {
-                this.props.setToggleFetching(false)
-                this.props.setUsers(data.items)
-            })*/
     }
 
 
 
     componentDidMount() {
         this.props.getUsersThunkCreator(this.props.currentPageNo,this.props.pageSize)
-        /*this.props.setToggleFetching(true)
-        getUsers(this.props.currentPageNo,this.props.pageSize).then(data => {
-                    this.props.setToggleFetching(false)
-                    this.props.setUsers(data.items)
-                    this.props.setTotalCount(data.totalCount)
-                }
-            )*/
     }
 
     render() {
