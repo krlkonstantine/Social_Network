@@ -80,15 +80,23 @@ type toggleFetchingACType = ReturnType<typeof setToggleFetching>
 type toggleFollowingACType = ReturnType<typeof setToggleFollowingAC>
 
 export const getUsersThunkCreator = (currentPageNo: number, pageSize: number) => {
-    return (dispatch: Dispatch<UserReducerType>,getState: ()=>AppStateType) => {
+    return (dispatch: Dispatch<UserReducerType>) => {
         dispatch(setToggleFetching(true))
-                getUsers(currentPageNo, pageSize).then(data => {
+        getUsers(currentPageNo, pageSize).then(data => {
                 dispatch(setToggleFetching(false))
                 dispatch(setUsers(data.items))
                 dispatch(setTotalCount(data.totalCount))
             }
         )
     }
+}
+
+export const onPageChangedThunkCreator = (newPageNumber: number) => {
+    return (dispatch: Dispatch<UserReducerType>) => {
+        dispatch(setCurrentPage(newPageNumber))
+        dispatch(setToggleFetching(true))
+    }
+
 }
 
 export const followUser = (userId: number) => {

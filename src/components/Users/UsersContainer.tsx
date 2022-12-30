@@ -6,7 +6,7 @@ import {
     InitialUsersStateType,
     setCurrentPage, setToggleFetching, setTotalCount,
     setUsers,
-    unFollowUser, setToggleFollowingAC, getUsersThunkCreator,
+    unFollowUser, setToggleFollowingAC, getUsersThunkCreator, onPageChangedThunkCreator,
 
 } from "../../redux/users-reducers";
 import loading from "../../assets/images/loading.svg"
@@ -43,6 +43,7 @@ export type MapDispatchToPropsType = {
     setToggleFetching: (isFetching: boolean) => void
     setToggleFollowingAC: (isFetching: boolean, isFollowing: number[] , userId: number)=>void
     getUsersThunkCreator: (currentPageNo: number, pageSize: number)=>void
+    onPageChangedThunkCreator: (currentPageNo: number)=>void
 }
 
 type usersPropsType = OwnPropsType & MapStateToPropsType & MapDispatchToPropsType
@@ -64,13 +65,16 @@ export class UsersAPIContainer extends React.Component<usersPropsType, StateType
         this.props.setCurrentPage(newCurrentPageNo)
     }
     onPageChanged = (newPageNumber: number) => {
-        this.props.setCurrentPage(newPageNumber)
+        this.props.onPageChangedThunkCreator(newPageNumber)
+        this.props.getUsersThunkCreator(newPageNumber,this.props.pageSize)
+
+        /*this.props.setCurrentPage(newPageNumber)
         this.props.setToggleFetching(true)
         getUsers(newPageNumber,this.props.pageSize)
             .then(data => {
                 this.props.setToggleFetching(false)
                 this.props.setUsers(data.items)
-            })
+            })*/
     }
 
 
@@ -150,6 +154,6 @@ export const UsersContainer = connect(mapStateToProps,
     {
         followUser, unFollowUser, setUsers, setCurrentPage,
         setTotalCount, setToggleFetching,
-        setToggleFollowingAC,getUsersThunkCreator
+        setToggleFollowingAC,getUsersThunkCreator,onPageChangedThunkCreator
     })(UsersAPIContainer)
 
