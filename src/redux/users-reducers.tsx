@@ -1,5 +1,6 @@
 import React from 'react';
 import {UserType} from "./redux-store";
+import {getUsers} from "../components/api/api";
 
 const FOLLOW = 'FOLLOW-THIS-USER'
 const UNFOLLOW = 'UNFOLLOW-THIS-USER'
@@ -77,7 +78,17 @@ type setTotalCountACType = ReturnType<typeof setTotalCount>
 type toggleFetchingACType = ReturnType<typeof setToggleFetching>
 type toggleFollowingACType = ReturnType<typeof setToggleFollowingAC>
 
-const getUsers = () => {}
+export const getUsersThunkCreator = (currentPageNo: number, pageSize: number) => {
+    return (dispatch: any) => {
+        dispatch(setToggleFetching(true))
+        getUsers(currentPageNo, pageSize).then(data => {
+                dispatch(setToggleFetching(false))
+                dispatch(setUsers(data.items))
+                dispatch(setTotalCount(data.totalCount))
+            }
+        )
+    }
+}
 
 export const followUser = (userId: number) => {
     return {
@@ -127,7 +138,7 @@ export const setToggleFetching = (isFetching: boolean) => {
         }
     } as const
 }
-export const setToggleFollowingAC = (isFetching: boolean, isFollowing: number[] , userId: number) => {
+export const setToggleFollowingAC = (isFetching: boolean, isFollowing: number[], userId: number) => {
     return {
         type: TOGGLE_FOLLOWING,
         payload: {

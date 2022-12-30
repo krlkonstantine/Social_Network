@@ -6,7 +6,7 @@ import {
     InitialUsersStateType,
     setCurrentPage, setToggleFetching, setTotalCount,
     setUsers,
-    unFollowUser, setToggleFollowingAC,
+    unFollowUser, setToggleFollowingAC, getUsersThunkCreator,
 
 } from "../../redux/users-reducers";
 import loading from "../../assets/images/loading.svg"
@@ -75,13 +75,14 @@ export class UsersAPIContainer extends React.Component<usersPropsType, StateType
 
 
     componentDidMount() {
-        this.props.setToggleFetching(true)
+        getUsersThunkCreator(this.props.currentPageNo,this.props.pageSize)
+        /*this.props.setToggleFetching(true)
         getUsers(this.props.currentPageNo,this.props.pageSize).then(data => {
                     this.props.setToggleFetching(false)
                     this.props.setUsers(data.items)
                     this.props.setTotalCount(data.totalCount)
                 }
-            )
+            )*/
     }
 
     render() {
