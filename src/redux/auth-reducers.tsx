@@ -1,4 +1,7 @@
 import React from 'react';
+import {Dispatch} from "redux";
+import {usersApi} from "../components/api/api";
+import {ProfileReducerType} from "./profile-reducers";
 
 const SET_USER_DATA = 'SET-USER-DATA'
 
@@ -36,6 +39,18 @@ export type AuthReducerType = SetUserDataACType
 
 
 type SetUserDataACType = ReturnType<typeof setAuthUserDataAC>
+
+export const getAuthorizedThunkCreator = () => {
+    return (dispatch: Dispatch<AuthReducerType>) => {
+        usersApi.getAuthorized().then(response => {
+                if (response.resultCode === 0) {
+                    let {email, id, login} = response.data
+                    dispatch(setAuthUserDataAC(email, id, login))
+                }
+            }
+        )
+    }
+}
 
 export const setAuthUserDataAC = (email: string, id: number, login: string) => {
     return {

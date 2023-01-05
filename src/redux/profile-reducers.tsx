@@ -1,5 +1,7 @@
 import React from 'react';
 import {PostsTextsType, ProfilePageType, ProfileType} from "./redux-store";
+import {Dispatch} from "redux";
+import {usersApi} from "../components/api/api";
 
 const ADD_NEW_POST = 'ADD-NEW-POST'
 const UPD_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -44,30 +46,31 @@ const profileReducer = (state: InitialProfileStateType = initProfileState, actio
         }
         default:
             return state
-        /*if (action.type === ADD_NEW_POST) {
-            let newPost: PostsTextsType = {id: 4, messageText: state.newPostText, likeCount: '0'}
-            if (state.newPostText) {
-                return{...state,posts:[newPost,...state.posts], newPostText: ""}
-            }
-        } else if (action.type === UPD_NEW_POST_TEXT) {
-            return {...state, newPostText:action.payload.value}
-        } else if (action.type === SET_USER_PROFILE) {
-            return {...state, newPostText:action.payload.value}
-        }
-        return state*/
     }
 }
 export type ProfileReducerType = AddPostACType | UpdNewPostTextACType | setUserProfileACType
-
 type AddPostACType = ReturnType<typeof addPostAC>
+type setUserProfileACType = ReturnType<typeof setUserProfile>
+type UpdNewPostTextACType = ReturnType<typeof updNewPostTextAC>
+
+export const getUserProfileThunkCreator = (userId: string | undefined) => {
+    return (dispatch:Dispatch<ProfileReducerType>) => {
+        if (!userId) {
+            userId = '2'
+        }
+        usersApi.getCertainUserProfile(userId).then(response => {
+                dispatch(setUserProfile(response.data))
+            }
+        )
+    }
+}
+
 
 export const addPostAC = () => {
     return {
         type: ADD_NEW_POST
     } as const
 }
-type UpdNewPostTextACType = ReturnType<typeof updNewPostTextAC>
-
 export const updNewPostTextAC = (value: string) => {
     return {
         type: UPD_NEW_POST_TEXT,
@@ -76,9 +79,6 @@ export const updNewPostTextAC = (value: string) => {
         }
     } as const
 }
-
-type setUserProfileACType = ReturnType<typeof setUserProfile>
-
 export const setUserProfile = (profile: ProfileType) => {
     return {
         type: SET_USER_PROFILE,

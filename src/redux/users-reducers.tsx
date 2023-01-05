@@ -2,6 +2,7 @@ import React from 'react';
 import {UserType} from "./redux-store";
 import {usersApi} from "../components/api/api";
 import {Dispatch} from "redux";
+import {ProfileReducerType} from "./profile-reducers";
 
 const FOLLOW = 'FOLLOW-THIS-USER'
 const UNFOLLOW = 'UNFOLLOW-THIS-USER'
@@ -96,6 +97,33 @@ export const onPageChangedThunkCreator = (newPageNumber: number) => {
         dispatch(setToggleFetching(true))
     }
 
+}
+
+export const onSubscribeThunkCreator = (userId: number,isFollowing:number[]) => {
+    return (dispatch: Dispatch<UserReducerType>) => {
+        dispatch(setToggleFollowingAC(true, isFollowing, userId))
+        usersApi.getSubscribed(userId)
+            .then(response => {
+                    if (response.data.resultCode === 0) {
+                        followUser(userId)
+                    }
+                    dispatch(setToggleFollowingAC(false, isFollowing, userId))
+                }
+            )
+    }
+}
+export const onUnsubscribeThunkCreator = (userId: number,isFollowing:number[]) => {
+    return (dispatch: Dispatch<UserReducerType>) => {
+        dispatch(setToggleFollowingAC(true, isFollowing, userId))
+        usersApi.getUnsubscribed(userId)
+            .then(response => {
+                    if (response.data.resultCode === 0) {
+                        unFollowUser(userId)
+                    }
+                    dispatch(setToggleFollowingAC(false, isFollowing, userId))
+                }
+            )
+    }
 }
 
 export const followUser = (userId: number) => {

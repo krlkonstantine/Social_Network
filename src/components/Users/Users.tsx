@@ -8,6 +8,8 @@ import {usersApi} from "../api/api";
 
 
 type UserPropsType = {
+    follow: (userId: number, isFollowing: number[]) => void
+    unfollow: (userId: number, isFollowing: number[]) => void
     onPageChanged: (p: number) => void
     onUnfollowClickHandler: (id: number) => void
     onFollowClickHandler: (id: number) => void
@@ -46,6 +48,8 @@ export const Users = (props: UserPropsType) => {
                     </div>
                     <div>{el.followed
                         ? <button disabled={props.isFollowing.some(id => id === el.id)} onClick={() => {
+                            //props.unfollow(el.id,props.isFollowing)
+
                             props.setToggleFollowingAC(true, props.isFollowing, el.id)
                             usersApi.getUnsubscribed(el.id)
                                 .then(response => {
@@ -58,7 +62,9 @@ export const Users = (props: UserPropsType) => {
                         }}>unfollow</button>
 
                         : <button disabled={props.isFollowing.some(id => id === el.id)} onClick={() => {
-                            props.setToggleFollowingAC(true, props.isFollowing, el.id)
+                            props.follow(el.id, props.isFollowing)
+
+                            /*props.setToggleFollowingAC(true, props.isFollowing, el.id)
                             usersApi.getSubscribed(el.id)
                                 .then(response => {
                                         if (response.data.resultCode === 0) {
@@ -66,7 +72,7 @@ export const Users = (props: UserPropsType) => {
                                         }
                                         props.setToggleFollowingAC(false, props.isFollowing, el.id)
                                     }
-                                )
+                                )*/
                         }}>follow</button>}
                         </div>
                 </span>

@@ -2,7 +2,7 @@ import React from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType, ProfileType} from "../../redux/redux-store";
-import {setUserProfile} from "../../redux/profile-reducers";
+import {getUserProfileThunkCreator, setUserProfile} from "../../redux/profile-reducers";
 import {InitialUsersStateType} from "../../redux/users-reducers";
 import {useLocation, useNavigate, useParams,} from "react-router-dom";
 import {ComponentType} from "react";
@@ -15,6 +15,8 @@ export type MapStateToPropsType = {
 }
 export type MapDispatchToPropsType = {
     setUserProfile: (user: ProfileType) => void
+    getUserProfileThunkCreator: (userId: string | undefined) => void
+
 }
 type PathParamsType = {
     router?: { params: { userId: string } }
@@ -28,16 +30,16 @@ export class ProfileContainer extends React.Component<ProfileContainerPropsType>
     }
 
     componentDidMount() {
-
-        let userId = this.props.router?.params?.userId
+        this.props.getUserProfileThunkCreator(this.props.router?.params?.userId)
+        /*let userId = this.props.router?.params?.userId
         if (!userId) {
             userId = '2'
         }
-        /*axios.get<any>(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)*/
+        /!*axios.get<any>(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)*!/
         usersApi.getCertainUserProfile(userId).then(response => {
                 this.props.setUserProfile(response.data)
             }
-        )
+        )*/
     }
 
     render() {
@@ -71,4 +73,5 @@ export function withRouter<T>(Component: ComponentType<T>) {
     return ComponentWithRouterProp;
 }
 
-export const ProfileExtContainer = connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>(mapStateToProps, {setUserProfile})(withURLDataContainerComponent)
+export const ProfileExtContainer = connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
+    (mapStateToProps, {setUserProfile, getUserProfileThunkCreator})(withURLDataContainerComponent)
