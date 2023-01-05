@@ -104,8 +104,10 @@ export const onSubscribeThunkCreator = (userId: number,isFollowing:number[]) => 
         dispatch(setToggleFollowingAC(true, isFollowing, userId))
         usersApi.getSubscribed(userId)
             .then(response => {
+                debugger
                     if (response.data.resultCode === 0) {
-                        followUser(userId)
+                        dispatch(followUser(userId))
+
                     }
                     dispatch(setToggleFollowingAC(false, isFollowing, userId))
                 }
@@ -117,8 +119,9 @@ export const onUnsubscribeThunkCreator = (userId: number,isFollowing:number[]) =
         dispatch(setToggleFollowingAC(true, isFollowing, userId))
         usersApi.getUnsubscribed(userId)
             .then(response => {
+                debugger
                     if (response.data.resultCode === 0) {
-                        unFollowUser(userId)
+                        dispatch(unFollowUser(userId))
                     }
                     dispatch(setToggleFollowingAC(false, isFollowing, userId))
                 }

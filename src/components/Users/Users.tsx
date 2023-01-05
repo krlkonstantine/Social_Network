@@ -29,7 +29,7 @@ export const Users = (props: UserPropsType) => {
         pages.push(i)
     }
 
-    // @
+
     return (
         <div className={styles.isActive}>
             <div>
@@ -48,9 +48,9 @@ export const Users = (props: UserPropsType) => {
                     </div>
                     <div>{el.followed
                         ? <button disabled={props.isFollowing.some(id => id === el.id)} onClick={() => {
-                            //props.unfollow(el.id,props.isFollowing)
+                            props.unfollow(el.id,props.isFollowing)
 
-                            props.setToggleFollowingAC(true, props.isFollowing, el.id)
+                            /*props.setToggleFollowingAC(true, props.isFollowing, el.id)
                             usersApi.getUnsubscribed(el.id)
                                 .then(response => {
                                         if (response.data.resultCode === 0) {
@@ -58,7 +58,7 @@ export const Users = (props: UserPropsType) => {
                                         }
                                         props.setToggleFollowingAC(false, props.isFollowing, el.id)
                                     }
-                                )
+                                )*/
                         }}>unfollow</button>
 
                         : <button disabled={props.isFollowing.some(id => id === el.id)} onClick={() => {
