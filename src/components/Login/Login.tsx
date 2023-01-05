@@ -16,6 +16,7 @@ export const Login = (props:LoginPropsType) => {
                 <div className={s.loginText}>Password</div>
                 <input className={s.loginInput} placeholder={"you pass, baby"} type="password"/>
             </div>
+            <button className={s.loginButton}>Log In</button>
         </div>
     );
 };

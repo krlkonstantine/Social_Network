@@ -9,6 +9,7 @@ type mapStateToPropsType = {
     dialogsPage: DialogsPageType
     avatar: string
     name: string
+    isAuth:boolean
 }
 
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
@@ -16,6 +17,7 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         dialogsPage: state.dialogsPage,
         avatar: "ghhghg",
         name: "panda",
+        isAuth: state.auth.isAuth
     }
 }
 type mapDispatchToPropsType = {

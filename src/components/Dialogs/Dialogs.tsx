@@ -3,6 +3,8 @@ import dlg from './Dialogs.module.css';
 import {DialogItem} from "./DialogItem/DialogItem";
 import {MessageItem} from "./Message/Message";
 import {DialogsPageType} from "../../redux/dialogs-reducers";
+import { Navigate } from 'react-router-dom';
+
 
 type DialogsPropsType = {
     name: string
@@ -10,6 +12,7 @@ type DialogsPropsType = {
     dialogsPage: DialogsPageType
     sendMessageCallback: () => void
     changeMessageText: (newMessageText: string) => void
+    isAuth:boolean
 }
 
 
@@ -24,6 +27,11 @@ export const Dialogs = (props: DialogsPropsType) => {
     }
     const onMsgTextChangeClickHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.changeMessageText(e.currentTarget.value.toString())
+    }
+
+
+    if (!props.isAuth) {
+        return  <Navigate to="/login" />
     }
 
     return (
