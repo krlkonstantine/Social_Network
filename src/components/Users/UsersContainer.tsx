@@ -8,7 +8,7 @@ import {
     setTotalCount, setUsers,
     unFollowUser, setToggleFollowingAC,
     getUsersThunkCreator, onPageChangedThunkCreator,
-    onSubscribeThunkCreator, onUnsubscribeThunkCreator
+    onFollowThunkCreator, onUnfollowThunkCreator
 } from "../../redux/users-reducers";
 import loading from "../../assets/images/loading.svg"
 import {Users} from "./Users";
@@ -143,7 +143,7 @@ export const UsersContainer = connect(mapStateToProps,
         followUser, unFollowUser, setUsers, setCurrentPage,
         setTotalCount, setToggleFetching,
         setToggleFollowingAC, getUsersThunkCreator,
-        onPageChangedThunkCreator, onSubscribeThunkCreator,
-        onUnsubscribeThunkCreator
+        onPageChangedThunkCreator, onSubscribeThunkCreator: onFollowThunkCreator,
+        onUnsubscribeThunkCreator: onUnfollowThunkCreator
     })(UsersAPIContainer)
 

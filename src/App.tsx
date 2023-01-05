@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header/Header";
 import {NavBar} from "./components/NavBar/NavBar";
 import {Settings} from "./components/Settings/Settings";
 import {Music} from "./components/Music/Music";
@@ -10,6 +9,7 @@ import {FriendsContainer} from "./components/Friends/FriendsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileExtContainer} from "./components/Profile/Profile.Container";
 import {HeaderExtContainer} from "./components/Header/HeaderContainer";
+import {Login} from "./components/Login/Login";
 
 
 let App = () => {
@@ -21,6 +21,7 @@ let App = () => {
                 <NavBar/>
                 <div className='app-wrapper-content'>
                     <Routes>
+                        <Route path="/login/*" element={<Login/>}/>
                         <Route path="/dialogs/*" element={<DialogsContainer/>}/>
                         <Route path="/profile/*" element={<ProfileExtContainer/>}>
                             <Route path=":userId" element={<ProfileExtContainer/>}/>

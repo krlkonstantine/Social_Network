@@ -1,0 +1,25 @@
+.loginPage {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.loginContainer {
+    align-self: center;
+    padding-top: 15px;
+}
+
+.loginText {
+    font-size: 18px;
+    font-weight: 700;
+    color: darkslateblue;
+}
+
+.passContainer {
+
+}
+
+.loginInput {
+
+}

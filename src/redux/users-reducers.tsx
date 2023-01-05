@@ -99,7 +99,7 @@ export const onPageChangedThunkCreator = (newPageNumber: number) => {
 
 }
 
-export const onSubscribeThunkCreator = (userId: number,isFollowing:number[]) => {
+export const onFollowThunkCreator = (userId: number, isFollowing:number[]) => {
     return (dispatch: Dispatch<UserReducerType>) => {
         dispatch(setToggleFollowingAC(true, isFollowing, userId))
         usersApi.getSubscribed(userId)
@@ -114,7 +114,7 @@ export const onSubscribeThunkCreator = (userId: number,isFollowing:number[]) => 
             )
     }
 }
-export const onUnsubscribeThunkCreator = (userId: number,isFollowing:number[]) => {
+export const onUnfollowThunkCreator = (userId: number, isFollowing:number[]) => {
     return (dispatch: Dispatch<UserReducerType>) => {
         dispatch(setToggleFollowingAC(true, isFollowing, userId))
         usersApi.getUnsubscribed(userId)

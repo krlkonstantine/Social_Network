@@ -4,7 +4,6 @@ import {UserType} from "../../redux/redux-store";
 import default_avatar from "../../assets/images/default_avatar.jpg";
 import {InitialUsersStateType} from "../../redux/users-reducers";
 import {NavLink} from "react-router-dom";
-import {usersApi} from "../api/api";
 
 
 type UserPropsType = {
