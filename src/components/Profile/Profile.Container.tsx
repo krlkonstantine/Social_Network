@@ -23,14 +23,20 @@ type PathParamsType = {
 }
 type ProfileContainerPropsType = MapStateToPropsType & MapDispatchToPropsType & PathParamsType
 
+let AuthRedirectComponent = (props: ProfileContainerPropsType)=>{
+    if (!props.isAuth) {
+        return  <Navigate to="/login" />
+    } else return <ProfileContainer {...props}/>
+}
+
 export class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
     constructor(props: ProfileContainerPropsType) {
         super(props)
     }
-
     componentDidMount() {
         this.props.getUserProfileThunkCreator(this.props.router?.params?.userId)
+
         /*let userId = this.props.router?.params?.userId
         if (!userId) {
             userId = '2'
@@ -41,11 +47,8 @@ export class ProfileContainer extends React.Component<ProfileContainerPropsType>
             }
         )*/
     }
-
     render() {
-        if (!this.props.isAuth) {
-            return  <Navigate to="/login" />
-        }
+
         return (
             <Profile isAuth={this.props.isAuth} userProfilePage={this.props.userProfilePage}/>
         )
@@ -53,7 +56,6 @@ export class ProfileContainer extends React.Component<ProfileContainerPropsType>
 }
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-
     return {
         usersPage: state.usersPage,
         userProfilePage: state.profilePage.userProfilePage,
@@ -62,7 +64,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 
-let withURLDataContainerComponent = withRouter<MapStateToPropsType & MapDispatchToPropsType>(ProfileContainer)
+let withURLDataContainerComponent = withRouter<MapStateToPropsType & MapDispatchToPropsType>(AuthRedirectComponent)
 
 export function withRouter<T>(Component: ComponentType<T>) {
     function ComponentWithRouterProp(props: T) {
