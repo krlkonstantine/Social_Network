@@ -6,6 +6,7 @@ import {getUserProfileThunkCreator, setUserProfile} from "../../redux/profile-re
 import {InitialUsersStateType} from "../../redux/users-reducers";
 import {Navigate, useLocation, useNavigate, useParams,} from "react-router-dom";
 import {ComponentType} from "react";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 export type MapStateToPropsType = {
@@ -79,5 +80,6 @@ export function withRouter<T>(Component: ComponentType<T>) {
     return ComponentWithRouterProp;
 }
 
-export const ProfileExtContainer = connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
-    (mapStateToProps, {setUserProfile, getUserProfileThunkCreator})(withURLDataContainerComponent)
+
+export const ProfileExtContainer = withAuthRedirect(connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
+    (mapStateToProps, {setUserProfile, getUserProfileThunkCreator})(withURLDataContainerComponent))

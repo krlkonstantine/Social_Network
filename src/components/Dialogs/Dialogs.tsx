@@ -6,7 +6,7 @@ import {DialogsPageType} from "../../redux/dialogs-reducers";
 import { Navigate } from 'react-router-dom';
 
 
-type DialogsPropsType = {
+export  type DialogsPropsType = {
     name: string
     avatar: string
     dialogsPage: DialogsPageType
