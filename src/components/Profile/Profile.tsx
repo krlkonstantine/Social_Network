@@ -8,7 +8,7 @@ import {Navigate} from "react-router-dom";
 
 type ProfilePropsType = {
     userProfilePage: ProfileType
-    isAuth:boolean
+    //isAuth:boolean
 }
 
 export const Profile = (props: ProfilePropsType) => {

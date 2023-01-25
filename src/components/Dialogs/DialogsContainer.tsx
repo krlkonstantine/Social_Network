@@ -4,6 +4,7 @@ import {DialogsPageType, sendNewMsgAC, updNewMsgTextAC} from "../../redux/dialog
 import {ActionsType, AppStateType} from "../../redux/redux-store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
+import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type mapStateToPropsType = {
     dialogsPage: DialogsPageType
@@ -24,6 +25,8 @@ type mapDispatchToPropsType = {
     sendMessageCallback: () => void
     changeMessageText: (newMessageText: string) => void
 }
+
+
 let mapDispatchToProps = (dispatch: Dispatch<ActionsType>): mapDispatchToPropsType => {
     return {
         sendMessageCallback: () => {
@@ -42,4 +45,7 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionsType>): mapDispatchToPropsTy
 //и запихнет в нее через атрибуты. Формируются 2 bj, склеиваются в 1 и go как пропсы в диалогс
 //эти две фнк без вызова (), коннекст их вызовет сам, а в них он передаст store
 //эти две fnc настраивают наш коннект,
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+
+let AuthRedirectComponent =WithAuthRedirect(Dialogs)
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
+
