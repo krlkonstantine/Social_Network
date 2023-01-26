@@ -14,7 +14,7 @@ export const Login = (props:LoginPropsType) => {
             </div>
             <div className={s.loginContainer}>
                 <div className={s.loginText}>Password</div>
-                <input className={s.loginInput} placeholder={"you pass, baby"} type="password"/>
+                <input className={s.loginInput} placeholder={"your pass"} type="password"/>
             </div>
             <button className={s.loginButton}>Log In</button>
         </div>

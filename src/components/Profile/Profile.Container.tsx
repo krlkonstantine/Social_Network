@@ -7,6 +7,7 @@ import {InitialUsersStateType} from "../../redux/users-reducers";
 import {Navigate, useLocation, useNavigate, useParams,} from "react-router-dom";
 import {ComponentType} from "react";
 import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 
 export type MapStateToPropsType = {
@@ -35,6 +36,7 @@ export class ProfileContainer extends React.Component<ProfileContainerPropsType>
     constructor(props: ProfileContainerPropsType) {
         super(props)
     }
+
     componentDidMount() {
         this.props.getUserProfileThunkCreator(this.props.router?.params?.userId)
 
@@ -48,6 +50,7 @@ export class ProfileContainer extends React.Component<ProfileContainerPropsType>
             }
         )*/
     }
+
     render() {
         return (
             <Profile userProfilePage={this.props.userProfilePage}/>
@@ -64,7 +67,6 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 
-let withURLDataContainerComponent = withRouter<MapStateToPropsType & MapDispatchToPropsType>(ProfileContainer)
 
 export function withRouter<T>(Component: ComponentType<T>) {
     function ComponentWithRouterProp(props: T) {
@@ -75,10 +77,21 @@ export function withRouter<T>(Component: ComponentType<T>) {
             <Component{...props} router={{location, navigate, params}}/>
         );
     }
+
     return ComponentWithRouterProp;
 }
+let withURLDataContainerComponent = withRouter<MapStateToPropsType & MapDispatchToPropsType>(ProfileContainer)
 
 let AuthRedirectComponent = WithAuthRedirect(withURLDataContainerComponent)
 
-export const ProfileExtContainer:ComponentType = WithAuthRedirect(connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
-    (mapStateToProps, {setUserProfile, getUserProfileThunkCreator})(AuthRedirectComponent))
+export const ProfileExtContainer: ComponentType = WithAuthRedirect(connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
+(mapStateToProps, {setUserProfile, getUserProfileThunkCreator})(AuthRedirectComponent))
+
+/*export default compose<React.ComponentType>(
+
+    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
+    (mapStateToProps, {setUserProfile, getUserProfileThunkCreator}),
+    WithAuthRedirect,
+    withRouter<MapStateToPropsType & MapDispatchToPropsType>(ProfileContainer)
+)
+(ProfileContainer)*/

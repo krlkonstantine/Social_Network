@@ -6,10 +6,10 @@ import {Music} from "./components/Music/Music";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {FriendsContainer} from "./components/Friends/FriendsContainer";
 import {UsersContainer} from "./components/Users/UsersContainer";
-import {ProfileExtContainer} from "./components/Profile/Profile.Container";
+import ProfileExtContainer from "./components/Profile/Profile.Container";
 import {HeaderExtContainer} from "./components/Header/HeaderContainer";
 import {Login} from "./components/Login/Login";
-import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
 let App = () => {
@@ -24,7 +24,7 @@ let App = () => {
                         <Route path="/login/*" element={<Login/>}/>
                         <Route path="/dialogs/*" element={<DialogsContainer/>}/>
                         <Route path="/profile/:userId" element={<ProfileExtContainer/>}>
-                            {/*<Route path="" element={<ProfileExtContainer/>}/>*/}
+                            <Route path="" element={<ProfileExtContainer/>}/>
                         </Route>
                         <Route path="/friends" element={<FriendsContainer/>}/>
                         <Route path="/music" element={<Music/>}/>

@@ -5,6 +5,7 @@ import {ActionsType, AppStateType} from "../../redux/redux-store";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {WithAuthRedirect} from "../../hoc/withAuthRedirect";
+import {compose} from "redux";
 
 type mapStateToPropsType = {
     dialogsPage: DialogsPageType
@@ -46,6 +47,11 @@ let mapDispatchToProps = (dispatch: Dispatch<ActionsType>): mapDispatchToPropsTy
 //эти две фнк без вызова (), коннекст их вызовет сам, а в них он передаст store
 //эти две fnc настраивают наш коннект,
 
-let AuthRedirectComponent =WithAuthRedirect(Dialogs)
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);
+export default compose<React.ComponentType>(
+    WithAuthRedirect,
+    connect(mapStateToProps, mapDispatchToProps),
+)(Dialogs)
+
+/*let AuthRedirectComponent = WithAuthRedirect(Dialogs)
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent);*/
 
