@@ -87,11 +87,14 @@ let AuthRedirectComponent = WithAuthRedirect(withURLDataContainerComponent)
 export const ProfileExtContainer: ComponentType = WithAuthRedirect(connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
 (mapStateToProps, {setUserProfile, getUserProfileThunkCreator})(AuthRedirectComponent))
 
-/*export default compose<React.ComponentType>(
-
+export default compose<React.ComponentType>(
+    WithAuthRedirect,
     connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
     (mapStateToProps, {setUserProfile, getUserProfileThunkCreator}),
-    WithAuthRedirect,
+
+/*
+    ProfileContainer,
+*/
     withRouter<MapStateToPropsType & MapDispatchToPropsType>(ProfileContainer)
 )
-(ProfileContainer)*/
+(Profile)
