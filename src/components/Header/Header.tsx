@@ -1,21 +1,24 @@
-import React from "react";
-import h from './Header.module.css';
+import React from 'react';
+import styles from './Header.module.css';
 import {NavLink} from "react-router-dom";
+import {ReactComponent as SNLogo} from "../../assets/img/tg_icon.svg"
 
-type HeaderPropType = any
+type HeaderType = {
+    isAuth: boolean,
+    login: string
+    logout: () => void
+}
 
-export const Header = (props: HeaderPropType) => {
-    return (<header className={h.header}>
-            <img
-                src="https://banner2.cleanpng.com/20180715/zio/kisspng-logo-font-flame-logo-5b4b2d7c3b73e0.2237387315316535002435.jpg"
-                alt="Logo depicting a fire"/>
-        {props.isAuth
-            ? <div className={h.loginDisplayer}>{props.login}</div>
-            : <div className={h.loginBlock}>
-            <NavLink to={"/login"}>Login</NavLink>
-        </div>
-        }
-
+export const Header = (props: HeaderType) => {
+    return (
+        <header className={styles.header}>
+            <SNLogo className={styles.logo} />
+            <div className={styles.loginBlock}>
+                {props.isAuth
+                    ? <div>{props.login} - <button onClick={props.logout}>Log out</button></div>
+                    : <NavLink to={'/login'}>Login</NavLink>
+                }
+            </div>
         </header>
     )
 }

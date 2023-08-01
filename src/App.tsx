@@ -1,39 +1,64 @@
 import React from 'react';
-import './App.css';
-import {NavBar} from "./components/NavBar/NavBar";
-import {Settings} from "./components/Settings/Settings";
-import {Music} from "./components/Music/Music";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {FriendsContainer} from "./components/Friends/FriendsContainer";
-import {UsersContainer} from "./components/Users/UsersContainer";
-import {ProfileExtContainer} from "./components/Profile/Profile.Container";
-import {HeaderExtContainer} from "./components/Header/HeaderContainer";
-import {Login} from "./components/Login/Login";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import s from './App.module.css';
+import {Navigation} from "./components/navigation/Navigation";
+import {Redirect, Route, withRouter} from "react-router-dom";
+import {Messages} from "./components/main/Messages/DialogMessages/Messages";
+import UsersContainer from "./components/Users/UsersContainer";
+import HeaderContainer from "./components/header/HeaderContainer";
+import {LoginPage} from "./components/login/LoginPage";
+import ProfileContainer from "./components/main/ProfilePage/ProfileContainer";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {initializeApp} from "./redux/reducers/app-reducer";
+import {ActionType} from "./redux/store";
+import {AppStateType} from "./redux/redux-store";
+import {Preloader} from "./utils/preloader/Preloader";
 
+type MapDispatchPropsType = {
+    initializeApp: () => ActionType
+}
+type MapStateToPropsType = {
+    initialized: boolean
+}
 
-let App = () => {
+type AppClassType = MapStateToPropsType & MapDispatchPropsType
 
-    return (
-        <BrowserRouter>
-            <div className='app-wrapper'>
-                <HeaderExtContainer/>
-                <NavBar/>
-                <div className='app-wrapper-content'>
-                    <Routes>
-                        <Route path="/login/*" element={<Login/>}/>
-                        <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-                        <Route path="/profile/:userId" element={<ProfileExtContainer/>}>
-                            <Route path="" element={<ProfileExtContainer/>}/>
-                        </Route>
-                        <Route path="/friends" element={<FriendsContainer/>}/>
-                        <Route path="/music" element={<Music/>}/>
-                        <Route path="/settings" element={<Settings/>}/>
-                        <Route path="/users" element={<UsersContainer/>}/>
-                    </Routes>
+class App extends React.Component<AppClassType> {
+    componentDidMount() {
+        this.props.initializeApp()
+    }
+
+    render() {
+        if (!this.props.initialized) return <Preloader/>
+        return (
+            <div className={s.App}>
+                <HeaderContainer/>
+                <Navigation/>
+                <div>
+                    <Redirect exact from={'/'} to={'/profile'}/>
+                    <Route path={'/profile/:userId?'}
+                           render={() => <ProfileContainer/>}
+                    />
+                    <Route path={'/messages'}
+                           render={() => <Messages/>}
+                    />
+                    <Route path={'/users'}
+                           render={() => <UsersContainer/>}
+                    />
+                    <Route path={'/login'}
+                           render={() => <LoginPage/>}
+                    />
                 </div>
             </div>
-        </BrowserRouter>
-    );
+        );
+    }
 }
-export default App;
+
+const mapStateToProps = (state: AppStateType) => ({
+    initialized: state.app.initialized
+})
+
+export default compose<React.FC>(
+    withRouter,
+    connect(mapStateToProps, {initializeApp})
+)(App);

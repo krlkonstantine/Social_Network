@@ -1,90 +1,100 @@
-import React from 'react';
-import styles from "./Users.module.css";
-import {UserType} from "../../redux/redux-store";
-import default_avatar from "../../assets/images/default_avatar.jpg";
-import {InitialUsersStateType} from "../../redux/users-reducers";
+import React, {MouseEvent} from 'react';
+import s from './Users.module.css';
 import {NavLink} from "react-router-dom";
 
-
-type UserPropsType = {
-    follow: (userId: number, isFollowing: number[]) => void
-    unfollow: (userId: number, isFollowing: number[]) => void
-    onPageChanged: (p: number) => void
-    onUnfollowClickHandler: (id: number) => void
-    onFollowClickHandler: (id: number) => void
-    setToggleFollowingAC: (isFetching: boolean, isFollowing: number[], userId: number) => void
-    usersPage: InitialUsersStateType
-    totalUsersCount: number
-    pageSize: number
-    currentPageNo: number
-    isFollowing: number[]
+export type UserType = {
+    id: string
+    photos: {
+        small: string | null
+        large: string | null
+    }
+    followed: boolean
+    name: string
+    status: string | null
+    location?: {
+        country: string
+        city: string
+    }
 }
-export const Users = (props: UserPropsType) => {
+export type UsersType = {
+    users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    followingProgress: string[]
+    setCurrentPage: (currentPage: number) => void
+    followUser: (userId: string) => void
+    unfollowUser: (userId: string) => void
+}
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+export const Users = (props: UsersType) => {
+    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = []
-
-    for (let i = 1; i <= pagesCount; i++) {
+    for (let i = 1; i <= 10; i++) {
         pages.push(i)
     }
 
+    const unfollow = (e: MouseEvent<HTMLButtonElement>) => {
+        const userId = e.currentTarget.id
+        props.unfollowUser(userId)
+    }
+    const follow = (e: MouseEvent<HTMLButtonElement>) => {
+        const userId = e.currentTarget.id
+        props.followUser(userId)
+    }
 
     return (
-        <div className={styles.isActive}>
-            <div>
+        <div className={s.wrapper}>
+            <div className={s.pages}>
                 {pages.map(p => {
-                    return <span onClick={() => props.onPageChanged(p)}
-                                 className={p === props.currentPageNo ? styles.selectedPage : styles.pageNumber}>{p}</span>
+                    return <span key={p} id={String(p)}
+                                 className={props.currentPage === p ? s.selectedPage : ''}
+                                 onClick={() => props.setCurrentPage(p)}
+                    >{p}</span>
                 })}
+                {pagesCount > 10 && <div className={s.pages}>
+                    <span>...</span>
+                    <span id={String(pagesCount)}
+                          onClick={() => props.setCurrentPage(pagesCount)}
+                          className={props.currentPage === pagesCount ? s.selectedPage : ''}
+                    >{pagesCount}</span>
+                </div>}
+
             </div>
-            {props.usersPage.users.map((el: UserType) => <div key={el.id}>
-                <span>
-                    <div>
-                        <NavLink to={'/profile/' + el.id}>
-                        <img className={styles.useAvatar} src={el.photos.small ? el.photos.small : default_avatar}
-                             alt=""/>
+            {props.users.map(user => {
+                return (
+                    <div key={user.id} className={s.users}>
+                        <NavLink to={'/profile/' + user.id}>
+                            <img alt={'avatar'}
+                                 className={s.avatar}
+                                 src={user.photos.small || 'https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/72/Cat-icon.png'}/>
                         </NavLink>
-                    </div>
-                    <div>{el.followed
-                        ? <button disabled={props.isFollowing.some(id => id === el.id)} onClick={() => {
-                            props.unfollow(el.id,props.isFollowing)
-
-                            /*props.setToggleFollowingAC(true, props.isFollowing, el.id)
-                            usersApi.getUnsubscribed(el.id)
-                                .then(response => {
-                                        if (response.data.resultCode === 0) {
-                                            props.onUnfollowClickHandler(el.id)
-                                        }
-                                        props.setToggleFollowingAC(false, props.isFollowing, el.id)
-                                    }
-                                )*/
-                        }}>unfollow</button>
-
-                        : <button disabled={props.isFollowing.some(id => id === el.id)} onClick={() => {
-                            props.follow(el.id, props.isFollowing)
-
-                            /*props.setToggleFollowingAC(true, props.isFollowing, el.id)
-                            usersApi.getSubscribed(el.id)
-                                .then(response => {
-                                        if (response.data.resultCode === 0) {
-                                            props.onFollowClickHandler(el.id)
-                                        }
-                                        props.setToggleFollowingAC(false, props.isFollowing, el.id)
-                                    }
-                                )*/
-                        }}>follow</button>}
+                        <div className={s.info}>
+                            <div className={s.descr}>
+                                <span>{user.name}</span>
+                                <p>{user.status}</p>
+                            </div>
+                            <div className={s.adres}>
+                                <span>{user.location?.city}</span>
+                                <p>{user.location?.country}</p>
+                            </div>
                         </div>
-                </span>
-                <span>
-                    <span><div>{el.name}</div>
-                            <div>{el.status}</div>
-                    </span>
-                    <span>
-                        <div>'userCountry'</div>
-                        <div>'userCity'</div>
-                    </span>
-                </span>
-            </div>)}
+                        <div className={s.button}>
+                            {user.followed ?
+                                <button id={user.id}
+                                        onClick={unfollow}
+                                        disabled={props.followingProgress.some(id => id === user.id.toString())}
+                                        className={s.unfollow}>UNFOLLOW</button>
+                                : <button id={user.id}
+                                          onClick={follow}
+                                          disabled={props.followingProgress.some(id => id === user.id.toString())}
+                                          className={s.follow}>FOLLOW</button>
+                            }
+                        </div>
+                    </div>
+                )
+            })}
+            <button className={s.seeMore}>SEE MORE</button>
         </div>
-    );
-};
+    )
+}
