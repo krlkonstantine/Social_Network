@@ -12,9 +12,9 @@ export type setUserStatusAT = ReturnType<typeof setUserStatus>
 const initialState: ProfilePagePropsType = {
     profile: null,
     posts: [
-        {_id: v1(), title: 'Post 1', descr: "This is first post about me..."},
-        {_id: v1(), title: 'Post 2', descr: "This is post about my family..."},
         {_id: v1(), title: 'Post 3', descr: "This is post about my jobs..."},
+        {_id: v1(), title: 'Post 2', descr: "This is post about my family..."},
+        {_id: v1(), title: 'Post 1', descr: "This is first post about me..."},
     ],
     status: ''
 }
@@ -29,7 +29,7 @@ export const profileReducer = (state: ProfilePagePropsType = initialState, actio
             }
             return {
                 ...state,
-                posts: [...state.posts, newPost],
+                posts: [newPost, ...state.posts],
             }
         }
         case "SET-USER-STATUS": {
@@ -53,7 +53,7 @@ export const getProfile = (userId: string) => (dispatch: Dispatch<ActionType>) =
             console.log('profile: ', data)
             dispatch(setUserProfile(data))
         })
-        .finally( () => dispatch(changePreloaderStatus(false)))
+        .finally(() => dispatch(changePreloaderStatus(false)))
 }
 export const getStatus = (userId: string) => (dispatch: Dispatch<ActionType>) => {
     dispatch(changePreloaderStatus(true))
@@ -62,7 +62,7 @@ export const getStatus = (userId: string) => (dispatch: Dispatch<ActionType>) =>
             console.log(data)
             dispatch(setUserStatus(data))
         })
-        .finally( () => dispatch(changePreloaderStatus(false)))
+        .finally(() => dispatch(changePreloaderStatus(false)))
 }
 export const updateStatus = (status: string) => (dispatch: Dispatch<ActionType>) => {
     dispatch(changePreloaderStatus(true))
@@ -70,5 +70,5 @@ export const updateStatus = (status: string) => (dispatch: Dispatch<ActionType>)
         .then(data => {
             if (data.resultCode === 0) dispatch(setUserStatus(status))
         })
-        .finally( () => dispatch(changePreloaderStatus(false)))
+        .finally(() => dispatch(changePreloaderStatus(false)))
 }

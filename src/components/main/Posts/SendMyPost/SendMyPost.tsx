@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './SendMyPost.module.css';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthTC, required} from "../../../utils/validators/validaqtors";
-import {Textarea} from "../../common/FormsControls/FormsControls";
+import {maxLengthTC, required} from "../../../../utils/validators/validaqtors";
+import {Textarea} from "../../../common/FormsControls/FormsControls";
 
 type SendMyPostPropsType = {
     addPost: (textNewPost: string) => void

@@ -5,7 +5,7 @@
     grid-area: n;
     font-size: 30px;
     /*background-color: cadetblue;*/
-    background-color: #f684a1;
+    background-color: #a1b3b4;
 }
 
 .nav a {
@@ -19,6 +19,6 @@
 }
 
 .nav .activeLink {
-    color: #3b4354;
+    color: #163a41;
 
 }

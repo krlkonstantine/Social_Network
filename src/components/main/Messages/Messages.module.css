@@ -1,8 +1,7 @@
 .dialogsList {
-    background-color: #EFE2BA;
+    background-color: lightgrey;
     padding: 20px;
     display: flex;
     flex-direction: row;
-
 }
 

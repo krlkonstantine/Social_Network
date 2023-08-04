@@ -29,7 +29,7 @@ type ProfilePropsType = {
 }
 
 export function Profile(props: ProfilePropsType) {
-    const avatar = "https://cs12.pikabu.ru/post_img/big/2022/04/16/4/1650082940124498859.jpg"
+    const avatar = "https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/512/Deer-icon.png"
 
     if (props.profile) return (
         <div key={props.profile.userId} className={s.profile}>
@@ -40,7 +40,8 @@ export function Profile(props: ProfilePropsType) {
                 <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
                 <div>Обо мне: {props.profile.aboutMe}</div>
                 <h4>{props.profile.lookingForAJob ? 'Ищу работу' : 'Уже работаю'}</h4>
-                {props.profile.lookingForAJob && <div className={s.profile__descr}>{props.profile.lookingForAJobDescription}</div>}
+                {props.profile.lookingForAJob &&
+                    <div className={s.profile__descr}>{props.profile.lookingForAJobDescription}</div>}
             </div>
         </div>
     )

@@ -2,7 +2,7 @@ import React from 'react';
 import s from '../Main.module.css';
 import {MainImg} from "../MainImg/MainImg";
 import {Profile, ProfileType} from "./Profile";
-import {SendMyPostContainer} from "../SendMyPost/SendMyPostContainer";
+import {SendMyPostContainer} from "../Posts/SendMyPost/SendMyPostContainer";
 import {Posts, PostType} from "../Posts/Posts";
 
 

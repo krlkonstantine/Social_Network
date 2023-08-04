@@ -48,9 +48,9 @@ export const Dialog = (props: DialogPropsType) => {
                 return (
                     <div key={el._id} className={s.messageItem}>
                         <img alt='avatar'
-                             src={'https://cs14.pikabu.ru/post_img/big/2022/04/16/4/1650081838119523257.jpg'}
+                             src={'https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/128/Cat-Cool-icon.png'}
                              className={s.avatar}/>
-                        <div className={s.message} >{el.message}</div>
+                        <div className={s.message}>{el.message}</div>
 
                     </div>
                 )

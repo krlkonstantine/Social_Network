@@ -1,7 +1,6 @@
 .messageBlock {
     margin-left: 50px;
     border-left: 2px solid #5c7a80;
-
 }
 
 .messageItem {
@@ -41,7 +40,7 @@
 }
 
 .sendMessage textarea {
-    width: 600px;
+    max-width: 400px;
     border: none;
     border-radius: 10px;
     padding: 10px;
@@ -65,8 +64,8 @@
     display: block;
     border: none;
     border-radius: 10px;
-    background-color: #c56bf3;
-    color: #EFE2BA;
+    background-color: #a1b3b4;
+    color: #163a41;
     font-size: 20px;
     line-height: 24px;
 }

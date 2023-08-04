@@ -2,6 +2,7 @@ import React, {MouseEvent} from 'react';
 import s from './Users.module.css';
 import {NavLink} from "react-router-dom";
 
+
 export type UserType = {
     id: string
     photos: {
@@ -16,16 +17,21 @@ export type UserType = {
         city: string
     }
 }
+
 export type UsersType = {
     users: Array<UserType>
+
     pageSize: number
+
     totalUsersCount: number
+
     currentPage: number
     followingProgress: string[]
     setCurrentPage: (currentPage: number) => void
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
 }
+
 
 export const Users = (props: UsersType) => {
     const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -34,14 +40,19 @@ export const Users = (props: UsersType) => {
         pages.push(i)
     }
 
+
     const unfollow = (e: MouseEvent<HTMLButtonElement>) => {
         const userId = e.currentTarget.id
         props.unfollowUser(userId)
+
     }
+
     const follow = (e: MouseEvent<HTMLButtonElement>) => {
         const userId = e.currentTarget.id
         props.followUser(userId)
+
     }
+
 
     return (
         <div className={s.wrapper}>
@@ -59,7 +70,6 @@ export const Users = (props: UsersType) => {
                           className={props.currentPage === pagesCount ? s.selectedPage : ''}
                     >{pagesCount}</span>
                 </div>}
-
             </div>
             {props.users.map(user => {
                 return (
@@ -67,7 +77,7 @@ export const Users = (props: UsersType) => {
                         <NavLink to={'/profile/' + user.id}>
                             <img alt={'avatar'}
                                  className={s.avatar}
-                                 src={user.photos.small || 'https://cs14.pikabu.ru/post_img/big/2022/04/16/4/1650081784126494530.jpg'}/>
+                                 src={user.photos.small || 'https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/72/Cat-icon.png'}/>
                         </NavLink>
                         <div className={s.info}>
                             <div className={s.descr}>
