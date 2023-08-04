@@ -1,7 +1,6 @@
 import React from 'react';
-import styles from './Header.module.css';
+import s from './Header.module.css';
 import {NavLink} from "react-router-dom";
-import {ReactComponent as SNLogo} from "../../assets/img/tg_icon.svg"
 
 type HeaderType = {
     isAuth: boolean,
@@ -11,9 +10,11 @@ type HeaderType = {
 
 export const Header = (props: HeaderType) => {
     return (
-        <header className={styles.header}>
-            <SNLogo className={styles.logo} />
-            <div className={styles.loginBlock}>
+        <header className={s.header}>
+            <img alt={'logo'}
+                 className={s.logo}
+                 src="https://img.freepik.com/premium-vector/colorful-elephant-zentangle-arts-isolated-black-background_122297-2007.jpg"/>
+            <div className={s.loginBlock}>
                 {props.isAuth
                     ? <div>{props.login} - <button onClick={props.logout}>Log out</button></div>
                     : <NavLink to={'/login'}>Login</NavLink>

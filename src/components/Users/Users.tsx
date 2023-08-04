@@ -67,7 +67,7 @@ export const Users = (props: UsersType) => {
                         <NavLink to={'/profile/' + user.id}>
                             <img alt={'avatar'}
                                  className={s.avatar}
-                                 src={user.photos.small || 'https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/72/Cat-icon.png'}/>
+                                 src={user.photos.small || 'https://cs14.pikabu.ru/post_img/big/2022/04/16/4/1650081784126494530.jpg'}/>
                         </NavLink>
                         <div className={s.info}>
                             <div className={s.descr}>

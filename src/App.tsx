@@ -2,7 +2,7 @@ import React from 'react';
 import s from './App.module.css';
 import {Navigation} from "./components/navigation/Navigation";
 import {Redirect, Route, withRouter} from "react-router-dom";
-import {Messages} from "./components/main/Messages/DialogMessages/Messages";
+import {Messages} from "./components/main/Messages/Messages";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
 import {LoginPage} from "./components/login/LoginPage";

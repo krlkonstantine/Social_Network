@@ -1,0 +1,24 @@
+.nav {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    grid-area: n;
+    font-size: 30px;
+    /*background-color: cadetblue;*/
+    background-color: #f684a1;
+}
+
+.nav a {
+    color: white;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    color: #3b4354;
+}
+
+.nav .activeLink {
+    color: #3b4354;
+
+}

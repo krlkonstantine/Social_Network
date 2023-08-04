@@ -1,0 +1,21 @@
+.posts {
+    margin: 20px;
+    padding-top: 40px;
+}
+
+.post {
+    /*border: 1px solid #f684a1;*/
+    background: #fde8ed;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+.title {
+    margin-left: 20px;
+}
+
+.descr {
+    margin-top: 10px;
+    font-size: 15px;
+}

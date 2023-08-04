@@ -1,7 +1,7 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    background-color: lightgrey;
+    background-color: #EFE2BA;
     padding: 20px;
 }
 .pages {
@@ -32,7 +32,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border: 2px solid gray;
+    border: 2px solid #e77b7b;
     border-radius: 10px;
 }
 
@@ -67,20 +67,17 @@
 }
 
 .button button:hover {
-    font-weight: 750;
-    color: green;
+    font-size: 15px;
 }
 
 .unfollow {
-    background: peru;
-    border: 1px solid indianred;
+    background: #f684a1;
+    border: 1px solid #e77b7b;
 }
 
 .follow {
-    background: #a1b3b4;
-    border: 1px solid #163a41;
-    color: #163a41;
-
+    background: #8ed754;
+    border: 1px solid #8ed754;
 }
 
 .seeMore {
@@ -89,13 +86,8 @@
     padding: 5px;
     margin: 0 auto;
     margin-top: 40px;
-    background: #c5c4d5;
+    background: #112D32;
     font-size: 20px;
-    color: #8B7AA8;
+    color: #EFE2BA;
     border-radius: 5px;
-}
-
-.seeMore:hover {
-    background: #5c7a80;
-    color: #c5c4d5;
 }

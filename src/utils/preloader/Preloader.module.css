@@ -1,0 +1,11 @@
+.preloaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preloaderContainer img {
+    background: none;
+    width: 100px;
+    height: 100px;
+}

@@ -1,0 +1,11 @@
+.title {
+    font-size: 26px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+.list {
+    font-size: 16px;
+    margin-left: 40px;
+    margin-top: 20px;
+}

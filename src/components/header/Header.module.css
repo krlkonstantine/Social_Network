@@ -1,8 +1,8 @@
 .header {
     grid-area: h;
     height: 100px;
-    /*background-color: #5c7a80;*/
-    background-color: #3B3A3D;
+    /*background-color: #282c34;*/
+    background-color: #112D32;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -10,9 +10,7 @@
 }
 
 .logo {
-    height: 70px;
-    width: auto;
-    fill: #8B7AA8;
+    height: 100%;
 }
 
 .loginBlock{

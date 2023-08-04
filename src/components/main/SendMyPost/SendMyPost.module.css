@@ -1,0 +1,35 @@
+.myPost {
+    margin: 20px;
+}
+
+.myPost h3 {
+    display: block;
+    width: 150px;
+    text-align: center;
+}
+
+.myPostForm {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.myPostForm pre {
+    white-space: pre-line;
+    margin: 0;
+}
+
+.myPostForm button {
+    height: 45px;
+    width: 110px;
+    display: block;
+    border: none;
+    border-radius: 10px;
+    background-color: #c56bf3;
+    color: #EFE2BA;
+    font-size: 24px;
+    line-height: 24px;
+}

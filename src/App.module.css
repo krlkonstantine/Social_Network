@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 100px 1fr;
+  grid-template-columns: 2fr 10fr;
+  grid-template-areas: "h h"
+                       "n m";
+  grid-gap: 10px;
+}
+
+
+
+
+
+
+
+
+

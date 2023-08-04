@@ -1,0 +1,6 @@
+.main {
+    grid-area: m;
+    /*background-color: cornsilk;*/
+    background-color: #EFE2BA;
+    padding-bottom: 20px;
+}
