@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-export const res = axios.create({
+export const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
@@ -12,45 +12,45 @@ export const res = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage: number) {
-        return res.get(`users?page=${currentPage}`)
+        return instance.get(`users?page=${currentPage}`)
             .then(response => response.data)
     },
     follow(userId: string) {
-        return res.post(`/follow/${userId}`)
+        return instance.post(`/follow/${userId}`)
             .then(response => response.data)
     },
     unfollow(userId: string) {
-        return res.delete(`/follow/${userId}`)
+        return instance.delete(`/follow/${userId}`)
             .then(response => response.data)
     }
 }
 
 export const profileAPI = {
-    getProfile (userId: string) {
-        return res.get(`profile/` + userId)
+    getProfile(userId: string) {
+        return instance.get(`profile/` + userId)
             .then(response => response.data)
     },
-    getStatus (userId: string) {
-        return res.get(`profile/status/` + userId)
+    getStatus(userId: string) {
+        return instance.get(`profile/status/` + userId)
             .then(response => response.data)
     },
-    updateStatus (status: string) {
-        return res.put(`profile/status/`, {status: status})
+    updateStatus(status: string) {
+        return instance.put(`profile/status/`, {status: status})
             .then(response => response.data)
     }
 }
 
 export const authAPI = {
-    me () {
-        return res.get(`auth/me`)
+    me() {
+        return instance.get(`auth/me`)
             .then(response => response.data)
     },
-    login (email: string, password: string, rememberMe: boolean = false) {
-        return res.post(`auth/login`, {email, password, rememberMe})
+    login(email: string, password: string, rememberMe: boolean = false) {
+        return instance.post(`auth/login`, {email, password, rememberMe})
             .then(response => response.data)
     },
-    logout () {
-        return res.delete(`auth/login`)
+    logout() {
+        return instance.delete(`auth/login`)
             .then(response => response.data)
     }
 
