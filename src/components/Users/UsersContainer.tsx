@@ -6,6 +6,7 @@ import {
     setCurrentPage, getUsers, followUser, unfollowUser
 } from "../../redux/reducers/users-reducer";
 import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type UsersContainerType = {
     users: Array<UserType>
@@ -53,5 +54,6 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 export default compose<React.ComponentType>(
+    withAuthRedirect,
     connect(mapStateToProps, {setCurrentPage, getUsers, followUser, unfollowUser}),
 )(UsersContainer)
