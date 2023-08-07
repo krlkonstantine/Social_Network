@@ -12,7 +12,7 @@ type FormDataType = {
     newPostText: string
 }
 
-const maxLength10 = maxLengthTC(10)
+const maxLength10 = maxLengthTC(15)
 
 const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
