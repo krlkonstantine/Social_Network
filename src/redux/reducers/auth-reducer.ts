@@ -57,11 +57,11 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
                     // @ts-ignore
                     dispatch(getAuthUser())
                 } else {
-                    const message = data.messages.length > 0 ? data.messages[0] : 'Some error'
-                    dispatch(stopSubmit('login', {_error: message}))
+                    const errorMessage = data.messages.length > 0 ? data.messages[0] : 'Some error'
+                    dispatch(stopSubmit('login', {_error: errorMessage}))
                 }
             })
-            .finally( () => dispatch(changePreloaderStatus(false)))
+            .finally(() => dispatch(changePreloaderStatus(false)))
     }
 }
 export const logout = () => {
@@ -73,6 +73,6 @@ export const logout = () => {
                     dispatch(setAuthUserData(null, null, null, false))
                 }
             })
-            .finally( () => dispatch(changePreloaderStatus(false)))
+            .finally(() => dispatch(changePreloaderStatus(false)))
     }
 }

@@ -19,6 +19,7 @@ type LoginType = {
     isAuth: boolean
     preloader: boolean
     login: (email: string, password: string, rememberMe: boolean) => void
+    error?: string
 }
 
 const maxLength20 = maxLengthTC(20)
@@ -46,7 +47,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                    component={'input'}
             /> remember me
         </div>
-        {props.error && <div className={s.formSummaryError}>{props.error}</div>}
+
+        {
+            props.error && <div className={s.formSummaryError}>qqqqq {props.error}</div>}
         <div>
             <button>Login</button>
         </div>
@@ -60,7 +63,6 @@ const Login = (props: LoginType) => {
         const {email, password, rememberMe} = formData
         props.login(email, password, rememberMe)
     }
-
     if (props.isAuth) {
         return <Redirect to={'/profile'}/>
     }
@@ -71,9 +73,9 @@ const Login = (props: LoginType) => {
     </div>
 }
 
-const  mapStateToProps = (state: AppStateType) => ({
+const mapStateToProps = (state: AppStateType) => ({
     isAuth: state.auth.isAuth,
-    preloader: state.preloader.preloader
+    preloader: state.preloader.preloader,
 })
 
 export default connect(mapStateToProps, {login})(Login)

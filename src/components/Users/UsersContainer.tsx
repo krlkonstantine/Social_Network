@@ -7,6 +7,13 @@ import {
 } from "../../redux/reducers/users-reducer";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {
+    getAllUsers,
+    getCurrentPage,
+    getfollowingProgress,
+    getPageSize,
+    getTotalUsersCount
+} from "../../redux/selectors/userSelectors";
 
 type UsersContainerType = {
     users: Array<UserType>
@@ -45,15 +52,15 @@ class UsersContainer extends React.Component<UsersContainerType> {
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        followingProgress: state.usersPage.followingProgress
+        users: getAllUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        followingProgress: getfollowingProgress(state)
     }
 }
 
 export default compose<React.ComponentType>(
-    withAuthRedirect,
+    //withAuthRedirect,
     connect(mapStateToProps, {setCurrentPage, getUsers, followUser, unfollowUser}),
 )(UsersContainer)

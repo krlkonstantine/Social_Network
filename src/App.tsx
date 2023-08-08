@@ -30,7 +30,7 @@ class App extends React.Component<AppClassType> {
 
     render() {
         if (!this.props.initialized) return <Preloader/>
-        return (
+        else return (
             <div className={s.App}>
                 <HeaderContainer/>
                 <Navigation/>

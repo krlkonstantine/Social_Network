@@ -6,7 +6,6 @@ import {getProfile, getStatus, updateStatus} from "../../../redux/reducers/profi
 import {ProfileType} from "./Profile";
 import {PostType} from "../Posts/Posts";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {Preloader} from "../../../utils/preloader/Preloader";
 
@@ -15,6 +14,8 @@ type MapStateToPropsType = {
     posts: Array<PostType>
     status: string
     preloader: boolean
+    authorisedUserId: string | null
+    isAuth: boolean
 }
 type MapDispatchPropsType = {
     getProfile: (userId: string) => void
@@ -32,7 +33,12 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if (!userId) userId = '25830';
+        if (!userId) {
+            userId = this.props.authorisedUserId as string
+            if (!userId) {
+                this.props.history.push('/login')
+            }
+        }
         this.props.getStatus(userId)
         this.props.getProfile(userId)
     }
@@ -54,7 +60,9 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         profile: state.profilePage.profile,
         posts: state.profilePage.posts,
         status: state.profilePage.status,
-        preloader: state.preloader.preloader
+        preloader: state.preloader.preloader,
+        authorisedUserId: state.auth.userId,
+        isAuth: state.auth.isAuth
     }
 }
 
