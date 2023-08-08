@@ -64,7 +64,7 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: string) => 
     return {type: 'TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId} as const
 }
 
-export const getUsers = (page: number) => (dispatch: Dispatch<ActionType>) => {
+export const loadUsers = (page: number) => (dispatch: Dispatch<ActionType>) => {
     dispatch(setCurrentPage(page))
     dispatch(changePreloaderStatus(true))
     usersAPI.getUsers(page)

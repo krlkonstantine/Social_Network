@@ -3,12 +3,12 @@ import {connect} from "react-redux";
 import {Users, UserType} from "./Users";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    setCurrentPage, getUsers, followUser, unfollowUser
+    setCurrentPage, loadUsers, followUser, unfollowUser
 } from "../../redux/reducers/users-reducer";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {
-    getUsersSuper,
+    getUsers,
     getCurrentPage,
     getfollowingProgress,
     getPageSize,
@@ -22,7 +22,7 @@ type UsersContainerType = {
     currentPage: number
     followingProgress: string[]
     setCurrentPage: (currentPage: number) => void
-    getUsers: (currentPage: number) => void
+    loadUsers: (currentPage: number) => void
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
 }
@@ -30,11 +30,11 @@ type UsersContainerType = {
 class UsersContainer extends React.Component<UsersContainerType> {
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage)
+        this.props.loadUsers(this.props.currentPage)
     }
 
     setCurrentPage = (pageNumber: number) => {
-        this.props.getUsers(pageNumber)
+        this.props.loadUsers(pageNumber)
     }
 
     render = () => {
@@ -52,8 +52,7 @@ class UsersContainer extends React.Component<UsersContainerType> {
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        users: getUsersSuper(state),
-        //users: getAllUsers(state),
+        users: getUsers(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
@@ -62,6 +61,5 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 export default compose<React.ComponentType>(
-    //withAuthRedirect,
-    connect(mapStateToProps, {setCurrentPage, getUsers, followUser, unfollowUser}),
+    connect(mapStateToProps, {setCurrentPage, loadUsers, followUser, unfollowUser}),
 )(UsersContainer)
