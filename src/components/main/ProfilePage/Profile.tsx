@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Profile.module.css';
 import ProfileStatus from "./ProfileStatus";
 import {Preloader} from "../../../utils/preloader/Preloader";
+import {ProfileStatusNew} from "./ProfileStatus_New";
 
 export type  ProfileType = {
     aboutMe: string
@@ -37,7 +38,7 @@ export function Profile(props: ProfilePropsType) {
                  src={props.profile.photos.small || avatar}/>
             <div className={s.profile__data}>
                 <h3 className={s.profile__title}>{props.profile.fullName}</h3>
-                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                <ProfileStatusNew status={props.status} updateStatus={props.updateStatus}/>
                 <div>Обо мне: {props.profile.aboutMe}</div>
                 <h4>{props.profile.lookingForAJob ? 'Ищу работу' : 'Уже работаю'}</h4>
                 {props.profile.lookingForAJob &&

@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useState} from "react";
 import s from "./Profile.module.css";
 
 type ProfileStatusType = {
@@ -7,7 +7,6 @@ type ProfileStatusType = {
 }
 
 class ProfileStatus extends React.Component<ProfileStatusType> {
-
     state = {
         editMode: false,
         status: this.props.status
