@@ -6,12 +6,12 @@ import {
     setUserProfileAT, setUserStatusAT,
 } from "./reducers/profile-reducer";
 import {
-    FollowAT,
     SetAT,
-    setCurrentPageAT,
+    setCurrentPageAT, ToggleFollow,
     ToggleFollowingProgressAT,
-    UnfollowAT,
 } from "./reducers/users-reducer";
+
+
 import {ProfileType} from "../components/main/ProfilePage/Profile";
 import {PostType} from "../components/main/Posts/Posts";
 import {SetUserDataAT} from "./reducers/auth-reducer";
@@ -52,8 +52,6 @@ export type DialogsPagePropsType = {
 export type SidebarPropsType = {}
 export type ActionType = AddPostAT
     | AddMessageAT
-    | FollowAT
-    | UnfollowAT
     | SetAT
     | setCurrentPageAT
     | setUserProfileAT
@@ -63,6 +61,7 @@ export type ActionType = AddPostAT
     | ChangePreloaderStatusType
     | SetInitializedType
     | DeletePostAT
+    | ToggleFollow
 
 
 // export const store: StorePropsType = {

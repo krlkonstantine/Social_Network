@@ -3,8 +3,10 @@ import {connect} from "react-redux";
 import {Users, UserType} from "./Users";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    setCurrentPage, loadUsers, followUser, unfollowUser
-} from "../../redux/reducers/users-reducer";
+    setCurrentPage, loadUsers, toggleFollowUser
+} from "../../redux/reducers/users-reducer";/*import {
+    setCurrentPage, loadUsers, followUser, unfollowUser, toggleFollowUser
+} from "../../redux/reducers/users-reducer";*/
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {
@@ -25,6 +27,7 @@ type UsersContainerType = {
     loadUsers: (currentPage: number) => void
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
+    toggleFollowUser: (userId: string) => void
 }
 
 class UsersContainer extends React.Component<UsersContainerType> {
@@ -44,8 +47,9 @@ class UsersContainer extends React.Component<UsersContainerType> {
                       pageSize={this.props.pageSize}
                       followingProgress={this.props.followingProgress}
                       setCurrentPage={this.setCurrentPage}
-                      followUser={this.props.followUser}
-                      unfollowUser={this.props.unfollowUser}
+            // followUser={this.props.followUser}
+            // unfollowUser={this.props.unfollowUser}
+                      toggleFollowUser={this.props.toggleFollowUser}
         />
     }
 }
@@ -61,5 +65,9 @@ const mapStateToProps = (state: AppStateType) => {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {setCurrentPage, loadUsers, followUser, unfollowUser}),
+    connect(mapStateToProps, {setCurrentPage, loadUsers, toggleFollowUser}),
 )(UsersContainer)
+
+// export default compose<React.ComponentType>(
+//     connect(mapStateToProps, {setCurrentPage, loadUsers, followUser, unfollowUser, toggleFollowUser}),
+// )(UsersContainer)

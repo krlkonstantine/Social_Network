@@ -20,16 +20,14 @@ export type UserType = {
 
 export type UsersType = {
     users: Array<UserType>
-
     pageSize: number
-
     totalUsersCount: number
-
     currentPage: number
     followingProgress: string[]
     setCurrentPage: (currentPage: number) => void
-    followUser: (userId: string) => void
-    unfollowUser: (userId: string) => void
+    // followUser: (userId: string) => void
+    // unfollowUser: (userId: string) => void
+    toggleFollowUser: (userId: string, followed: boolean) => void
 }
 
 
@@ -39,17 +37,23 @@ export const Users = (props: UsersType) => {
     for (let i = 1; i <= 10; i++) {
         pages.push(i)
     }
+    const defaultUserAvatar = 'https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/72/Cat-icon.png'
 
+    // const unfollow = (e: MouseEvent<HTMLButtonElement>) => {
+    //     const userId = e.currentTarget.id
+    //     props.unfollowUser(userId)
+    //
+    // }
+    //
+    // const follow = (e: MouseEvent<HTMLButtonElement>) => {
+    //     const userId = e.currentTarget.id
+    //     props.followUser(userId)
+    //
+    // }
 
-    const unfollow = (e: MouseEvent<HTMLButtonElement>) => {
+    const toggleFollow = (e: MouseEvent<HTMLButtonElement>, followed: boolean) => {
         const userId = e.currentTarget.id
-        props.unfollowUser(userId)
-
-    }
-
-    const follow = (e: MouseEvent<HTMLButtonElement>) => {
-        const userId = e.currentTarget.id
-        props.followUser(userId)
+        props.toggleFollowUser(userId, followed)
 
     }
 
@@ -77,7 +81,7 @@ export const Users = (props: UsersType) => {
                         <NavLink to={'/profile/' + user.id}>
                             <img alt={'avatar'}
                                  className={s.avatar}
-                                 src={user.photos.small || 'https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/72/Cat-icon.png'}/>
+                                 src={user.photos.small || defaultUserAvatar}/>
                         </NavLink>
                         <div className={s.info}>
                             <div className={s.descr}>
@@ -92,11 +96,12 @@ export const Users = (props: UsersType) => {
                         <div className={s.button}>
                             {user.followed ?
                                 <button id={user.id}
-                                        onClick={unfollow}
+                                        onClick={(e) => toggleFollow(e, user.followed)}
                                         disabled={props.followingProgress.some(id => id === user.id.toString())}
                                         className={s.unfollow}>UNFOLLOW</button>
                                 : <button id={user.id}
-                                          onClick={follow}
+                                    //onClick={follow}
+                                          onClick={(e) => toggleFollow(e, user.followed)}
                                           disabled={props.followingProgress.some(id => id === user.id.toString())}
                                           className={s.follow}>FOLLOW</button>
                             }

@@ -10,6 +10,11 @@ export type DeletePostAT = ReturnType<typeof deletePostActionCreator>
 export type setUserProfileAT = ReturnType<typeof setUserProfile>
 export type setUserStatusAT = ReturnType<typeof setUserStatus>
 
+const ADD_POST = 'social-network/profile/ADD-POST'
+const DELETE_POST = 'social-network/profile/DELETE-POST'
+const SET_USER_STATUS = 'social-network/profile/SET-USER-STATUS'
+const SET_USER_PROFILE = 'social-network/profile/SET-USER-PROFILE'
+
 const initialState: ProfilePagePropsType = {
     profile: null,
     posts: [
@@ -22,7 +27,7 @@ const initialState: ProfilePagePropsType = {
 
 export const profileReducer = (state: ProfilePagePropsType = initialState, action: ActionType): ProfilePagePropsType => {
     switch (action.type) {
-        case "ADD-POST": {
+        case ADD_POST: {
             let newPost = {
                 _id: v1(),
                 title: `Post ${state.posts.length + 1}`,
@@ -33,48 +38,40 @@ export const profileReducer = (state: ProfilePagePropsType = initialState, actio
                 posts: [newPost, ...state.posts],
             }
         }
-        case "DELETE-POST": {
+        case DELETE_POST: {
             return {...state, posts: state.posts.filter((post) => post._id !== action.postId)}
         }
-        case "SET-USER-STATUS": {
+        case SET_USER_STATUS: {
             return {...state, status: action.status}
         }
-        case "SET-USER-PROFILE":
+        case SET_USER_PROFILE:
             return {...state, profile: action.profile}
         default:
             return state
     }
 }
 
-export const addPostActionCreator = (textNewPost: string) => ({type: 'ADD-POST', textNewPost: textNewPost} as const)
-export const deletePostActionCreator = (postId: string) => ({type: 'DELETE-POST', postId} as const)
-export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
-export const setUserStatus = (status: string) => ({type: 'SET-USER-STATUS', status} as const)
+export const addPostActionCreator = (textNewPost: string) => ({type: ADD_POST, textNewPost: textNewPost} as const)
+export const deletePostActionCreator = (postId: string) => ({type: DELETE_POST, postId} as const)
+export const setUserStatus = (status: string) => ({type: SET_USER_STATUS, status} as const)
+export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile} as const)
 
-export const getProfile = (userId: string) => (dispatch: Dispatch<ActionType>) => {
+export const getProfile = (userId: string) => async (dispatch: Dispatch<ActionType>) => {
     dispatch(changePreloaderStatus(true))
-    profileAPI.getProfile(userId)
-        .then(data => {
-            console.log('profile: ', data)
-            dispatch(setUserProfile(data))
-        })
-        .finally(() => dispatch(changePreloaderStatus(false)))
+    const res = await profileAPI.getProfile(userId)
+    dispatch(setUserProfile(res))
+    dispatch(changePreloaderStatus(false))
 }
-export const getStatus = (userId: string) => (dispatch: Dispatch<ActionType>) => {
+export const getStatus = (userId: string) => async (dispatch: Dispatch<ActionType>) => {
     dispatch(changePreloaderStatus(true))
-    profileAPI.getStatus(userId)
-        .then(data => {
-            console.log(data)
-            dispatch(setUserStatus(data))
-        })
-        .finally(() => dispatch(changePreloaderStatus(false)))
+    const res = await profileAPI.getStatus(userId)
+    dispatch(setUserStatus(res))
+    dispatch(changePreloaderStatus(false))
 }
-export const updateStatus = (status: string) => (dispatch: Dispatch<ActionType>) => {
+export const updateStatus = (status: string) => async (dispatch: Dispatch<ActionType>) => {
     dispatch(changePreloaderStatus(true))
-    profileAPI.updateStatus(status)
-        .then(data => {
-            if (data.resultCode === 0) dispatch(setUserStatus(status))
-        })
-        .finally(() => dispatch(changePreloaderStatus(false)))
+    const res = await profileAPI.updateStatus(status)
+    if (res.resultCode === 0) dispatch(setUserStatus(status))
+    dispatch(changePreloaderStatus(false))
 }
 
