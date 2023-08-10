@@ -6,6 +6,7 @@ import {Dispatch} from "redux";
 import {changePreloaderStatus} from "./preloaderReducer";
 
 export type AddPostAT = ReturnType<typeof addPostActionCreator>
+export type DeletePostAT = ReturnType<typeof deletePostActionCreator>
 export type setUserProfileAT = ReturnType<typeof setUserProfile>
 export type setUserStatusAT = ReturnType<typeof setUserStatus>
 
@@ -32,6 +33,9 @@ export const profileReducer = (state: ProfilePagePropsType = initialState, actio
                 posts: [newPost, ...state.posts],
             }
         }
+        case "DELETE-POST": {
+            return {...state, posts: state.posts.filter((post) => post._id !== action.postId)}
+        }
         case "SET-USER-STATUS": {
             return {...state, status: action.status}
         }
@@ -43,6 +47,7 @@ export const profileReducer = (state: ProfilePagePropsType = initialState, actio
 }
 
 export const addPostActionCreator = (textNewPost: string) => ({type: 'ADD-POST', textNewPost: textNewPost} as const)
+export const deletePostActionCreator = (postId: string) => ({type: 'DELETE-POST', postId} as const)
 export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFILE', profile} as const)
 export const setUserStatus = (status: string) => ({type: 'SET-USER-STATUS', status} as const)
 
@@ -72,3 +77,4 @@ export const updateStatus = (status: string) => (dispatch: Dispatch<ActionType>)
         })
         .finally(() => dispatch(changePreloaderStatus(false)))
 }
+

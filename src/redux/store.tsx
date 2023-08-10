@@ -2,7 +2,7 @@ import {
     AddMessageAT,
 } from "./reducers/dialogs-reducer";
 import {
-    AddPostAT,
+    AddPostAT, DeletePostAT,
     setUserProfileAT, setUserStatusAT,
 } from "./reducers/profile-reducer";
 import {
@@ -51,17 +51,18 @@ export type DialogsPagePropsType = {
 }
 export type SidebarPropsType = {}
 export type ActionType = AddPostAT
-                        | AddMessageAT
-                        | FollowAT
-                        | UnfollowAT
-                        | SetAT
-                        | setCurrentPageAT
-                        | setUserProfileAT
-                        | SetUserDataAT
-                        | ToggleFollowingProgressAT
-                        | setUserStatusAT
-                        | ChangePreloaderStatusType
-                        | SetInitializedType
+    | AddMessageAT
+    | FollowAT
+    | UnfollowAT
+    | SetAT
+    | setCurrentPageAT
+    | setUserProfileAT
+    | SetUserDataAT
+    | ToggleFollowingProgressAT
+    | setUserStatusAT
+    | ChangePreloaderStatusType
+    | SetInitializedType
+    | DeletePostAT
 
 
 // export const store: StorePropsType = {
