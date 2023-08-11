@@ -1,6 +1,7 @@
 import React, {MouseEvent} from 'react';
 import s from './Users.module.css';
 import {NavLink} from "react-router-dom";
+import {Pagination} from "./Pagination";
 
 
 export type UserType = {
@@ -60,21 +61,8 @@ export const Users = (props: UsersType) => {
 
     return (
         <div className={s.wrapper}>
-            <div className={s.pages}>
-                {pages.map(p => {
-                    return <span key={p} id={String(p)}
-                                 className={props.currentPage === p ? s.selectedPage : ''}
-                                 onClick={() => props.setCurrentPage(p)}
-                    >{p}</span>
-                })}
-                {pagesCount > 10 && <div className={s.pages}>
-                    <span>...</span>
-                    <span id={String(pagesCount)}
-                          onClick={() => props.setCurrentPage(pagesCount)}
-                          className={props.currentPage === pagesCount ? s.selectedPage : ''}
-                    >{pagesCount}</span>
-                </div>}
-            </div>
+            <Pagination currentPage={props.currentPage} setCurrentPage={props.setCurrentPage}
+                        pageSize={props.pageSize} totalUsersCount={props.totalUsersCount}/>
             {props.users.map(user => {
                 return (
                     <div key={user.id} className={s.users}>
