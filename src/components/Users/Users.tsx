@@ -63,7 +63,6 @@ export const Users = ({
                     />
                 )
             })}
-
             <button className={s.seeMore}>SEE MORE</button>
         </div>
     )
