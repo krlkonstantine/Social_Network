@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './Users.module.css';
+import s from './Pagination.module.css';
 
 
 export type PaginationType = {

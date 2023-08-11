@@ -1,7 +1,7 @@
 import React, {MouseEvent} from 'react';
 import s from './Users.module.css';
 import {NavLink} from "react-router-dom";
-import {Pagination} from "./Pagination";
+import {Pagination} from "../common/Paginator/Pagination";
 
 
 export type UserType = {

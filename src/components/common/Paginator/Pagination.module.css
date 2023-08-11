@@ -1,0 +1,16 @@
+
+.pages {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.selectedPage {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
