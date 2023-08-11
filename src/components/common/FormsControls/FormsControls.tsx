@@ -1,9 +1,9 @@
 import React from "react";
 import s from './FormsControls.module.css'
 
-const FormControl = ({input, meta, children, ...props}: any) => {
+const FormControl = ({input, meta: {visited, error}, children, ...props}: any) => {
 
-    const hasError = meta.visited && meta.error
+    const hasError = visited && error
     const formClassStyle = s.formControl + (hasError ? ' ' + s.error : '')
 
     return (
@@ -11,7 +11,7 @@ const FormControl = ({input, meta, children, ...props}: any) => {
             <div>
                 {children}
             </div>
-            {hasError && <span>{meta.error}</span>}
+            {hasError && <span>{error}</span>}
         </div>
     )
 }
