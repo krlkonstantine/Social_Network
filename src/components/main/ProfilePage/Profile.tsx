@@ -29,20 +29,20 @@ type ProfilePropsType = {
     updateStatus: (status: string) => void
 }
 
-export function Profile(props: ProfilePropsType) {
+export function Profile({profile, status, updateStatus}: ProfilePropsType) {
     const avatar = "https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/512/Deer-icon.png"
 
-    if (props.profile) return (
-        <div key={props.profile.userId} className={s.profile}>
+    if (profile) return (
+        <div key={profile.userId} className={s.profile}>
             <img className={s.profile__avatar} alt={'avatar'}
-                 src={props.profile.photos.small || avatar}/>
+                 src={profile.photos.small || avatar}/>
             <div className={s.profile__data}>
-                <h3 className={s.profile__title}>{props.profile.fullName}</h3>
-                <ProfileStatusNew status={props.status} updateStatus={props.updateStatus}/>
-                <div>Обо мне: {props.profile.aboutMe}</div>
-                <h4>{props.profile.lookingForAJob ? 'Ищу работу' : 'Уже работаю'}</h4>
-                {props.profile.lookingForAJob &&
-                    <div className={s.profile__descr}>{props.profile.lookingForAJobDescription}</div>}
+                <h3 className={s.profile__title}>{profile.fullName}</h3>
+                <ProfileStatusNew status={status} updateStatus={updateStatus}/>
+                <div>Обо мне: {profile.aboutMe}</div>
+                <h4>{profile.lookingForAJob ? 'Ищу работу' : 'Уже работаю'}</h4>
+                {profile.lookingForAJob &&
+                    <div className={s.profile__descr}>{profile.lookingForAJobDescription}</div>}
             </div>
         </div>
     )

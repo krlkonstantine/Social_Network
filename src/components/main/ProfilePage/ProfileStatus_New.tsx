@@ -6,21 +6,21 @@ type Props = {
     updateStatus: (status: string) => void
 }
 
-export const ProfileStatusNew = (props: Props) => {
+export const ProfileStatusNew = ({status, updateStatus}: Props) => {
     const [editMode, setEditMode] = useState<boolean>(false)
-    const [newStatus, setNewStatus] = useState<string>(props.status)
+    const [newStatus, setNewStatus] = useState<string>(status)
 
     useEffect(() => {
-        setNewStatus(props.status)
-        
-    }, [props.status])
+        setNewStatus(status)
+
+    }, [status])
 
     const activateEitMode = () => {
         setEditMode(true)
     }
     const deactivateEitMode = () => {
         setEditMode(false)
-        props.updateStatus(newStatus.toString())
+        updateStatus(newStatus.toString())
 
     }
 
@@ -37,7 +37,7 @@ export const ProfileStatusNew = (props: Props) => {
                          onChange={onStatusInputChange}
                 />
                 : <span onDoubleClick={activateEitMode}>
-                        {props.status || 'status not found'}
+                        {status || 'status not found'}
                 </span>
             }
         </div>
