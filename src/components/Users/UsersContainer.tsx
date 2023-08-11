@@ -4,11 +4,10 @@ import {Users, UserType} from "./Users";
 import {AppStateType} from "../../redux/redux-store";
 import {
     setCurrentPage, loadUsers, toggleFollowUser
-} from "../../redux/reducers/users-reducer";/*import {
-    setCurrentPage, loadUsers, followUser, unfollowUser, toggleFollowUser
-} from "../../redux/reducers/users-reducer";*/
+} from "../../redux/reducers/users-reducer";
+
+
 import {compose} from "redux";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {
     getUsers,
     getCurrentPage,
@@ -24,7 +23,7 @@ type UsersContainerType = {
     currentPage: number
     followingProgress: string[]
     setCurrentPage: (currentPage: number) => void
-    loadUsers: (currentPage: number) => void
+    loadUsers: (currentPage: number, pageSize?: number) => void
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
     toggleFollowUser: (userId: string) => void
@@ -32,12 +31,15 @@ type UsersContainerType = {
 
 class UsersContainer extends React.Component<UsersContainerType> {
 
+
     componentDidMount() {
-        this.props.loadUsers(this.props.currentPage)
+        let {currentPage, pageSize, loadUsers} = this.props
+        loadUsers(currentPage, pageSize)
     }
 
     setCurrentPage = (pageNumber: number) => {
-        this.props.loadUsers(pageNumber)
+        let {loadUsers, pageSize} = this.props
+        loadUsers(pageNumber, pageSize)
     }
 
     render = () => {
@@ -47,8 +49,6 @@ class UsersContainer extends React.Component<UsersContainerType> {
                       pageSize={this.props.pageSize}
                       followingProgress={this.props.followingProgress}
                       setCurrentPage={this.setCurrentPage}
-            // followUser={this.props.followUser}
-            // unfollowUser={this.props.unfollowUser}
                       toggleFollowUser={this.props.toggleFollowUser}
         />
     }
@@ -67,7 +67,3 @@ const mapStateToProps = (state: AppStateType) => {
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {setCurrentPage, loadUsers, toggleFollowUser}),
 )(UsersContainer)
-
-// export default compose<React.ComponentType>(
-//     connect(mapStateToProps, {setCurrentPage, loadUsers, followUser, unfollowUser, toggleFollowUser}),
-// )(UsersContainer)
