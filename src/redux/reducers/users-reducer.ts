@@ -19,15 +19,11 @@ const initialState = {
     followingProgress: []
 }
 
-// export type FollowAT = ReturnType<typeof follow>
-// export type UnfollowAT = ReturnType<typeof unfollow>
 export type ToggleFollow = ReturnType<typeof toggleFollow>
 export type SetAT = ReturnType<typeof setUsers>
 export type setCurrentPageAT = ReturnType<typeof setCurrentPage>
 export type ToggleFollowingProgressAT = ReturnType<typeof toggleFollowingProgress>
 
-// const FOLLOW = 'social-network/users/FOLLOW'
-// const UNFOLLOW = 'social-network/users/UNFOLLOW'
 const TOGGLE_FOLLOW = 'social-network/users/TOGGLE-FOLLOW'
 const SET_USERS = 'social-network/users/SET-USERS'
 const SET_CURRENT_PAGE = 'social-network/users/SET-CURRENT-PAGE'
@@ -37,16 +33,6 @@ const FOLLOW_PROGRESS = 'social-network/users/TOGGLE_IS_FOLLOWING_PROGRESS'
 export const usersReducer = (state: InitialStateType = initialState,
                              action: ActionType): InitialStateType => {
     switch (action.type) {
-        /*case FOLLOW:
-            return {
-                ...state,
-                users: state.users.map(user => String(user.id) === action.userID ? {...user, followed: true} : user)
-            }
-        case UNFOLLOW:
-            return {
-                ...state,
-                users: state.users.map(user => String(user.id) === action.userID ? {...user, followed: false} : user)
-            }*/
         case TOGGLE_FOLLOW:
             return {
                 ...state,
@@ -73,8 +59,6 @@ export const usersReducer = (state: InitialStateType = initialState,
     }
 }
 
-// export const follow = (userID: string) => ({type: FOLLOW, userID} as const)
-// export const unfollow = (userID: string) => ({type: UNFOLLOW, userID} as const)
 export const toggleFollow = (userID: string, followed: boolean) => ({type: TOGGLE_FOLLOW, userID, followed} as const)
 export const setUsers = (initialState: InitialStateType) => ({type: SET_USERS, initialState} as const)
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage} as const)
@@ -95,28 +79,6 @@ export const loadUsers = (page: number) => async (dispatch: Dispatch<ActionType>
     }))
     dispatch(changePreloaderStatus(false))
 }
-
-// export const followUser = (userId: string) => async (dispatch: Dispatch<ActionType>) => {
-//     dispatch(toggleFollowingProgress(true, userId))
-//     dispatch(changePreloaderStatus(true))
-//     const res = await usersAPI.follow(userId)
-//     if (res.resultCode === 0) {
-//         dispatch(follow(userId))
-//     }
-//     dispatch(toggleFollowingProgress(false, userId))
-//     dispatch(changePreloaderStatus(false))
-// }
-//
-// export const unfollowUser = (userId: string) => async (dispatch: Dispatch<ActionType>) => {
-//     dispatch(toggleFollowingProgress(true, userId))
-//     dispatch(changePreloaderStatus(true))
-//     const res = await usersAPI.unfollow(userId)
-//     if (res.resultCode === 0) {
-//         dispatch(unfollow(userId))
-//     }
-//     dispatch(toggleFollowingProgress(false, userId))
-//     dispatch(changePreloaderStatus(false))
-// }
 
 export const toggleFollowUser = (userId: string, followed: boolean) => async (dispatch: Dispatch<ActionType>) => {
     dispatch(toggleFollowingProgress(true, userId))
