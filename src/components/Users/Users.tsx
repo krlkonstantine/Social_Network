@@ -51,9 +51,19 @@ export const Users = ({
         <div className={s.wrapper}>
             <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage}
                         pageSize={pageSize} totalUsersCount={totalUsersCount}/>
-            <User totalUsersCount={totalUsersCount} currentPage={currentPage} setCurrentPage={setCurrentPage}
-                  pageSize={pageSize} users={users} defaultUserAvatar={defaultUserAvatar}
-                  followingProgress={followingProgress} toggleFollow={toggleFollow}/>
+            {users.map(user => {
+                return (
+                    <User user={user}
+                          currentPage={currentPage}
+                          setCurrentPage={setCurrentPage}
+                          pageSize={pageSize}
+                          defaultUserAvatar={defaultUserAvatar}
+                          followingProgress={followingProgress}
+                          toggleFollow={toggleFollow}
+                    />
+                )
+            })}
+
             <button className={s.seeMore}>SEE MORE</button>
         </div>
     )

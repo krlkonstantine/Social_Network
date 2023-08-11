@@ -43,34 +43,3 @@
     width: 80px;
     border-radius: 50%;
 }
-
-
-.button button {
-    min-width: 90px;
-    height: 40px;
-    padding: 5px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-
-.button button:hover {
-    font-weight: 750;
-    color: green;
-}
-
-
-.unfollow {
-    background: peru;
-    border: 1px solid indianred;
-}
-
-
-.follow {
-    background: #a1b3b4;
-    border: 1px solid #163a41;
-    color: #163a41;
-}
-
-
