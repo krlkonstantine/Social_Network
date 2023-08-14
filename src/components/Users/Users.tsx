@@ -50,7 +50,7 @@ export const Users = ({
     return (
         <div className={s.wrapper}>
             <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage}
-                        pageSize={pageSize} totalUsersCount={totalUsersCount}/>
+                        pageSize={pageSize} totalItemsCount={totalUsersCount}/>
             {users.map(user => {
                 return (
                     <User user={user}
