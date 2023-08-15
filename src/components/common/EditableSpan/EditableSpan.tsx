@@ -1,27 +1,26 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import s from "./Profile.module.css";
+import s from "./EditableSpan.module.css";
 
 type Props = {
-    status: string
-    updateStatus: (status: string) => void
+    value: string
+    updateValue: (value: string) => void
 }
 
-export const ProfileStatus = ({status, updateStatus}: Props) => {
+export const EditableSpan = ({value, updateValue}: Props) => {
     const [editMode, setEditMode] = useState<boolean>(false)
-    const [newStatus, setNewStatus] = useState<string>(status)
+    const [newStatus, setNewStatus] = useState<string>(value)
 
     useEffect(() => {
-        setNewStatus(status)
+        setNewStatus(value)
 
-    }, [status])
+    }, [value])
 
     const activateEitMode = () => {
         setEditMode(true)
     }
     const deactivateEitMode = () => {
         setEditMode(false)
-        updateStatus(newStatus.toString())
-
+        updateValue(newStatus.toString())
     }
 
     const onStatusInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +28,7 @@ export const ProfileStatus = ({status, updateStatus}: Props) => {
     }
 
     return (
-        <div data-testid={'status-span'} className={s.profile__descr}>
+        <span data-testid={'status-span'} className={s.profile__descr}>
             {editMode
                 ? <input autoFocus={true}
                          onBlur={deactivateEitMode}
@@ -38,9 +37,9 @@ export const ProfileStatus = ({status, updateStatus}: Props) => {
                          data-testid={'edit-status-mode'}
                 />
                 : <span data-testid={'profile-status'} onDoubleClick={activateEitMode}>
-                        {status || 'status not found'}
+                        {value || 'status not found'}
                 </span>
             }
-        </div>
+        </span>
     );
 };

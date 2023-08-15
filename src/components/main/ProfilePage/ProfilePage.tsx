@@ -7,11 +7,11 @@ import {Posts, PostType} from "../Posts/Posts";
 import {ApiUserProfileType} from "../../../redux/reducers/profile-reducer";
 
 
-type  ProfilePageType = {
+type ProfilePageType = {
     profile: ApiUserProfileType | null
     posts: Array<PostType>
     status: string
-    updateStatus: (status: string) => void
+    updateStatus: (value: string) => void
     isOwner: boolean
     uploadNewProfilePhoto: (photo: File) => void
 }

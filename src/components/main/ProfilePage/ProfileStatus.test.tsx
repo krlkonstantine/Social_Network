@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import {store} from "../../../redux/redux-store";
 import {HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import {ProfileStatus} from "./ProfileStatus";
+import {EditableSpan} from "../../common/EditableSpan/EditableSpan";
 import {updateStatus} from "../../../redux/reducers/profile-reducer";
 
 describe('Profile Status Component', () => {
@@ -13,7 +13,7 @@ describe('Profile Status Component', () => {
         //data
         render(<HashRouter>
             <Provider store={store}>
-                <ProfileStatus status={'blabhblhblah'} updateStatus={updateStatus}/>
+                <EditableSpan value={'blabhblhblah'} updateValue={updateStatus}/>
             </Provider>
         </HashRouter>)
 
@@ -27,7 +27,7 @@ describe('Profile Status Component', () => {
         //data
         render(<HashRouter>
             <Provider store={store}>
-                <ProfileStatus status={'blabhblhblah'} updateStatus={updateStatus}/>
+                <EditableSpan value={'blabhblhblah'} updateValue={updateStatus}/>
             </Provider>
         </HashRouter>)
 
@@ -36,5 +36,5 @@ describe('Profile Status Component', () => {
 
 
     })
-    
+
 })

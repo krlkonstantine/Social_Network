@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useEffect} from 'react';
 import s from './Profile.module.css';
 import {Preloader} from "../../../utils/preloader/Preloader";
-import {ProfileStatus} from "./ProfileStatus";
+import {EditableSpan} from "../../common/EditableSpan/EditableSpan";
 import {ApiUserProfileType} from "../../../redux/reducers/profile-reducer";
 
 export type  ProfileType = {
@@ -39,8 +39,8 @@ export type ProfilePropsType = {
 }
 
 export function Profile({profile, status, updateStatus, isOwner, uploadNewProfilePhoto}: ProfilePropsType) {
-    const avatar = "https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/512/Deer-icon.png"
 
+    const defaultAvatar = "https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/512/Deer-icon.png"
     const onMainPhotoUpload = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length) {
             uploadNewProfilePhoto(e.target.files[0])
@@ -50,18 +50,38 @@ export function Profile({profile, status, updateStatus, isOwner, uploadNewProfil
 
     if (profile) return (
         <div key={profile.userId} className={s.profile}>
-            <img className={s.profile__avatar} alt={'avatar'}
-                 src={profile.photos.small || avatar}/>
-            {isOwner && <input type={"file"} onChange={onMainPhotoUpload}/>}
-            <div className={s.profile__data}>
-                <h3 className={s.profile__title}>{profile.fullName}</h3>
-                <ProfileStatus status={status} updateStatus={updateStatus}/>
-                <div>Обо мне: {profile.aboutMe}</div>
-                <h4>{profile.lookingForAJob ? 'Ищу работу' : 'Уже работаю'}</h4>
-                {profile.lookingForAJob &&
-                    <div className={s.profile__descr}>{profile.lookingForAJobDescription}</div>}
+            <div className={s.profileImgContainer}>
+                <EditableSpan value={status} updateValue={updateStatus}/>
+                <img className={s.profile__avatar} alt={'avatar'}
+                     src={profile.photos.small || defaultAvatar}/>
+                {isOwner && <input type={"file"} onChange={onMainPhotoUpload}/>}
             </div>
+
+            <ProfileData profile={profile}/>
         </div>
     )
     else return <Preloader/>
+}
+
+type ProfileDataProps = {
+    profile: ApiUserProfileType
+}
+
+const ProfileData = ({profile}: ProfileDataProps) => {
+    return (
+        <div className={s.profileInfoContainer}>
+            <div className={s.profile__title}>{profile.fullName}</div>
+            <div><span>Обо мне:</span> {profile.aboutMe}</div>
+            <div><span>Ищу работу:</span> {profile.lookingForAJob ? 'Да' : 'Уже работаю'}</div>
+            {profile.lookingForAJob &&
+                <div className={s.profile__descr}>My skills:{profile.lookingForAJobDescription}</div>}
+            <div>Обо мне: {profile.aboutMe}</div>
+            <div><span>Contacts:</span>
+                <div><span>Tg:</span>{profile.contacts.mainLink}</div>
+                <div><span>Git:</span>{profile.contacts.github}</div>
+                <div><span>Fb:</span>{profile.contacts.facebook}</div>
+                <div><span>Vk:</span>{profile.contacts.vk}</div>
+            </div>
+        </div>
+    )
 }
