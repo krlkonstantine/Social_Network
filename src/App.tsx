@@ -40,10 +40,10 @@ class App extends React.Component<AppClassType> {
                     <Navigation/>
                     <div>
                         <Redirect exact from={'/'} to={'/profile'}/>
-                        <Route path={'/profile/:userId?'}
+                        <Route path={'/profile/:userId?'} exact
                                render={() => <ProfileContainer/>}
                         />
-                        <Route path={'/messages'}
+                        <Route path={'/messages'} exact
                                render={() => <Messages/>}
                         />
                         <Route path={'/users'}

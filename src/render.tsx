@@ -3,16 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {store} from './redux/redux-store'
 import {Provider} from "react-redux";
-import {BrowserRouter} from "react-router-dom";
+import {HashRouter} from "react-router-dom";
 import App from "./App";
 
-export const renderEtireTree = () => {
+export const renderEntireTree = () => {
     ReactDOM.render(
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={{...store}}>
                 <App/>
             </Provider>
-        </BrowserRouter>,
+        </HashRouter>,
         document.getElementById('root')
     )
 }
