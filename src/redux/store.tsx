@@ -3,7 +3,7 @@ import {
 } from "./reducers/dialogs-reducer";
 import {
     AddPostAT, DeletePostAT,
-    setUserProfileAT, setUserStatusAT,
+    setUserProfileAT, setUserProfilePhotoAT, setUserStatusAT,
 } from "./reducers/profile-reducer";
 import {
     SetAT,
@@ -62,6 +62,7 @@ export type ActionType = AddPostAT
     | SetInitializedType
     | DeletePostAT
     | ToggleFollow
+    | setUserProfilePhotoAT
 
 
 // export const store: StorePropsType = {

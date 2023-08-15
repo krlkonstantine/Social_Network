@@ -1,20 +1,43 @@
 import react from 'react'
-import {addPostActionCreator, deletePostActionCreator, profileReducer} from "./profile-reducer";
+import {addPostActionCreator, deletePostActionCreator, ProfilePageType, profileReducer} from "./profile-reducer";
 import {v1} from "uuid";
-import {ProfilePagePropsType} from "../store";
 
+const initialState: ProfilePageType = {
+    title: "My posts",
+    posts: [
+        {_id: v1(), title: 'Post 3', descr: "This is post about my jobs..."},
+        {_id: v1(), title: 'Post 2', descr: "This is post about my family..."},
+        {_id: v1(), title: 'Post 1', descr: "This is first post about me..."},
+    ],
+    descForNewPost: "",
+    profile: {
+        fullName: "",
+        aboutMe: "",
+        userId: null,
+        photos: {
+            small: "",
+            large: "",
+        },
+        lookingForAJob: true,
+        lookingForAJobDescription: "",
+        contacts: {
+            github: "",
+            vk: "",
+            facebook: "",
+            instagram: "",
+            twitter: "",
+            website: "",
+            youtube: "",
+            mainLink: "",
+        },
+        followed: true,
+        uniqueUrlName: "string"
+    },
+    status: "",
+}
 
 test('profile reducer should add new post', () => {
     //d
-    const initialState: ProfilePagePropsType = {
-        profile: null,
-        posts: [
-            {_id: v1(), title: 'Post 3', descr: "This is post about my jobs..."},
-            {_id: v1(), title: 'Post 2', descr: "This is post about my family..."},
-            {_id: v1(), title: 'Post 1', descr: "This is first post about me..."},
-        ],
-        status: ''
-    }
 
 
     // a
@@ -27,15 +50,6 @@ test('profile reducer should add new post', () => {
 
 test('profile reducer should delete a certain post', () => {
     //d
-    const initialState: ProfilePagePropsType = {
-        profile: null,
-        posts: [
-            {_id: '1', title: 'Post 3', descr: "This is post about my jobs..."},
-            {_id: '2', title: 'Post 2', descr: "This is post about my family..."},
-            {_id: '3', title: 'Post 1', descr: "This is first post about me..."},
-        ],
-        status: ''
-    }
 
 
     // a
@@ -47,15 +61,6 @@ test('profile reducer should delete a certain post', () => {
 })
 test('profile reducer should not delete a post if wrong id provided', () => {
     //d
-    const initialState: ProfilePagePropsType = {
-        profile: null,
-        posts: [
-            {_id: '1', title: 'Post 3', descr: "This is post about my jobs..."},
-            {_id: '2', title: 'Post 2', descr: "This is post about my family..."},
-            {_id: '3', title: 'Post 1', descr: "This is first post about me..."},
-        ],
-        status: ''
-    }
 
 
     // a

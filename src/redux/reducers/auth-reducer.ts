@@ -9,6 +9,7 @@ export type AuthStateType = {
     email: string | null
     login: string | null
     isAuth: boolean
+    isOwner: boolean
 }
 export type SetUserDataAT = ReturnType<typeof setAuthUserData>
 
@@ -18,7 +19,9 @@ const initState: AuthStateType = {
     userId: null,
     email: null,
     login: null,
-    isAuth: false
+    isAuth: false,
+    isOwner: false
+
 }
 
 export const authReducer = (state = initState, action: ActionType): AuthStateType => {
