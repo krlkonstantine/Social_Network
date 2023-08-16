@@ -1,8 +1,9 @@
-import React, {ChangeEvent, useEffect} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './Profile.module.css';
 import {Preloader} from "../../../utils/preloader/Preloader";
 import {EditableSpan} from "../../common/EditableSpan/EditableSpan";
 import {ApiUserProfileType} from "../../../redux/reducers/profile-reducer";
+import {EditProfileDataReduxForm, ProfileDataForm} from "./ProfileDataForm/ProfileDataForm";
 
 export type  ProfileType = {
     title: string
@@ -39,6 +40,7 @@ export type ProfilePropsType = {
 }
 
 export function Profile({profile, status, updateStatus, isOwner, uploadNewProfilePhoto}: ProfilePropsType) {
+    const [editMode, setEditMode] = useState<boolean>(false)
 
     const defaultAvatar = "https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/512/Deer-icon.png"
     const onMainPhotoUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +48,17 @@ export function Profile({profile, status, updateStatus, isOwner, uploadNewProfil
             uploadNewProfilePhoto(e.target.files[0])
         }
     }
+    const toggleEditMode = () => {
+        setEditMode(!editMode)
+    }
 
+    const deactivateEditMode = () => {
+        setEditMode(false)
+    }
+
+    const saveNewProfileInfo = () => {
+
+    }
 
     if (profile) return (
         <div key={profile.userId} className={s.profile}>
@@ -56,8 +68,12 @@ export function Profile({profile, status, updateStatus, isOwner, uploadNewProfil
                      src={profile.photos.small || defaultAvatar}/>
                 {isOwner && <input type={"file"} onChange={onMainPhotoUpload}/>}
             </div>
-
-            <ProfileData profile={profile}/>
+            <div className={s.profileInfoContainer}>
+                {editMode ? <EditProfileDataReduxForm initialValues={profile} onSubmit={saveNewProfileInfo}/> :
+                    <ProfileData profile={profile}/>}
+                <button className={s.editProfileBtn}
+                        onClick={toggleEditMode}>{editMode ? "Save changes" : "Edit Profile"}</button>
+            </div>
         </div>
     )
     else return <Preloader/>
@@ -85,3 +101,4 @@ const ProfileData = ({profile}: ProfileDataProps) => {
         </div>
     )
 }
+

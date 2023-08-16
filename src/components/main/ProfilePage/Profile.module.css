@@ -17,7 +17,7 @@
 }
 
 .profileInfoContainer {
-    margin-left: 40px;
+    margin-left: 20px;
 }
 
 .profile__data h4 {
@@ -33,4 +33,8 @@
 
 .profile__descr span {
     /*font-weight: bold;*/
+}
+
+.editProfileBtn {
+    margin-top: 5px;
 }
