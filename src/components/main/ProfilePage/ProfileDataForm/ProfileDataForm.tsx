@@ -27,7 +27,7 @@ export const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormData, Profil
     return (
         <form className={s.profileDataFormContainer}>
             <button onClick={saveNewProfileInfo}>save</button>
-            <div className={s.profileItemInputContaienr}>
+            <div className={s.profileItemInputContainer}>
                 <label className={s.itemLabel} style={{whiteSpace: "nowrap"}} htmlFor="fullName">
                     Full name:
                 </label>
@@ -37,11 +37,10 @@ export const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormData, Profil
                     component={'input'}
                 />
             </div>
-            <Field
-                className={s.profile__input}
-                name="fullName"
-                component={'input'}
-            />
+            
+            <ProfileDataInput inputLabel={"Open to opportunities"} inputField={"lookingForAJob"}
+                              inputType={"checkbox"}/>
+            <ProfileDataInput inputLabel={"About me"} inputField={"aboutMe"}/>
             <div><span>Full name</span>
             </div>
             <div><span>Обо мне:</span></div>
@@ -59,3 +58,23 @@ export const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormData, Profil
 }
 export const EditProfileDataReduxForm = reduxForm<ProfileFormData, ProfileFormProps>(
     {form: 'profile'})(ProfileDataForm)
+type ProfileDataInputType = {
+    inputLabel: string
+    inputField: string
+    inputType?: string
+}
+const ProfileDataInput = (props: ProfileDataInputType) => {
+    return (
+        <div className={s.profileItemInputContainer}>
+            <label className={s.itemLabel} style={{whiteSpace: "nowrap"}} htmlFor={props.inputField}>
+                {props.inputLabel}:
+            </label>
+            <Field
+                className={s.itemInput}
+                name={props.inputField}
+                component={'input'}
+                type={props.inputType}
+            />
+        </div>
+    )
+}

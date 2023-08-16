@@ -1,5 +1,8 @@
 .profileDataFormContainer {
     margin: 20px;
     display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
 }
 
