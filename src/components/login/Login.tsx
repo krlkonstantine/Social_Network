@@ -2,29 +2,33 @@ import React from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {Input} from "../common/FormsControls/FormsControls";
 import {maxLengthTC, required} from "../../utils/validators/validaqtors";
-import {connect} from "react-redux";
 import {login} from "../../redux/reducers/auth-reducer";
-import {Redirect} from "react-router-dom";
-import {AppStateType} from "../../redux/redux-store";
 import s from './../common/FormsControls/FormsControls.module.css'
-import {Preloader} from "../../utils/preloader/Preloader";
 
 type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
     error: string
-}
-type LoginType = {
-    isAuth: boolean
-    preloader: boolean
-    login: (email: string, password: string, rememberMe: boolean) => void
-    error?: string
+    captchaURL: string | null
 }
 
+export type LoginOwnType = {
+    captchaUrl: string | null
+}
+export type LoginFormType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: string
+}
 const maxLength20 = maxLengthTC(20)
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error, ...restProps}) => {
+const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginOwnType> & LoginOwnType> = ({
+                                                                                                handleSubmit,
+                                                                                                error,
+                                                                                                ...restProps
+                                                                                            }) => {
     return <form onSubmit={handleSubmit}>
         <div>
             <Field placeholder={'email'}
@@ -47,36 +51,23 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
                    component={'input'}
             /> remember me
         </div>
+        <div style={{display: "flex", flexDirection: "column", marginBottom: "-20px"}}>
+            <p style={{margin: "0 0 10px 20px"}}>Captcha:</p>
+            <Field
+                placeholder={"Enter symbols"}
+                type={"text"}
+                name={"captcha"}
+                component={Input}
+                error={error ? "Please enter valid Captcha" : ""}
+            />
+        </div>
 
-        {
-            error && <div className={s.formSummaryError}>{error}</div>}
+        {error && <div className={s.formSummaryError}>{error}</div>}
         <div>
             <button>Login</button>
         </div>
     </form>
 }
 
-const LoginReduxForm = reduxForm<FormDataType>({form: 'login'})(LoginForm)
-const Login = (props: LoginType) => {
-
-    const onSubmit = (formData: FormDataType) => {
-        const {email, password, rememberMe} = formData
-        props.login(email, password, rememberMe)
-    }
-    if (props.isAuth) {
-        return <Redirect to={'/profile'}/>
-    }
-    if (props.preloader) return <Preloader/>
-    return <div>
-        <h1>Login</h1>
-        <LoginReduxForm onSubmit={onSubmit}/>
-    </div>
-}
-
-const mapStateToProps = (state: AppStateType) => ({
-    isAuth: state.auth.isAuth,
-    preloader: state.preloader.preloader,
-})
-
-export default connect(mapStateToProps, {login})(Login)
+export const LoginReduxForm = reduxForm<LoginFormType, LoginOwnType>({form: 'login'})(LoginForm)
 

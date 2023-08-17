@@ -1,8 +1,10 @@
 import {ActionType} from "../store";
-import {authAPI} from "../../api/api";
-import {Dispatch} from "redux";
+import {authAPI, securityAPI} from "../../api/api";
+import {AnyAction, Dispatch} from "redux";
 import {stopSubmit} from "redux-form";
 import {changePreloaderStatus} from "./preloaderReducer";
+import {ThunkDispatch} from "redux-thunk";
+import {ApiUserProfileType} from "./profile-reducer";
 
 export type AuthStateType = {
     userId: string | null
@@ -10,17 +12,21 @@ export type AuthStateType = {
     login: string | null
     isAuth: boolean
     isOwner: boolean
+    captchaURL: string | null
 }
 export type SetUserDataAT = ReturnType<typeof setAuthUserData>
+export type SetCaptchaAT = ReturnType<typeof getCaptchaURLSuccess>
 
 const SET_USER_DATA = 'social-network/auth/SET_USER_DATA'
+const SET_CAPTCHA_URL = 'social-network/auth/SET_CAPTCHA_URL'
 
 const initState: AuthStateType = {
     userId: null,
     email: null,
     login: null,
     isAuth: false,
-    isOwner: false
+    isOwner: false,
+    captchaURL: null //if null, then captcha is not required
 
 }
 
@@ -31,6 +37,11 @@ export const authReducer = (state = initState, action: ActionType): AuthStateTyp
                 ...state,
                 ...action.payload
             }
+        case SET_CAPTCHA_URL :
+            return {
+                ...state,
+                captchaURL: action.payload.captchaURL
+            }
         default:
             return state
     }
@@ -38,6 +49,9 @@ export const authReducer = (state = initState, action: ActionType): AuthStateTyp
 
 export const setAuthUserData = (userId: string | null, email: string | null, login: string | null, isAuth: boolean) => (
     {type: SET_USER_DATA, payload: {userId, email, login, isAuth}} as const
+)
+export const getCaptchaURLSuccess = (captchaURL: string) => (
+    {type: SET_CAPTCHA_URL, payload: {captchaURL}} as const
 )
 
 export const getAuthUser = () => {
@@ -49,16 +63,17 @@ export const getAuthUser = () => {
             dispatch(setAuthUserData(id, email, login, true))
         }
         dispatch(changePreloaderStatus(false))
-
     }
 }
-export const login = (email: string, password: string, rememberMe: boolean) => {
-    return async (dispatch: Dispatch<ActionType>) => {
+export const login = (email: string, password: string, rememberMe: boolean, captchaURL?: string | null) => {
+    return async (dispatch: ThunkDispatch<ApiUserProfileType, unknown, AnyAction>) => {
         dispatch(changePreloaderStatus(true))
-        const res = await authAPI.login(email, password, rememberMe)
+        const res = await authAPI.login(email, password, rememberMe, captchaURL)
         if (res.resultCode === 0) {
             // @ts-ignore
             dispatch(getAuthUser())
+        } else if (res.resultCode === 10) {
+            await dispatch(getCaptchaURL())
         } else {
             const errorMessage = res.messages.length > 0 ? res.messages[0] : 'Some error'
             dispatch(stopSubmit('login', {_error: errorMessage}))
@@ -66,6 +81,16 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
         dispatch(changePreloaderStatus(false))
     }
 }
+export const getCaptchaURL = () => {
+    return async (dispatch: Dispatch<ActionType>) => {
+        dispatch(changePreloaderStatus(true))
+        const res = await securityAPI.getCaptchaURL()
+        dispatch(getCaptchaURLSuccess(res.data.url))
+        dispatch(changePreloaderStatus(false))
+
+    }
+}
+
 export const logout = () => {
     return async (dispatch: Dispatch) => {
         dispatch(changePreloaderStatus(true))

@@ -14,7 +14,7 @@ import {
 
 import {ProfileType} from "../components/main/ProfilePage/Profile";
 import {PostType} from "../components/main/Posts/Posts";
-import {SetUserDataAT} from "./reducers/auth-reducer";
+import {SetCaptchaAT, SetUserDataAT} from "./reducers/auth-reducer";
 import {ChangePreloaderStatusType} from "./reducers/preloaderReducer";
 import {SetInitializedType} from "./reducers/app-reducer";
 
@@ -63,6 +63,7 @@ export type ActionType = AddPostAT
     | DeletePostAT
     | ToggleFollow
     | setUserProfilePhotoAT
+    | SetCaptchaAT
 
 
 // export const store: StorePropsType = {

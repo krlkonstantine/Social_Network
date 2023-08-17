@@ -5,7 +5,7 @@ import {Redirect, Route, withRouter} from "react-router-dom";
 // import {Messages} from "./components/main/Messages/Messages";
 import UsersContainer from "./components/Users/UsersContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
-import {LoginPage} from "./components/login/LoginPage";
+import LoginPage from "./components/login/LoginPage";
 import ProfileContainer from "./components/main/ProfilePage/ProfileContainer";
 import {compose} from "redux";
 import {connect} from "react-redux";

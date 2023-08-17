@@ -157,18 +157,16 @@ export const uploadNewProfilePhoto = (photo: File) => async (dispatch: Dispatch<
     dispatch(changePreloaderStatus(false))
 }
 export const saveNewProfileInfo = (formData: ApiUserProfileType) => async (dispatch: ThunkDispatch<ApiUserProfileType, unknown, AnyAction>, getState: () => AppStateType) => {
-    dispatch(changePreloaderStatus(true))
     const res = await profileAPI.updateProfileInfo(formData)
     if (res.resultCode === 0) {
         await dispatch(getProfile(getState().auth.userId))
     } else {
         debugger
-        dispatch(stopSubmit('profile', {
+        await dispatch(stopSubmit('profile', {
             _error: res.messages.length > 0 ? res.messages[0] : 'Some error occured'
         }))
-        dispatch(changePreloaderStatus(false))
+        return Promise.reject(res.messages[0])
     }
-    return Promise.reject(res.messages[0])
 
 }
 
