@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ApiUserProfileType} from "../redux/reducers/profile-reducer";
 
 
 export const instance = axios.create({
@@ -26,16 +27,20 @@ export const usersAPI = {
 }
 
 export const profileAPI = {
-    getProfile(userId: string) {
+    getProfile(userId: string | null) {
         return instance.get(`profile/` + userId)
             .then(response => response.data)
     },
-    getStatus(userId: string) {
+    getStatus(userId: string | null) {
         return instance.get(`profile/status/` + userId)
             .then(response => response.data)
     },
-    updateStatus(status: string) {
+    updateStatus(status: string | null) {
         return instance.put(`profile/status/`, {status: status})
+            .then(response => response.data)
+    },
+    updateProfileInfo(formData: ApiUserProfileType) {
+        return instance.put(`profile`, formData)
             .then(response => response.data)
     },
     uploadPhoto(photo: File) {

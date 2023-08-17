@@ -7,9 +7,9 @@ import {
     getProfile,
     getStatus,
     updateStatus,
-    uploadNewProfilePhoto
+    uploadNewProfilePhoto,
+    saveNewProfileInfo
 } from "../../../redux/reducers/profile-reducer";
-import {ProfileType} from "./Profile";
 import {PostType} from "../Posts/Posts";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
@@ -29,6 +29,8 @@ type MapDispatchPropsType = {
     getStatus: (userId: string) => void
     updateStatus: (status: string) => void
     uploadNewProfilePhoto: (photo: File) => void
+    saveNewProfileInfo: (formData: ApiUserProfileType) => void
+
 }
 type PathParamType = {
     userId: string
@@ -73,7 +75,8 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
     render() {
         if (this.props.preloader) return <Preloader/>
         return (
-            <ProfilePage profile={this.props.profile}
+            <ProfilePage saveNewProfileInfo={this.props.saveNewProfileInfo}
+                         profile={this.props.profile}
                          posts={this.props.posts}
                          status={this.props.status}
                          updateStatus={this.props.updateStatus}
@@ -97,7 +100,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getProfile, getStatus, updateStatus, uploadNewProfilePhoto}),
+    connect(mapStateToProps, {getProfile, getStatus, updateStatus, uploadNewProfilePhoto, saveNewProfileInfo}),
     withRouter,
     //withAuthRedirect
 )(ProfileContainer)

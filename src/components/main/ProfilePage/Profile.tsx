@@ -37,9 +37,10 @@ export type ProfilePropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     uploadNewProfilePhoto: (photo: File) => void
+    saveNewProfileInfo: (formData: ApiUserProfileType) => void
 }
 
-export function Profile({profile, status, updateStatus, isOwner, uploadNewProfilePhoto}: ProfilePropsType) {
+export function Profile({profile, status, updateStatus, isOwner, uploadNewProfilePhoto, ...props}: ProfilePropsType) {
     const [editMode, setEditMode] = useState<boolean>(false)
 
     const defaultAvatar = "https://icons.iconarchive.com/icons/iconarchive/incognito-animal-2/512/Deer-icon.png"
@@ -52,12 +53,10 @@ export function Profile({profile, status, updateStatus, isOwner, uploadNewProfil
         setEditMode(!editMode)
     }
 
-    const deactivateEditMode = () => {
-        setEditMode(false)
-    }
 
-    const saveNewProfileInfo = () => {
-
+    const saveNewProfileInfo = (formData: ApiUserProfileType) => {
+        props.saveNewProfileInfo(formData)
+        //setEditMode(false)
     }
 
     if (profile) return (
@@ -87,11 +86,11 @@ const ProfileData = ({profile}: ProfileDataProps) => {
     return (
         <div className={s.profileInfoContainer}>
             <div className={s.profile__title}>{profile.fullName}</div>
-            <div><span>Обо мне:</span> {profile.aboutMe}</div>
-            <div><span>Ищу работу:</span> {profile.lookingForAJob ? 'Да' : 'Уже работаю'}</div>
+            <div><span>About me:</span> {profile.aboutMe}</div>
+            <div><span>Open to opportunities:</span> {profile.lookingForAJob ? 'Sure!' : 'Not yet'}</div>
             {profile.lookingForAJob &&
                 <div className={s.profile__descr}>My skills:{profile.lookingForAJobDescription}</div>}
-            <div>Обо мне: {profile.aboutMe}</div>
+            <div>About me: {profile.aboutMe}</div>
             <div><span>Contacts:</span>
                 <div><span>Tg:</span>{profile.contacts.mainLink}</div>
                 <div><span>Git:</span>{profile.contacts.github}</div>

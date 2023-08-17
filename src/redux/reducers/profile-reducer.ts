@@ -2,8 +2,11 @@ import {v1} from "uuid";
 import {ActionType, ProfilePagePropsType} from "../store";
 import {ProfilePropsType, ProfileType} from "../../components/main/ProfilePage/Profile";
 import {profileAPI} from "../../api/api";
-import {Dispatch} from "redux";
+import {AnyAction, Dispatch} from "redux";
 import {changePreloaderStatus} from "./preloaderReducer";
+import {ThunkDispatch} from "redux-thunk";
+import {AppStateType} from "../redux-store";
+import {stopSubmit} from "redux-form";
 
 export type AddPostAT = ReturnType<typeof addPostActionCreator>
 export type DeletePostAT = ReturnType<typeof deletePostActionCreator>
@@ -128,7 +131,7 @@ export const savePhotoSuccess = (photos: PhotoType) => ({
     type: SET_USER_PROFILE_PHOTO, photos
 } as const)
 
-export const getProfile = (userId: string) => async (dispatch: Dispatch<ActionType>) => {
+export const getProfile = (userId: string | null) => async (dispatch: Dispatch<ActionType>) => {
     dispatch(changePreloaderStatus(true))
     const res = await profileAPI.getProfile(userId)
     dispatch(setUserProfile(res))
@@ -146,12 +149,23 @@ export const updateStatus = (status: string) => async (dispatch: Dispatch<Action
     if (res.resultCode === 0) dispatch(setUserStatus(status))
     dispatch(changePreloaderStatus(false))
 }
-
 export const uploadNewProfilePhoto = (photo: File) => async (dispatch: Dispatch<ActionType>) => {
     dispatch(changePreloaderStatus(true))
     const res = await profileAPI.uploadPhoto(photo)
     if (res.resultCode === 0)
         dispatch(savePhotoSuccess(res.data.photos))
+    dispatch(changePreloaderStatus(false))
+}
+export const saveNewProfileInfo = (formData: ApiUserProfileType) => async (dispatch: ThunkDispatch<ApiUserProfileType, unknown, AnyAction>, getState: () => AppStateType) => {
+    dispatch(changePreloaderStatus(true))
+    const res = await profileAPI.updateProfileInfo(formData)
+    if (res.resultCode === 0) {
+        await dispatch(getProfile(getState().auth.userId))
+    } else {
+        await dispatch(stopSubmit('profile', {
+            _error: res.data.messages[0]
+        }))
+    }
     dispatch(changePreloaderStatus(false))
 }
 

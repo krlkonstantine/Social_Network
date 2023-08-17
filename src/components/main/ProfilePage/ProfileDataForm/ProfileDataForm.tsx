@@ -3,6 +3,7 @@ import s from './ProfileDataForm.module.css';
 import {ApiUserProfileType} from "../../../../redux/reducers/profile-reducer";
 import {reduxForm, Field, InjectedFormProps} from 'redux-form';
 
+
 // type ProfileDataFormProps = {
 //     profile: ApiUserProfileType
 //     isOwner: boolean
@@ -21,9 +22,7 @@ type ProfileFormData = ApiUserProfileType;
 
 export const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormData, ProfileFormProps> & ProfileFormProps> = (props) => {
 
-    const saveNewProfileInfo = () => {
-    }
-
+ 
     return (
         <form onSubmit={props.handleSubmit} className={s.profileDataFormContainer}>
 
@@ -35,12 +34,13 @@ export const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormData, Profil
 
             <div className={s.contactsContainer}>
                 <span className={s.mainTitle}>Contacts:</span>
-                <ProfileDataInput inputLabel={"Tg"} inputField={"mainLink"}/>
-                <ProfileDataInput inputLabel={"Git"} inputField={"github"}/>
-                <ProfileDataInput inputLabel={"Vk"} inputField={"vk"}/>
-                <ProfileDataInput inputLabel={"Site"} inputField={"website"}/>
+                <ProfileDataInput isContact={true} inputLabel={"Tg"} inputField={"mainLink"}/>
+                <ProfileDataInput isContact={true} inputLabel={"Git"} inputField={"github"}/>
+                <ProfileDataInput isContact={true} inputLabel={"Vk"} inputField={"vk"}/>
+                <ProfileDataInput isContact={true} inputLabel={"Site"} inputField={"website"}/>
             </div>
             <button className={s.submitButton} type="submit">Save Changes</button>
+            {props.error && <strong style={{color: "red", marginBottom: "10px"}}>{props.error}</strong>}
         </form>
     )
 }
@@ -48,6 +48,7 @@ export const EditProfileDataReduxForm = reduxForm<ProfileFormData, ProfileFormPr
     {form: 'profile'})(ProfileDataForm)
 
 type ProfileDataInputType = {
+    isContact?: boolean
     inputLabel: string
     inputField: string
     inputType?: string
@@ -60,7 +61,7 @@ const ProfileDataInput = (props: ProfileDataInputType) => {
             </label>
             <Field
                 className={s.itemInput}
-                name={props.inputField}
+                name={props.isContact ? `contacts.${props.inputField}` : props.inputField}
                 component={'input'}
                 type={props.inputType}
             />

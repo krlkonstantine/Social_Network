@@ -14,6 +14,7 @@ type ProfilePageType = {
     updateStatus: (value: string) => void
     isOwner: boolean
     uploadNewProfilePhoto: (photo: File) => void
+    saveNewProfileInfo: (formData: ApiUserProfileType) => void
 }
 
 
@@ -22,7 +23,8 @@ export function ProfilePage(props: ProfilePageType) {
     return (
         <main className={s.main}>
             <MainImg/>
-            <Profile profile={props.profile}
+            <Profile saveNewProfileInfo={props.saveNewProfileInfo}
+                     profile={props.profile}
                      status={props.status}
                      updateStatus={props.updateStatus}
                      isOwner={props.isOwner}
