@@ -37,7 +37,7 @@ export type ProfilePropsType = {
     updateStatus: (status: string) => void
     isOwner: boolean
     uploadNewProfilePhoto: (photo: File) => void
-    saveNewProfileInfo: (formData: ApiUserProfileType) => void
+    saveNewProfileInfo: (formData: ApiUserProfileType) => Promise<any>
 }
 
 export function Profile({profile, status, updateStatus, isOwner, uploadNewProfilePhoto, ...props}: ProfilePropsType) {
@@ -55,8 +55,8 @@ export function Profile({profile, status, updateStatus, isOwner, uploadNewProfil
 
 
     const saveNewProfileInfo = (formData: ApiUserProfileType) => {
-        props.saveNewProfileInfo(formData)
-        //setEditMode(false)
+        props.saveNewProfileInfo(formData).then(() => setEditMode(!editMode))
+        setEditMode(true)
     }
 
     if (profile) return (
@@ -70,8 +70,11 @@ export function Profile({profile, status, updateStatus, isOwner, uploadNewProfil
             <div className={s.profileInfoContainer}>
                 {editMode ? <EditProfileDataReduxForm initialValues={profile} onSubmit={saveNewProfileInfo}/> :
                     <ProfileData profile={profile}/>}
-                <button className={s.editProfileBtn}
-                        onClick={toggleEditMode}>{editMode ? "Save changes" : "Edit Profile"}</button>
+                {!editMode &&
+                    <button className={s.editProfileBtn}
+                        //onClick={toggleEditMode}>{editMode ? "Save changes" : "Edit Profile"}</button>
+                            onClick={toggleEditMode}>Edit Profile</button>
+                }
             </div>
         </div>
     )

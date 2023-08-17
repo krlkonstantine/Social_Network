@@ -162,10 +162,12 @@ export const saveNewProfileInfo = (formData: ApiUserProfileType) => async (dispa
     if (res.resultCode === 0) {
         await dispatch(getProfile(getState().auth.userId))
     } else {
+        debugger
         await dispatch(stopSubmit('profile', {
-            _error: res.data.messages[0]
+            _error: res.messages.length > 0 ? res.messages[0] : 'Some error occured'
         }))
+        dispatch(changePreloaderStatus(false))
+        return Promise.reject(res.messages[0])
     }
-    dispatch(changePreloaderStatus(false))
 }
 

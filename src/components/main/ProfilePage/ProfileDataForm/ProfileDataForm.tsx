@@ -4,15 +4,6 @@ import {ApiUserProfileType} from "../../../../redux/reducers/profile-reducer";
 import {reduxForm, Field, InjectedFormProps} from 'redux-form';
 
 
-// type ProfileDataFormProps = {
-//     profile: ApiUserProfileType
-//     isOwner: boolean
-// }
-//
-// type FormDataType = {
-//     onSubmit: (formData: ApiUserProfileType) => void
-// }
-
 type ProfileFormProps = {
     onSubmit: (formData: ApiUserProfileType) => void
 }
@@ -22,10 +13,9 @@ type ProfileFormData = ApiUserProfileType;
 
 export const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormData, ProfileFormProps> & ProfileFormProps> = (props) => {
 
- 
     return (
         <form onSubmit={props.handleSubmit} className={s.profileDataFormContainer}>
-
+            {props.error && <strong style={{color: "red", marginBottom: "10px"}}>{props.error}</strong>}
             <ProfileDataInput inputLabel={"Full name"} inputField={"fullName"}/>
             <ProfileDataInput inputLabel={"Open to opportunities"} inputField={"lookingForAJob"}
                               inputType={"checkbox"}/>
@@ -40,7 +30,6 @@ export const ProfileDataForm: React.FC<InjectedFormProps<ProfileFormData, Profil
                 <ProfileDataInput isContact={true} inputLabel={"Site"} inputField={"website"}/>
             </div>
             <button className={s.submitButton} type="submit">Save Changes</button>
-            {props.error && <strong style={{color: "red", marginBottom: "10px"}}>{props.error}</strong>}
         </form>
     )
 }

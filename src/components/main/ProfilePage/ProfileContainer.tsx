@@ -29,7 +29,7 @@ type MapDispatchPropsType = {
     getStatus: (userId: string) => void
     updateStatus: (status: string) => void
     uploadNewProfilePhoto: (photo: File) => void
-    saveNewProfileInfo: (formData: ApiUserProfileType) => void
+    saveNewProfileInfo: (formData: ApiUserProfileType) => Promise<any>
 
 }
 type PathParamType = {

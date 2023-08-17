@@ -14,7 +14,7 @@ type ProfilePageType = {
     updateStatus: (value: string) => void
     isOwner: boolean
     uploadNewProfilePhoto: (photo: File) => void
-    saveNewProfileInfo: (formData: ApiUserProfileType) => void
+    saveNewProfileInfo: (formData: ApiUserProfileType) => Promise<any>
 }
 
 
