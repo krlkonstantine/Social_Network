@@ -68,6 +68,17 @@ export const authAPI = {
     logout() {
         return instance.delete(`auth/login`)
             .then(response => response.data)
+    },
+    getcaptchaUrl() {
+        return instance.delete(`auth/login`)
+            .then(response => response.data)
+    }
+}
+
+export const securityAPI = {
+    getcaptchaUrl() {
+        return instance.get(`/security/get-captcha-url`)
+            .then(response => response.data)
     }
 
 }

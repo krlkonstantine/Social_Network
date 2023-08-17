@@ -55,8 +55,8 @@ export function Profile({profile, status, updateStatus, isOwner, uploadNewProfil
 
 
     const saveNewProfileInfo = (formData: ApiUserProfileType) => {
-        props.saveNewProfileInfo(formData).then(() => setEditMode(!editMode))
-        setEditMode(true)
+        props.saveNewProfileInfo(formData).then(() =>
+            setEditMode(false))
     }
 
     if (profile) return (

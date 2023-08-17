@@ -37,10 +37,10 @@ export const EditProfileDataReduxForm = reduxForm<ProfileFormData, ProfileFormPr
     {form: 'profile'})(ProfileDataForm)
 
 type ProfileDataInputType = {
-    isContact?: boolean
     inputLabel: string
     inputField: string
     inputType?: string
+    isContact?: boolean
 }
 const ProfileDataInput = (props: ProfileDataInputType) => {
     return (
