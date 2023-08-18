@@ -29,17 +29,8 @@ type AppClassType = MapStateToPropsType & MapDispatchPropsType
 class App extends React.Component<AppClassType> {
     componentDidMount() {
         this.props.initializeApp()
-        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
     }
 
-    catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
-        alert(promiseRejectionEvent)
-        console.log(promiseRejectionEvent)
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
-    }
 
     render() {
         if (!this.props.initialized) return <Preloader/>

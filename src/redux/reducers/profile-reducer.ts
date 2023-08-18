@@ -145,9 +145,15 @@ export const getStatus = (userId: string) => async (dispatch: Dispatch<ActionTyp
 }
 export const updateStatus = (status: string) => async (dispatch: Dispatch<ActionType>) => {
     dispatch(changePreloaderStatus(true))
-    const res = await profileAPI.updateStatus(status)
-    if (res.resultCode === 0) dispatch(setUserStatus(status))
-    dispatch(changePreloaderStatus(false))
+    try {
+        const res = await profileAPI.updateStatus(status)
+        if (res.resultCode === 0) dispatch(setUserStatus(status))
+    } catch (error) {
+        debugger
+        console.log(error)
+    } finally {
+        dispatch(changePreloaderStatus(false))
+    }
 }
 export const uploadNewProfilePhoto = (photo: File) => async (dispatch: Dispatch<ActionType>) => {
     dispatch(changePreloaderStatus(true))
