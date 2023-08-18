@@ -34,7 +34,6 @@ type mapDispatchToPropsType = {
 }
 type LoginContainerType = mapStateToPropsType & mapDispatchToPropsType
 
-
 const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         preloader: state.preloader.preloader,

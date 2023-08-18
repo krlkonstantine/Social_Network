@@ -86,10 +86,10 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
 export const getCaptchaURL = () => {
     return async (dispatch: Dispatch<ActionType>) => {
         debugger
-        //dispatch(changePreloaderStatus(true))
+        dispatch(changePreloaderStatus(true))
         const res = await securityAPI.getCaptchaURL()
         dispatch(getCaptchaURLSuccess(res.url))
-        //dispatch(changePreloaderStatus(false))
+        dispatch(changePreloaderStatus(false))
 
     }
 }

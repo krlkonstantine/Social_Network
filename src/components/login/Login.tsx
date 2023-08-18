@@ -15,13 +15,20 @@ export type LoginFormType = {
     rememberMe: boolean
     captcha: string
 }
+//созд.переменную чтобы изежать magic number
 const maxLength20 = maxLengthTC(20)
 
+// LoginFormType - тип данных формы,
+// а LoginOwnType - пользовательские пропсы для компонента.
+// используется для доп пропсов, в нашем случае капча.
+// таким образм, компонент вернет все эти поля
+// и мы сможем их задиспатчить в логине
+
 const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginOwnType> & LoginOwnType> = ({
-                                                                                                handleSubmit,
-                                                                                                error,
+                                                                                                handleSubmit, error,
                                                                                                 ...restProps
                                                                                             }) => {
+
     return <form onSubmit={handleSubmit}>
         <div>
             <Field placeholder={'email'}
