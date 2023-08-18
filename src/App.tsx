@@ -29,6 +29,16 @@ type AppClassType = MapStateToPropsType & MapDispatchPropsType
 class App extends React.Component<AppClassType> {
     componentDidMount() {
         this.props.initializeApp()
+        window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
+    }
+
+    catchAllUnhandledErrors = (promiseRejectionEvent: PromiseRejectionEvent) => {
+        alert(promiseRejectionEvent)
+        console.log(promiseRejectionEvent)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
     }
 
     render() {
@@ -51,6 +61,9 @@ class App extends React.Component<AppClassType> {
                         />
                         <Route path={'/login'}
                                render={() => <LoginPage/>}
+                        />
+                        <Route path={'*'}
+                               render={() => <h1>Error 404: Page not found 🙈 🙉 🙊</h1>}
                         />
                     </div>
                 </Suspense>
