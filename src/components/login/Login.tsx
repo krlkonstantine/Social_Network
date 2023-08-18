@@ -5,16 +5,9 @@ import {maxLengthTC, required} from "../../utils/validators/validaqtors";
 import {login} from "../../redux/reducers/auth-reducer";
 import s from './../common/FormsControls/FormsControls.module.css'
 
-type FormDataType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    error: string
-    captchaURL: string | null
-}
 
 export type LoginOwnType = {
-    captchaUrl: string | null
+    captchaURL: string | null
 }
 export type LoginFormType = {
     email: string
@@ -51,16 +44,22 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginOwnType> & Login
                    component={'input'}
             /> remember me
         </div>
-        <div style={{display: "flex", flexDirection: "column", marginBottom: "-20px"}}>
-            <p style={{margin: "0 0 10px 20px"}}>Captcha:</p>
-            <Field
-                placeholder={"Enter symbols"}
-                type={"text"}
-                name={"captcha"}
-                component={Input}
-                error={error ? "Please enter valid Captcha" : ""}
-            />
-        </div>
+        {restProps.captchaURL &&
+            <div className={s.captchaImgContainer}
+                 style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                <p style={{margin: "0 0 10px 20px"}}>Enter anti-bot symbols:</p>
+                <img src={restProps.captchaURL} style={{width: "150px", height: "auto",}} alt="anti-bot symbols"/>
+                <div style={{display: "flex", flexDirection: "column"}}>
+                    <Field
+                        placeholder={"Enter symbols"}
+                        type={"text"}
+                        name={"captcha"}
+                        component={Input}
+                        validate={[required, maxLength20]}
+                        error={error ? "Please enter valid Captcha" : ""}
+                    />
+                </div>
+            </div>}
 
         {error && <div className={s.formSummaryError}>{error}</div>}
         <div>
@@ -69,5 +68,14 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormType, LoginOwnType> & Login
     </form>
 }
 
-export const LoginReduxForm = reduxForm<LoginFormType, LoginOwnType>({form: 'login'})(LoginForm)
+
+//Этот код экспортирует обернутую react-final-form-компонент ReduxForm,
+// которая представляет форму входа (LoginForm). При этом указано,
+// что форма будет использовать имя 'login'. Указаны типы
+// LoginFormType и LoginOwnType, которые задают типы
+// для пропсов формы и собственных пропсов компонента, соответственно.
+
+export const LoginReduxForm = reduxForm<LoginFormType, LoginOwnType>({
+    form: 'login'
+})(LoginForm)
 

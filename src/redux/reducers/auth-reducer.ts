@@ -38,7 +38,9 @@ export const authReducer = (state = initState, action: ActionType): AuthStateTyp
                 ...action.payload
             }
         case SET_CAPTCHA_URL :
+            debugger
             return {
+
                 ...state,
                 captchaURL: action.payload.captchaURL
             }
@@ -83,10 +85,11 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
 }
 export const getCaptchaURL = () => {
     return async (dispatch: Dispatch<ActionType>) => {
-        dispatch(changePreloaderStatus(true))
+        debugger
+        //dispatch(changePreloaderStatus(true))
         const res = await securityAPI.getCaptchaURL()
-        dispatch(getCaptchaURLSuccess(res.data.url))
-        dispatch(changePreloaderStatus(false))
+        dispatch(getCaptchaURLSuccess(res.url))
+        //dispatch(changePreloaderStatus(false))
 
     }
 }

@@ -7,22 +7,6 @@ import {login} from "../../redux/reducers/auth-reducer";
 import {LoginFormType, LoginReduxForm} from "./Login";
 
 
-type LoginPageType = {
-    isAuth: boolean
-    preloader: boolean
-    login: (email: string, password: string, rememberMe: boolean) => void
-    error?: string
-    captchaURL: string | null
-}
-
-type FormDataType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    error: string
-    captchaURL: string | null
-}
-
 const LoginPage = (props: LoginContainerType) => {
 
     const onSubmit = (formData: LoginFormType) => {
@@ -31,11 +15,10 @@ const LoginPage = (props: LoginContainerType) => {
     if (props.isAuth) {
         return <Redirect to={'/profile'}/>
     }
-    //if (props.preloader) return <Preloader/>
 
     return <div className={s.loginPage}>
         <h1>Login</h1>
-        <LoginReduxForm captchaUrl={props.captchaUrl} onSubmit={onSubmit}/>
+        <LoginReduxForm captchaURL={props.captchaUrl} onSubmit={onSubmit}/>
     </div>
 }
 
