@@ -1,3 +1,10 @@
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 18px;
+}
+
 .formControl textarea {
     width: 800px;
     border: none;
@@ -11,6 +18,25 @@
 .formControl textarea::-webkit-scrollbar {
     visibility: hidden;
     width: 0px;
+}
+
+.textField {
+    height: 40px;
+    width: 300px;
+    font-size: 20px;
+    padding: 2px 12px;
+    border-radius: 4px;
+}
+
+.textField:focus-visible {
+    border: 2px #8B7AA8;
+}
+
+.rememberMe {
+}
+
+.FormsControls_rememberMe__8i6 {
+    background-color: greenyellow;
 }
 
 .formControl textarea:focus {
@@ -31,4 +57,19 @@
     padding: 5px;
     border: 1px solid red;
     color: red;
+}
+
+.button {
+    height: 40px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 2px 12px;
+    background-color: #a1b3b4;
+    transition: all 0.5s;
+}
+
+.button:hover {
+    background-color: #818f90;
 }

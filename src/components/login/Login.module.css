@@ -2,4 +2,42 @@
     background-color: #EFE2BA;
     text-align: center;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+
+.infoForLoginContainer {
+    margin-top: 25px;
+    width: 50%;
+    font-size: 22px;
+}
+
+.regLink {
+    margin-right: 3px;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.emailAndPassContainer {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0 0 25%;
+    align-items: flex-start;
+}
+
+.mainTitle {
+    color: #a1b3b4;
+    font-weight: 700;
+    font-size: 30px;
+    margin: 15px 0 20px;
+}
+
+.loginData {
+    font-weight: 600;
 }
